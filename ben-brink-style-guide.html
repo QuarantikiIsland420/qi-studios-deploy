@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visual Style Guide — The Brinkman × QI Studios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0c0f0d;
+  --bg-warm:   #111510;
+  --bg-card:   #141912;
+  --border:    #242a22;
+  --dim:       #4a5248;
+  --muted:     #7a8878;
+  --silver:    #b4c0b0;
+  --cream:     #F4EDE0;
+  --rust:      #B83C1E;
+  --rust-soft: #d04a2a;
+  --rust-pale: #e06040;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--silver);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 18px;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999; opacity: 0.35; mix-blend-mode: overlay;
+}
+
+/* ─── NAV ─────────────────────────────────────────────────────────────────── */
+.doc-nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(12,15,13,0.96);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 40px;
+}
+.nav-wordmark {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--cream); text-decoration: none;
+}
+.nav-wordmark em { font-style: italic; color: var(--rust); }
+.nav-label {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--muted);
+}
+.nav-back {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+}
+.nav-back:hover { color: var(--cream); }
+
+/* ─── HERO ────────────────────────────────────────────────────────────────── */
+.doc-hero {
+  padding: 100px 40px 80px;
+  max-width: 900px; margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+}
+.doc-eyebrow {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 10px; letter-spacing: 0.45em; text-transform: uppercase;
+  color: var(--rust); display: flex; align-items: center; gap: 12px;
+  margin-bottom: 28px;
+}
+.doc-eyebrow::before, .doc-eyebrow::after {
+  content: ''; flex: 0 0 28px; height: 1px; background: var(--rust); opacity: 0.4;
+}
+.doc-title {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: clamp(48px, 8vw, 80px); line-height: 1;
+  color: var(--cream); margin-bottom: 12px;
+}
+.doc-title em { font-style: italic; color: var(--rust-pale); }
+.doc-subtitle {
+  font-family: 'EB Garamond', serif; font-style: italic;
+  font-size: 22px; color: var(--dim); margin-top: 20px;
+}
+.doc-meta {
+  display: flex; gap: 40px; margin-top: 40px;
+  border-top: 1px solid var(--border); padding-top: 28px;
+}
+.doc-meta-item {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--dim);
+}
+.doc-meta-item strong {
+  display: block; color: var(--muted); font-weight: 300; margin-top: 4px;
+}
+
+/* ─── CONTENT ─────────────────────────────────────────────────────────────── */
+.doc-body { max-width: 900px; margin: 0 auto; padding: 0 40px 120px; }
+.doc-section {
+  padding: 72px 0 60px;
+  border-bottom: 1px solid var(--border);
+}
+.section-label {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 9px; letter-spacing: 0.5em; text-transform: uppercase;
+  color: var(--rust); margin-bottom: 24px;
+}
+.section-heading {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: clamp(32px, 5vw, 48px); line-height: 1.1;
+  color: var(--cream); margin-bottom: 32px;
+}
+.section-heading em { font-style: italic; color: var(--rust-pale); }
+.section-body {
+  font-family: 'EB Garamond', serif;
+  font-size: 19px; line-height: 1.75;
+  color: var(--silver); max-width: 680px;
+}
+.section-body p + p { margin-top: 20px; }
+.section-body strong { color: var(--cream); font-weight: 500; }
+
+/* ─── COLOR SWATCHES ──────────────────────────────────────────────────────── */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin-top: 40px;
+}
+.color-swatch {
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.swatch-block {
+  height: 120px;
+}
+.swatch-info {
+  padding: 16px 18px;
+  background: var(--bg-card);
+}
+.swatch-name {
+  font-family: 'Jost', sans-serif; font-weight: 400;
+  font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--cream); margin-bottom: 4px;
+}
+.swatch-hex {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 11px; letter-spacing: 0.15em;
+  color: var(--muted);
+}
+.swatch-use {
+  font-family: 'EB Garamond', serif; font-style: italic;
+  font-size: 14px; color: var(--dim); margin-top: 6px;
+}
+
+/* ─── TYPOGRAPHY ──────────────────────────────────────────────────────────── */
+.type-stack {
+  display: flex; flex-direction: column; gap: 2px;
+  margin-top: 40px;
+}
+.type-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 36px 40px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+.type-meta { padding-top: 4px; }
+.type-role {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 9px; letter-spacing: 0.45em; text-transform: uppercase;
+  color: var(--rust); margin-bottom: 10px;
+}
+.type-font-name {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 13px; letter-spacing: 0.15em;
+  color: var(--silver); margin-bottom: 6px;
+}
+.type-specs {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 11px; letter-spacing: 0.1em;
+  color: var(--dim); line-height: 1.7;
+}
+.type-specimen-display {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: 52px; line-height: 1;
+  color: var(--cream); font-style: italic;
+}
+.type-specimen-sub {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: 28px; line-height: 1.2;
+  color: var(--silver); letter-spacing: 0.05em;
+}
+.type-specimen-body {
+  font-family: 'EB Garamond', serif;
+  font-size: 20px; line-height: 1.6;
+  color: var(--silver);
+}
+.type-specimen-ui {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 13px; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ─── DIRECTION BLOCKS ────────────────────────────────────────────────────── */
+.direction-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-top: 40px;
+}
+.direction-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 32px;
+}
+.direction-heading {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.direction-heading.yes { color: var(--rust); }
+.direction-heading.no { color: var(--dim); }
+.direction-list {
+  list-style: none;
+}
+.direction-list li {
+  font-family: 'EB Garamond', serif;
+  font-size: 17px; line-height: 1.6;
+  color: var(--silver); padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.direction-list li:last-child { border-bottom: none; }
+.direction-list.yes li::before { content: '✓'; color: var(--rust); opacity: 0.7; flex-shrink: 0; }
+.direction-list.no li::before { content: '×'; color: var(--dim); flex-shrink: 0; }
+
+/* ─── PROMPTS ─────────────────────────────────────────────────────────────── */
+.prompt-stack {
+  display: flex; flex-direction: column; gap: 2px;
+  margin-top: 40px;
+}
+.prompt-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 32px;
+}
+.prompt-label {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 9px; letter-spacing: 0.5em; text-transform: uppercase;
+  color: var(--rust); margin-bottom: 8px;
+}
+.prompt-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 300;
+  color: var(--cream); margin-bottom: 16px;
+}
+.prompt-text {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 13px; line-height: 1.75;
+  color: var(--silver);
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  padding: 20px 24px;
+  white-space: pre-wrap;
+  cursor: text;
+  user-select: all;
+}
+.prompt-note {
+  font-family: 'EB Garamond', serif; font-style: italic;
+  font-size: 16px; color: var(--dim); margin-top: 12px;
+}
+.prompt-tags {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px;
+}
+.prompt-tag {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--dim);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+}
+
+/* ─── MODIFIER TABLE ──────────────────────────────────────────────────────── */
+.modifier-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 40px;
+}
+.modifier-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 24px 28px;
+}
+.modifier-cat {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 9px; letter-spacing: 0.45em; text-transform: uppercase;
+  color: var(--rust); margin-bottom: 14px;
+}
+.modifier-list {
+  list-style: none;
+}
+.modifier-list li {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 12px; letter-spacing: 0.05em;
+  color: var(--silver); padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+.modifier-list li:last-child { border-bottom: none; }
+.modifier-list li span {
+  color: var(--dim); font-size: 11px;
+}
+
+/* ─── FOOTER ──────────────────────────────────────────────────────────────── */
+.doc-footer {
+  border-top: 1px solid var(--border);
+  padding: 48px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 900px; margin: 0 auto;
+}
+.footer-wordmark {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--dim);
+}
+.footer-wordmark em { font-style: italic; color: var(--rust); opacity: 0.6; }
+.footer-note {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--dim);
+}
+
+@media (max-width: 700px) {
+  .doc-nav { padding: 14px 20px; }
+  .doc-hero { padding: 60px 20px 48px; }
+  .doc-body { padding: 0 20px 80px; }
+  .color-grid { grid-template-columns: repeat(2, 1fr); }
+  .type-card { grid-template-columns: 1fr; }
+  .direction-grid, .modifier-grid { grid-template-columns: 1fr; }
+  .doc-meta { flex-direction: column; gap: 16px; }
+  .doc-footer { flex-direction: column; gap: 16px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav class="doc-nav">
+  <a href="./ben-brink-portal.html" class="nav-wordmark">QI <em>Studios</em></a>
+  <span class="nav-label">Visual Style Guide — The Brinkman</span>
+  <a href="./ben-brink-portal.html" class="nav-back">← Portal</a>
+</nav>
+
+<header class="doc-hero">
+  <div class="doc-eyebrow">Visual Style Guide</div>
+  <h1 class="doc-title">How The Brinkman<br><em>looks.</em></h1>
+  <p class="doc-subtitle">Color, typography, photography, and a complete AI prompt library for generating on-brand Brinkman content.</p>
+  <div class="doc-meta">
+    <div class="doc-meta-item">Client <strong>On The Brink Handyman Services LLC</strong></div>
+    <div class="doc-meta-item">Character <strong>The Brinkman</strong></div>
+    <div class="doc-meta-item">Territory <strong>Colorado</strong></div>
+    <div class="doc-meta-item">Studio <strong>QI Studios</strong></div>
+  </div>
+</header>
+
+<main class="doc-body">
+
+  <!-- 01 COLOR SYSTEM -->
+  <section class="doc-section">
+    <div class="section-label">01 — Color System</div>
+    <h2 class="section-heading">The Brinkman <em>Palette</em></h2>
+    <div class="section-body">
+      <p>These are the seven colors that define The Brinkman's world. They come from Colorado — the early morning light, the mountain landscape, the work he does. Every image, every post, every frame should feel like it could have been pulled from one of these.</p>
+    </div>
+
+    <div class="color-grid">
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#9E3020;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Brinkman Red</div>
+          <div class="swatch-hex">#9E3020</div>
+          <div class="swatch-use">The plaid. The hero color.</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#C8803A;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Colorado Amber</div>
+          <div class="swatch-hex">#C8803A</div>
+          <div class="swatch-use">Golden hour. Coffee. Warmth.</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#5A7060;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Mountain Sage</div>
+          <div class="swatch-hex">#5A7060</div>
+          <div class="swatch-use">Distance. Sage brush. Colorado sky.</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#3A4A5A;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Work Denim</div>
+          <div class="swatch-hex">#3A4A5A</div>
+          <div class="swatch-use">Overalls. The truck. Steel.</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#A89070;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Trail Dust</div>
+          <div class="swatch-hex">#A89070</div>
+          <div class="swatch-use">Worn leather. Colorado earth.</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#F0EAD4;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Morning Light</div>
+          <div class="swatch-hex">#F0EAD4</div>
+          <div class="swatch-use">Work shirt. First light. Text on dark.</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#1A1410;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Dark Ground</div>
+          <div class="swatch-hex">#1A1410</div>
+          <div class="swatch-use">Backgrounds. Shadows. Depth.</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#6B8080;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Overcast Steel</div>
+          <div class="swatch-hex">#6B8080</div>
+          <div class="swatch-use">Tools. Cloudy sky. Secondary text.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 TYPOGRAPHY -->
+  <section class="doc-section">
+    <div class="section-label">02 — Typography</div>
+    <h2 class="section-heading">Type <em>System</em></h2>
+    <div class="section-body">
+      <p>Three typefaces. Each has a specific job. Do not mix them outside their roles.</p>
+    </div>
+
+    <div class="type-stack">
+      <div class="type-card">
+        <div class="type-meta">
+          <div class="type-role">Display / Hero</div>
+          <div class="type-font-name">Cormorant Garamond</div>
+          <div class="type-specs">Italic, Weight 300–400<br>Headings, character name, pull quotes<br>Large scale — 36px and up</div>
+        </div>
+        <div class="type-specimen-display">That'll hold.</div>
+      </div>
+      <div class="type-card">
+        <div class="type-meta">
+          <div class="type-role">Body / Narrative</div>
+          <div class="type-font-name">EB Garamond</div>
+          <div class="type-specs">Regular &amp; Italic, Weight 400<br>Paragraphs, descriptions, captions<br>18–20px, line-height 1.7</div>
+        </div>
+        <div class="type-specimen-body">He's the guy who shows up with the right tool, the right answer, and a coffee already in hand.</div>
+      </div>
+      <div class="type-card">
+        <div class="type-meta">
+          <div class="type-role">Labels / UI</div>
+          <div class="type-font-name">Jost</div>
+          <div class="type-specs">Weight 300–400<br>Uppercase, wide letter-spacing<br>Tags, eyebrows, badges, buttons</div>
+        </div>
+        <div class="type-specimen-ui">On The Brink — Colorado · Licensed &amp; Insured</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 PHOTOGRAPHY -->
+  <section class="doc-section">
+    <div class="section-label">03 — Photography &amp; Video</div>
+    <h2 class="section-heading">What It <em>Looks Like</em></h2>
+    <div class="section-body">
+      <p>Every image in The Brinkman's world follows the same visual grammar. It does not look like marketing. It looks like documentation of a real person doing real work in a real place. The difference is intentional — it builds trust in a category where trust is everything.</p>
+    </div>
+
+    <div class="direction-grid">
+      <div class="direction-card">
+        <div class="direction-heading yes">Shoot This</div>
+        <ul class="direction-list yes">
+          <li>6am light — golden, directional, long shadows</li>
+          <li>Colorado landscape in frame — mountains, rural roads, real properties</li>
+          <li>The Brinkman at work or just after — tools in use</li>
+          <li>Coffee cup present or nearby</li>
+          <li>Truck in background (makes it real)</li>
+          <li>Before/after of the job — the problem and the fix</li>
+          <li>Warm color grade — amber push, slight desaturation</li>
+          <li>Cinematic framing — wide when the landscape matters</li>
+        </ul>
+      </div>
+      <div class="direction-card">
+        <div class="direction-heading no">Never This</div>
+        <ul class="direction-list no">
+          <li>White studio backgrounds</li>
+          <li>Stock photo aesthetic — posed group smiles</li>
+          <li>Midday flat light — no shadows, no warmth</li>
+          <li>Generic suburbia — no mountains, no Colorado</li>
+          <li>Oversaturated, Instagram-filter look</li>
+          <li>Branded uniform shirt (too corporate for the character)</li>
+          <li>Looking at the camera and smiling (he looks at the job)</li>
+          <li>Neon, purple, or anything that reads "tech startup"</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="direction-grid" style="margin-top: 2px;">
+      <div class="direction-card">
+        <div class="direction-heading yes">Color Grade Direction</div>
+        <ul class="direction-list yes">
+          <li>Shadows: warm — pull toward brown, not blue</li>
+          <li>Highlights: amber/gold — morning or evening light</li>
+          <li>Saturation: slightly pulled back — filmic, not vivid</li>
+          <li>Contrast: medium-high — define the shadows</li>
+          <li>Skin tone: warm, natural — not overexposed</li>
+        </ul>
+      </div>
+      <div class="direction-card">
+        <div class="direction-heading yes">Shot Composition</div>
+        <ul class="direction-list yes">
+          <li>Rule of thirds — character off-center when landscape matters</li>
+          <li>Give negative space on the side The Brinkman is looking</li>
+          <li>Low angle when the sky and mountains are part of the story</li>
+          <li>Close on tools when the job is the subject</li>
+          <li>Wide establishing shot when introducing a new job</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 CHARACTER DESIGN -->
+  <section class="doc-section">
+    <div class="section-label">04 — Character Design</div>
+    <h2 class="section-heading">Illustration <em>Parameters</em></h2>
+    <div class="section-body">
+      <p>When The Brinkman appears as an illustrated character (not photography), these parameters apply. They define what makes an image recognizably The Brinkman across any platform, any format, any variation of situation.</p>
+    </div>
+
+    <div class="direction-grid">
+      <div class="direction-card">
+        <div class="direction-heading yes">Fixed Elements (Never Change)</div>
+        <ul class="direction-list yes">
+          <li>Red plaid flannel — the signature garment</li>
+          <li>Work overalls — rust-brown, worn, real</li>
+          <li>Heavy work boots — dark, serious</li>
+          <li>Beanie or work cap — mountain casual</li>
+          <li>Mustache — the face signature</li>
+          <li>Wrench or hand tool always present</li>
+          <li>Coffee cup — nearly always in frame</li>
+        </ul>
+      </div>
+      <div class="direction-card">
+        <div class="direction-heading yes">Variable Elements (Change by Scene)</div>
+        <ul class="direction-list yes">
+          <li>Tool in hand — varies by the job</li>
+          <li>Background — Colorado mountains, properties, interiors</li>
+          <li>Time of day — golden hour preferred, but flexible</li>
+          <li>Body position — working, assessing, standing after</li>
+          <li>Expression shift — same base (steady/amused), slight variation</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 AI PROMPT LIBRARY -->
+  <section class="doc-section">
+    <div class="section-label">05 — AI Prompt Library</div>
+    <h2 class="section-heading">Generate <em>On-Brand</em><br>Brinkman Content</h2>
+    <div class="section-body">
+      <p>These prompts are ready to use in Midjourney, DALL-E 3, or GPT-4o image generation. Copy the prompt exactly, then add your situational modifier from the Modifier Cheat Sheet below. Click inside any prompt box to select all.</p>
+    </div>
+
+    <div class="prompt-stack">
+
+      <div class="prompt-card">
+        <div class="prompt-label">Base Character Prompt — Use This As Your Foundation</div>
+        <div class="prompt-title">The Brinkman — Full Character</div>
+        <div class="prompt-text">Illustrated character, rugged Colorado handyman in his 40s, wearing a red plaid flannel shirt, dark work overalls, heavy worn work boots, and a dark beanie. Full mustache. Holding a large wrench. Confident posture, arms relaxed or crossed, slight knowing expression. Warm amber and dusty mountain color palette. Early morning golden light. Colorado mountain landscape in background. Vintage Americana illustration style with clean bold outlines, limited color palette, textured linework. Cream or off-white background option. Character design sheet quality.</div>
+        <div class="prompt-note">Add situational detail after this block. Example: "Character is crouching next to a broken fence post, assessing the damage, coffee cup on the ground nearby."</div>
+        <div class="prompt-tags">
+          <span class="prompt-tag">Midjourney</span>
+          <span class="prompt-tag">DALL-E 3</span>
+          <span class="prompt-tag">GPT-4o</span>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-label">Situation Prompt 01 — Fence Repair</div>
+        <div class="prompt-title">That'll Hold — The Signature Scene</div>
+        <div class="prompt-text">Illustrated Colorado handyman character in red plaid flannel and dark overalls, standing next to a freshly repaired wooden fence post on a rural Colorado property. Arms crossed. Slight smirk. Coffee cup on a fence rail nearby. Rocky Mountains in soft focus background. Golden hour morning light. Warm amber and dusty earth tones. Vintage Americana illustration style, bold outlines, limited palette. Cinematic composition.</div>
+        <div class="prompt-tags">
+          <span class="prompt-tag">The Job</span>
+          <span class="prompt-tag">Hero Image</span>
+          <span class="prompt-tag">Social Ready</span>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-label">Situation Prompt 02 — IT Services</div>
+        <div class="prompt-title">Computer on Fire — The IT Scene</div>
+        <div class="prompt-text">Illustrated Colorado handyman character in red plaid flannel and dark overalls, sitting at a cluttered home office desk, looking at a tangled mess of cables and a smoking router with a calm, unsurprised expression. Wrench on the desk. Coffee cup nearby. Warm interior lighting. Dust motes in the light. Vintage Americana illustration style, bold outlines, earth tones. Dry humor implied in the expression. Cinematic framing.</div>
+        <div class="prompt-tags">
+          <span class="prompt-tag">IT Services</span>
+          <span class="prompt-tag">Character Moment</span>
+          <span class="prompt-tag">Meme-Ready</span>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-label">Situation Prompt 03 — The Arrival</div>
+        <div class="prompt-title">Truck Pulls Up — The Opening Shot</div>
+        <div class="prompt-text">Wide shot illustration, worn pickup truck pulling up to a Colorado mountain property at dawn, dust on the tires, tools visible in the truck bed. The Brinkman stepping out — red plaid flannel, dark overalls, beanie, coffee in hand. Rocky Mountain silhouette in background, purple-orange dawn sky. Cinematic, wide. Vintage Americana illustration, warm color palette, bold outlines, filmic quality. This is the opening scene.</div>
+        <div class="prompt-tags">
+          <span class="prompt-tag">Opening Scene</span>
+          <span class="prompt-tag">Cinematic</span>
+          <span class="prompt-tag">Hero Image</span>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-label">Situation Prompt 04 — Meme Template</div>
+        <div class="prompt-title">That'll Hold — Meme Format</div>
+        <div class="prompt-text">Illustrated Colorado handyman character in red plaid flannel and dark overalls, standing with arms crossed in front of a freshly fixed fence or repaired wall. Neutral/confident expression. Blank white or cream space above and below the character for text overlay. Clean, centered composition. Bold outline illustration style, warm earth tones, limited color palette. Social media meme format. Square crop.</div>
+        <div class="prompt-tags">
+          <span class="prompt-tag">Meme</span>
+          <span class="prompt-tag">Square Format</span>
+          <span class="prompt-tag">Text Space</span>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-label">Situation Prompt 05 — Colorado Winter</div>
+        <div class="prompt-title">Freeze Warning — The Seasonal Scene</div>
+        <div class="prompt-text">Illustration of a rugged Colorado handyman in red plaid flannel and dark work overalls standing on a snow-dusted property, breath visible in the cold air, looking at frost-damaged pipes or a frozen outdoor faucet. Expression: steady, unsurprised. Coffee cup steaming. Rocky Mountains in snow in background. Blue-grey dawn light. Vintage Americana illustration style, cool blue shadows with warm amber highlights, bold outlines.</div>
+        <div class="prompt-tags">
+          <span class="prompt-tag">Seasonal</span>
+          <span class="prompt-tag">Winter</span>
+          <span class="prompt-tag">Colorado</span>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-label">Situation Prompt 06 — Portrait / Profile Image</div>
+        <div class="prompt-title">The Brinkman — Official Portrait</div>
+        <div class="prompt-text">Character portrait illustration, Colorado handyman, mid-40s, red plaid flannel shirt, dark work overalls, beanie, full mustache. Three-quarter view, looking slightly off-camera to the left. Expression: steady, slightly amused, confident. Holding a wrench loosely at his side. Warm amber light from the left. Soft mountain background, out of focus. Vintage Americana illustration style, bold clean outlines, warm earth tone palette. Portrait format, head and shoulders to waist visible.</div>
+        <div class="prompt-tags">
+          <span class="prompt-tag">Portrait</span>
+          <span class="prompt-tag">Profile Image</span>
+          <span class="prompt-tag">Social Avatar</span>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-label">Situation Prompt 07 — Smart Home / Tech</div>
+        <div class="prompt-title">The Brinkman Handles It — Tech Scene</div>
+        <div class="prompt-text">Illustration of a rugged Colorado handyman in red plaid flannel and dark overalls crouching next to a smart home hub and tangle of ethernet cables in a modern mountain-style home. Expression: calm, competent. One hand on the router, other hand holds coffee. Warm interior lighting, wood beams visible. Vintage Americana illustration style, bold outlines, warm palette. This handyman is also an IT guy and it's no big deal.</div>
+        <div class="prompt-tags">
+          <span class="prompt-tag">IT Services</span>
+          <span class="prompt-tag">Smart Home</span>
+          <span class="prompt-tag">Interior</span>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-label">Background / Scene Prompt — No Character</div>
+        <div class="prompt-title">The World He Works In</div>
+        <div class="prompt-text">Wide establishing shot illustration of a rural Colorado mountain property at golden hour. Wooden fence in foreground, Rocky Mountains in background, a worn pickup truck parked on a gravel drive. No people. Warm amber and dusty sage color palette. Long shadows from low morning sun. Vintage Americana landscape illustration style, painterly textures, bold outlines, cinematic composition. This is The Brinkman's world before he walks into frame.</div>
+        <div class="prompt-note">Use for header images, social backgrounds, or video B-roll direction.</div>
+        <div class="prompt-tags">
+          <span class="prompt-tag">Background</span>
+          <span class="prompt-tag">No Character</span>
+          <span class="prompt-tag">Header Image</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 06 MODIFIER CHEAT SHEET -->
+  <section class="doc-section">
+    <div class="section-label">06 — Modifier Cheat Sheet</div>
+    <h2 class="section-heading">Add These to <em>Any Prompt</em></h2>
+    <div class="section-body">
+      <p>These are drop-in modifiers. Append to any base prompt to control style, mood, format, or situation. Mix and match.</p>
+    </div>
+
+    <div class="modifier-grid">
+      <div class="modifier-card">
+        <div class="modifier-cat">Style Modifiers</div>
+        <ul class="modifier-list">
+          <li>vintage Americana illustration</li>
+          <li>retro logo illustration style</li>
+          <li>editorial ink drawing</li>
+          <li>mid-century commercial art</li>
+          <li>woodcut print style</li>
+          <li>screen print aesthetic</li>
+          <li>painterly, textured linework</li>
+          <li>bold graphic, flat color</li>
+        </ul>
+      </div>
+      <div class="modifier-card">
+        <div class="modifier-cat">Lighting Modifiers</div>
+        <ul class="modifier-list">
+          <li>golden hour, long shadows</li>
+          <li>blue hour, pre-dawn</li>
+          <li>overcast, diffuse — winter Colorado</li>
+          <li>interior warm lamp light</li>
+          <li>late afternoon amber</li>
+          <li>first light, cold and clear</li>
+          <li>dusk, purple sky, warm foreground</li>
+        </ul>
+      </div>
+      <div class="modifier-card">
+        <div class="modifier-cat">Format Modifiers</div>
+        <ul class="modifier-list">
+          <li>square crop, social ready</li>
+          <li>portrait format, 4:5</li>
+          <li>wide cinematic, 16:9</li>
+          <li>story format, 9:16</li>
+          <li>white background, product style</li>
+          <li>meme format, text space top/bottom</li>
+          <li>header banner, horizontal</li>
+        </ul>
+      </div>
+      <div class="modifier-card">
+        <div class="modifier-cat">Colorado Modifiers</div>
+        <ul class="modifier-list">
+          <li>Rocky Mountains in background</li>
+          <li>high altitude, clear sky</li>
+          <li>snow-dusted property, winter</li>
+          <li>mountain town, rural Colorado</li>
+          <li>Front Range, foothills</li>
+          <li>spring mud season</li>
+          <li>summer, high country</li>
+        </ul>
+      </div>
+      <div class="modifier-card">
+        <div class="modifier-cat">Character Modifiers</div>
+        <ul class="modifier-list">
+          <li>arms crossed, confident</li>
+          <li>crouching, assessing the problem</li>
+          <li>walking away after finishing</li>
+          <li>looking at camera, slight smirk</li>
+          <li>looking at the problem, not the camera</li>
+          <li>coffee in left hand, tool in right</li>
+          <li>full body · waist up · portrait</li>
+        </ul>
+      </div>
+      <div class="modifier-card">
+        <div class="modifier-cat">Negative Prompts (Add to Avoid)</div>
+        <ul class="modifier-list">
+          <li>no white studio background</li>
+          <li>no smile, no teeth showing</li>
+          <li>no neon colors, no blue tones</li>
+          <li>no cartoon, no anime style</li>
+          <li>no corporate uniform</li>
+          <li>no generic stock photo feel</li>
+          <li>no superhero proportions</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 DO / DON'T -->
+  <section class="doc-section">
+    <div class="section-label">07 — Brand Rules</div>
+    <h2 class="section-heading">Do. <em>Don't.</em></h2>
+    <div class="section-body">
+      <p>The visual rules are not aesthetic preferences. They are the difference between content that builds trust and content that erodes it.</p>
+    </div>
+
+    <div class="direction-grid">
+      <div class="direction-card">
+        <div class="direction-heading yes">Always</div>
+        <ul class="direction-list yes">
+          <li>Warm color palette — amber, rust, sage, dust</li>
+          <li>Red plaid flannel on the character, always</li>
+          <li>Colorado in the frame — mountain, sky, or property</li>
+          <li>Real textures — grain, worn material, weathered wood</li>
+          <li>Cinematic framing even on quick content</li>
+          <li>Consistent character across every image</li>
+          <li>Coffee. Almost always.</li>
+        </ul>
+      </div>
+      <div class="direction-card">
+        <div class="direction-heading no">Never</div>
+        <ul class="direction-list no">
+          <li>Blue or purple dominant color schemes</li>
+          <li>Stock photo style — posed, sterile, happy</li>
+          <li>Multiple variations of the character look (no alternate outfits)</li>
+          <li>Generic "handyman" iconography — clip art, simple icons</li>
+          <li>Fonts other than the three in the system</li>
+          <li>Emoji in formal brand materials</li>
+          <li>Anything that looks like it could be from a national franchise</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="doc-footer">
+  <div class="footer-wordmark">QI <em>Studios</em> × On The Brink</div>
+  <div class="footer-note">Visual Style Guide — Confidential Client Document</div>
+</footer>
+
+</body>
+</html>

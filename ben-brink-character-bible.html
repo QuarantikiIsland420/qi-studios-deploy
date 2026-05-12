@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Character Bible — The Brinkman × QI Studios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0c0f0d;
+  --bg-warm:   #111510;
+  --bg-card:   #141912;
+  --border:    #242a22;
+  --dim:       #4a5248;
+  --muted:     #7a8878;
+  --silver:    #b4c0b0;
+  --cream:     #F4EDE0;
+  --rust:      #B83C1E;
+  --rust-soft: #d04a2a;
+  --rust-pale: #e06040;
+  --amber:     #C8803A;
+  --sage:      #5A7060;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--silver);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 18px;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999; opacity: 0.35; mix-blend-mode: overlay;
+}
+
+/* ─── NAV ─────────────────────────────────────────────────────────────────── */
+
+.doc-nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(12,15,13,0.96);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 40px;
+}
+
+.nav-wordmark {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--cream); text-decoration: none;
+}
+.nav-wordmark em { font-style: italic; color: var(--rust); }
+
+.nav-label {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--muted);
+}
+
+.nav-back {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+}
+.nav-back:hover { color: var(--cream); }
+
+/* ─── HERO ────────────────────────────────────────────────────────────────── */
+
+.doc-hero {
+  padding: 100px 40px 80px;
+  max-width: 900px; margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+}
+
+.doc-eyebrow {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 10px; letter-spacing: 0.45em; text-transform: uppercase;
+  color: var(--rust); display: flex; align-items: center; gap: 12px;
+  margin-bottom: 28px;
+}
+.doc-eyebrow::before, .doc-eyebrow::after {
+  content: ''; flex: 0 0 28px; height: 1px; background: var(--rust); opacity: 0.4;
+}
+
+.doc-title {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: clamp(48px, 8vw, 80px); line-height: 1;
+  color: var(--cream); margin-bottom: 12px;
+}
+.doc-title em { font-style: italic; color: var(--rust-pale); }
+
+.doc-subtitle {
+  font-family: 'EB Garamond', serif; font-style: italic;
+  font-size: 22px; color: var(--dim); margin-top: 20px;
+}
+
+.doc-meta {
+  display: flex; gap: 40px; margin-top: 40px;
+  border-top: 1px solid var(--border); padding-top: 28px;
+}
+
+.doc-meta-item {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--dim);
+}
+.doc-meta-item strong {
+  display: block; color: var(--muted);
+  font-weight: 300; margin-top: 4px;
+}
+
+/* ─── CONTENT ─────────────────────────────────────────────────────────────── */
+
+.doc-body { max-width: 900px; margin: 0 auto; padding: 0 40px 120px; }
+
+.doc-section {
+  padding: 72px 0 0;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 60px;
+}
+
+.section-label {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 9px; letter-spacing: 0.5em; text-transform: uppercase;
+  color: var(--rust); margin-bottom: 10px;
+}
+
+.section-number {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: 11px; letter-spacing: 0.3em;
+  color: var(--dim); margin-bottom: 24px;
+}
+
+.section-heading {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: clamp(32px, 5vw, 48px); line-height: 1.1;
+  color: var(--cream); margin-bottom: 32px;
+}
+.section-heading em { font-style: italic; color: var(--rust-pale); }
+
+.section-body {
+  font-family: 'EB Garamond', serif;
+  font-size: 19px; line-height: 1.75;
+  color: var(--silver); max-width: 680px;
+}
+
+.section-body p + p { margin-top: 20px; }
+
+.section-body strong { color: var(--cream); font-weight: 500; }
+
+/* ─── TWO COL ─────────────────────────────────────────────────────────────── */
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-top: 40px;
+}
+
+.col-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 32px;
+}
+
+.col-heading {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--rust); margin-bottom: 20px;
+}
+
+.col-list {
+  list-style: none;
+}
+
+.col-list li {
+  font-family: 'EB Garamond', serif;
+  font-size: 18px; line-height: 1.6;
+  color: var(--silver); padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; gap: 12px;
+}
+
+.col-list li:last-child { border-bottom: none; }
+
+.col-list li::before {
+  content: '—';
+  color: var(--rust); opacity: 0.6;
+  flex-shrink: 0; margin-top: 1px;
+}
+
+.col-list.x li::before { content: '×'; color: var(--dim); }
+
+/* ─── QUOTE CARD ──────────────────────────────────────────────────────────── */
+
+.quote-card {
+  background: var(--bg-warm);
+  border-left: 3px solid var(--rust);
+  padding: 28px 32px;
+  margin: 40px 0;
+}
+
+.quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 300;
+  font-size: 26px; line-height: 1.3;
+  color: var(--cream);
+}
+
+.quote-attr {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--dim); margin-top: 14px;
+}
+
+/* ─── VOICE EXAMPLES ──────────────────────────────────────────────────────── */
+
+.voice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.voice-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 24px 28px;
+}
+
+.voice-card:hover { border-color: rgba(184,60,30,0.35); }
+
+.voice-situation {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--dim); margin-bottom: 12px;
+}
+
+.voice-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 300;
+  font-size: 22px; line-height: 1.2;
+  color: var(--cream);
+}
+
+/* ─── PILLARS ─────────────────────────────────────────────────────────────── */
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  margin-top: 40px;
+}
+
+.pillar-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 36px 32px;
+}
+
+.pillar-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px; font-weight: 300;
+  color: var(--border); line-height: 1;
+  margin-bottom: 16px;
+}
+
+.pillar-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px; font-weight: 300;
+  color: var(--cream); margin-bottom: 12px;
+}
+.pillar-name em { font-style: italic; color: var(--rust-pale); }
+
+.pillar-desc {
+  font-family: 'EB Garamond', serif;
+  font-size: 17px; line-height: 1.65;
+  color: var(--muted);
+}
+
+/* ─── PLATFORM CARDS ──────────────────────────────────────────────────────── */
+
+.platform-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-top: 40px;
+}
+
+.platform-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 32px;
+}
+
+.platform-name {
+  font-family: 'Jost', sans-serif; font-weight: 400;
+  font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--rust); margin-bottom: 8px;
+}
+
+.platform-tone {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 20px;
+  color: var(--cream); margin-bottom: 16px;
+}
+
+.platform-rules {
+  list-style: none;
+}
+.platform-rules li {
+  font-family: 'EB Garamond', serif;
+  font-size: 17px; line-height: 1.6;
+  color: var(--silver); padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex; gap: 10px;
+}
+.platform-rules li:last-child { border-bottom: none; }
+.platform-rules li::before { content: '→'; color: var(--rust); opacity: 0.6; flex-shrink: 0; }
+
+/* ─── TEMPLATES ───────────────────────────────────────────────────────────── */
+
+.template-stack {
+  display: flex; flex-direction: column; gap: 2px;
+  margin-top: 40px;
+}
+
+.template-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 32px;
+}
+
+.template-type {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 9px; letter-spacing: 0.5em; text-transform: uppercase;
+  color: var(--rust); margin-bottom: 8px;
+}
+
+.template-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 300;
+  color: var(--cream); margin-bottom: 16px;
+}
+
+.template-format {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 14px; line-height: 1.7;
+  color: var(--muted);
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  padding: 20px 24px;
+  white-space: pre-wrap;
+}
+
+.template-example {
+  margin-top: 12px;
+  font-family: 'EB Garamond', serif;
+  font-size: 17px; line-height: 1.65;
+  color: var(--silver); font-style: italic;
+}
+
+.template-example-label {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--dim); margin-top: 16px; margin-bottom: 6px;
+}
+
+/* ─── CAPTIONS ────────────────────────────────────────────────────────────── */
+
+.caption-grid {
+  display: flex; flex-direction: column; gap: 2px;
+  margin-top: 40px;
+}
+
+.caption-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 28px 32px;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.caption-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 300;
+  color: var(--dim); padding-top: 2px;
+}
+
+.caption-tag {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--rust); margin-bottom: 8px;
+}
+
+.caption-text {
+  font-family: 'EB Garamond', serif;
+  font-size: 18px; line-height: 1.65;
+  color: var(--cream);
+}
+
+.caption-hashtags {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 12px; color: var(--dim);
+  margin-top: 10px;
+}
+
+/* ─── FOOTER ──────────────────────────────────────────────────────────────── */
+
+.doc-footer {
+  border-top: 1px solid var(--border);
+  padding: 48px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 900px; margin: 0 auto;
+}
+
+.footer-wordmark {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--dim);
+}
+.footer-wordmark em { font-style: italic; color: var(--rust); opacity: 0.6; }
+
+.footer-note {
+  font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--dim);
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 700px) {
+  .doc-nav { padding: 14px 20px; }
+  .doc-hero { padding: 60px 20px 48px; }
+  .doc-body { padding: 0 20px 80px; }
+  .two-col, .voice-grid, .pillars-grid, .platform-grid { grid-template-columns: 1fr; }
+  .doc-meta { flex-direction: column; gap: 16px; }
+  .caption-card { grid-template-columns: 1fr; }
+  .caption-num { display: none; }
+  .doc-footer { flex-direction: column; gap: 16px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="doc-nav">
+  <a href="./ben-brink-portal.html" class="nav-wordmark">QI <em>Studios</em></a>
+  <span class="nav-label">Character Bible — The Brinkman</span>
+  <a href="./ben-brink-portal.html" class="nav-back">← Portal</a>
+</nav>
+
+<!-- HERO -->
+<header class="doc-hero">
+  <div class="doc-eyebrow">Character Bible</div>
+  <h1 class="doc-title">The Brinkman.<br><em>Who he is.</em><br>How he speaks.</h1>
+  <p class="doc-subtitle">A complete guide to the character, voice, and content strategy for On The Brink Handyman Services.</p>
+  <div class="doc-meta">
+    <div class="doc-meta-item">Client <strong>On The Brink Handyman Services LLC</strong></div>
+    <div class="doc-meta-item">Character <strong>The Brinkman</strong></div>
+    <div class="doc-meta-item">Territory <strong>Colorado</strong></div>
+    <div class="doc-meta-item">Studio <strong>QI Studios</strong></div>
+  </div>
+</header>
+
+<main class="doc-body">
+
+  <!-- 01 THE PREMISE -->
+  <section class="doc-section">
+    <div class="section-label">01</div>
+    <h2 class="section-heading">The Premise</h2>
+    <div class="section-body">
+      <p>On The Brink Handyman Services is a Colorado-based home repair, maintenance, and IT solutions company. Most handyman businesses advertise with a phone number and a list of services. The Brinkman does something different: it makes the business a <strong>character</strong>.</p>
+      <p>The Brinkman is not a mascot. He's the company made human. He's the person you'd trust with a key to your house — the kind of guy who shows up on time, knows what he's looking at, fixes it right, and doesn't make it weird.</p>
+      <p>Every piece of content — every post, every caption, every video — comes from the character. Not a brand voice. Not a persona. A <strong>person</strong> with a Colorado drawl, a dry sense of humor, and thirty years of knowing how to fix things.</p>
+    </div>
+
+    <div class="quote-card">
+      <div class="quote-text">"He's the guy who shows up with the right tool, the right answer, and a coffee already in hand."</div>
+      <div class="quote-attr">The Brinkman — Brand Premise</div>
+    </div>
+  </section>
+
+  <!-- 02 WHO HE IS -->
+  <section class="doc-section">
+    <div class="section-label">02</div>
+    <h2 class="section-heading">Who <em>He Is</em></h2>
+    <div class="section-body">
+      <p>The Brinkman is a Colorado man in his 40s. He's not defined by an age — he's defined by what he knows and how he carries it. He's been doing this work long enough to have seen everything and been surprised by very little. His expertise isn't performed — it's just present.</p>
+      <p>He's the neighbor you always wanted. The one who knew what was wrong before you finished describing it. He doesn't need you to explain the problem. He just needs to see it.</p>
+      <p>He drives a truck that's seen some miles. He keeps his tools in order. He drinks his coffee black. He doesn't say much he doesn't mean.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="col-block">
+        <div class="col-heading">Character Traits</div>
+        <ul class="col-list">
+          <li>Reliable without making it a thing</li>
+          <li>Skilled without being arrogant</li>
+          <li>Dry wit, never performative</li>
+          <li>Colorado-rooted, mountain-shaped</li>
+          <li>Quietly proud of doing things right</li>
+          <li>Low tolerance for overcomplicated</li>
+          <li>Loyal to clients who appreciate the work</li>
+        </ul>
+      </div>
+      <div class="col-block">
+        <div class="col-heading">What Drives Him</div>
+        <ul class="col-list">
+          <li>The satisfaction of a problem solved</li>
+          <li>Clients who don't second-guess the work</li>
+          <li>Colorado seasons, Colorado light</li>
+          <li>A job that's harder than it looks</li>
+          <li>Coffee, in that order</li>
+          <li>The truck running right</li>
+          <li>Knowing the estimate was fair</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 VISUAL DESCRIPTION -->
+  <section class="doc-section">
+    <div class="section-label">03</div>
+    <h2 class="section-heading">Visual <em>Description</em></h2>
+    <div class="section-body">
+      <p>The Brinkman's look is specific. It is not a costume — it is a consistent visual signature that identifies the character across every piece of content, regardless of the medium. These parameters do not change. The situation changes. The setting changes. The character stays fixed.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="col-block">
+        <div class="col-heading">Always Present</div>
+        <ul class="col-list">
+          <li>Red plaid flannel (the hero garment)</li>
+          <li>Work overalls or Carhartt-adjacent</li>
+          <li>Well-worn, serious work boots</li>
+          <li>A tool — wrench, drill, or at minimum a belt</li>
+          <li>A coffee cup (nearly always)</li>
+          <li>Colorado in the background — mountains, sky, or property</li>
+        </ul>
+      </div>
+      <div class="col-block">
+        <div class="col-heading">Character Color Palette</div>
+        <ul class="col-list">
+          <li>Red — the plaid, the hero accent</li>
+          <li>Off-white — the work shirt underneath</li>
+          <li>Weathered denim — the overalls</li>
+          <li>Warm amber — the light, the coffee</li>
+          <li>Mountain sage — the distance</li>
+          <li>Steel — the tools, the truck</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quote-card">
+      <div class="quote-text">"Imagery that looks like it was shot at 6am before a job — not in a studio."</div>
+      <div class="quote-attr">Visual Direction Principle</div>
+    </div>
+
+    <div class="two-col" style="margin-top: 0;">
+      <div class="col-block">
+        <div class="col-heading">Expression & Posture</div>
+        <ul class="col-list">
+          <li>Steady — not excited, not grim</li>
+          <li>Slightly amused by the situation</li>
+          <li>Arms crossed or hands occupied</li>
+          <li>Never posed, never performing</li>
+          <li>Looking at the problem, not the camera</li>
+        </ul>
+      </div>
+      <div class="col-block">
+        <div class="col-heading">What He Never Looks Like</div>
+        <ul class="col-list x">
+          <li>Stock photo happy</li>
+          <li>Gym-built or polished</li>
+          <li>Studio lighting, white background</li>
+          <li>Uniform with a logo shirt (too corporate)</li>
+          <li>Surprised or flustered</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 VOICE & TONE -->
+  <section class="doc-section">
+    <div class="section-label">04</div>
+    <h2 class="section-heading">Voice <em>&amp; Tone</em></h2>
+    <div class="section-body">
+      <p>The Brinkman's voice is the most important asset in this brand. Everything else can be adjusted. The voice cannot. It is specific, it is consistent, and it is built on understatement.</p>
+      <p>He doesn't oversell. He doesn't undersell. He says the true thing in as few words as it takes. The dry wit is not a style choice — it is a byproduct of someone who has seen every variation of a problem and has an efficient response to all of them.</p>
+    </div>
+
+    <div class="voice-grid">
+      <div class="voice-card">
+        <div class="voice-situation">When the job is obvious</div>
+        <div class="voice-line">"Yep. You should probably get that fixed."</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-situation">When the job is done</div>
+        <div class="voice-line">"That'll hold."</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-situation">When the client waited too long</div>
+        <div class="voice-line">"Probably should've called me sooner. But we're here now."</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-situation">When the work speaks for itself</div>
+        <div class="voice-line">"Two hours. Parts included. Problem's gone."</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-situation">On a complicated job</div>
+        <div class="voice-line">"I've seen worse. Not much, but some."</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-situation">On why he does this</div>
+        <div class="voice-line">"You've got good bones. Just needs some attention."</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-situation">Signing off</div>
+        <div class="voice-line">"That's it. Drive safe."</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-situation">On expertise</div>
+        <div class="voice-line">"Yep. That's why you call."</div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top: 40px;">
+      <div class="col-block">
+        <div class="col-heading">He Says</div>
+        <ul class="col-list">
+          <li>Direct observations, plainly stated</li>
+          <li>Understatement over emphasis</li>
+          <li>Colorado-specific references — altitude, weather, mountain towns</li>
+          <li>Short sentences that end clean</li>
+          <li>Dry humor with no setup</li>
+          <li>Professional confidence with no arrogance</li>
+        </ul>
+      </div>
+      <div class="col-block">
+        <div class="col-heading">He Never Says</div>
+        <ul class="col-list x">
+          <li>Marketing language or corporate speak</li>
+          <li>Exclamation points (almost ever)</li>
+          <li>Slang that ages ("slay," "no cap," "fire")</li>
+          <li>Self-deprecation about his skills</li>
+          <li>"Reach out" or "connect with us"</li>
+          <li>Anything that sounds like an ad</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 CONTENT PILLARS -->
+  <section class="doc-section">
+    <div class="section-label">05</div>
+    <h2 class="section-heading">Content <em>Pillars</em></h2>
+    <div class="section-body">
+      <p>All content produced for The Brinkman lives within four pillars. Every post, every video, every caption maps to one of these categories. The ratio should be roughly: 35% The Job, 30% The Character, 25% The Service, 10% Colorado.</p>
+    </div>
+
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <div class="pillar-number">01</div>
+        <div class="pillar-name">The <em>Job</em></div>
+        <div class="pillar-desc">Situation plus fix. Before and after. The problem, the assessment, and the result. Ends with "That'll hold." or something like it. This is the most shareable content — people tag their neighbors.</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-number">02</div>
+        <div class="pillar-name">The <em>Character</em></div>
+        <div class="pillar-desc">The Brinkman in the world. Memes. Quotes. The character in situation with no service to sell. This builds the relationship. People follow the character before they need the handyman.</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-number">03</div>
+        <div class="pillar-name">The <em>Service</em></div>
+        <div class="pillar-desc">Direct, clean service callouts. What The Brinkman does, what it costs, how to book. The Brinkman voice throughout — never generic. Never a laundry list.</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-number">04</div>
+        <div class="pillar-name"><em>Colorado</em></div>
+        <div class="pillar-desc">Seasonal content. Local references. The landscape The Brinkman lives and works in. This content earns the Colorado audience — it speaks to people who know the altitude, the winters, the specific problems that come from where they live.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 PLATFORM PLAYBOOK -->
+  <section class="doc-section">
+    <div class="section-label">06</div>
+    <h2 class="section-heading">Platform <em>Playbook</em></h2>
+    <div class="section-body">
+      <p>The Brinkman's voice stays consistent across platforms. His register adjusts slightly — not the character, just the formality. Think of it as the same man in different rooms.</p>
+    </div>
+
+    <div class="platform-grid">
+      <div class="platform-card">
+        <div class="platform-name">Facebook</div>
+        <div class="platform-tone">"Direct. Local. Slightly more words."</div>
+        <ul class="platform-rules">
+          <li>Complete sentences. Short paragraphs.</li>
+          <li>Talk about specific services with a local angle</li>
+          <li>Photos of work — real jobs, not staged</li>
+          <li>End with a soft CTA, never pushy</li>
+          <li>Respond to comments in character</li>
+        </ul>
+      </div>
+      <div class="platform-card">
+        <div class="platform-name">Instagram</div>
+        <div class="platform-tone">"Visual first. Caption is the punchline."</div>
+        <ul class="platform-rules">
+          <li>Image carries the weight — The Brinkman in situation</li>
+          <li>Caption: 1–3 lines max. Often just one sentence.</li>
+          <li>Meme format works well here</li>
+          <li>No hashtag dump — 3–5 targeted max</li>
+          <li>Reels: character moment, no voiceover needed</li>
+        </ul>
+      </div>
+      <div class="platform-card">
+        <div class="platform-name">Nextdoor / Angi</div>
+        <div class="platform-tone">"Neighbor, not salesperson."</div>
+        <ul class="platform-rules">
+          <li>First-person but still in voice</li>
+          <li>Local specificity (neighborhood, area, season)</li>
+          <li>Lead with the service, not the character</li>
+          <li>Licensed and insured — mention it</li>
+          <li>One CTA: call or text the number</li>
+        </ul>
+      </div>
+      <div class="platform-card">
+        <div class="platform-name">Google Business</div>
+        <div class="platform-tone">"Professional. Warm. Brief."</div>
+        <ul class="platform-rules">
+          <li>Response to reviews: thank them, stay in voice</li>
+          <li>Posts: service updates, seasonal reminders</li>
+          <li>Photos: real work, Colorado backdrop</li>
+          <li>Description: The Brinkman, plain and useful</li>
+          <li>Reply to every review — it builds the algorithm</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 SOCIAL MEDIA TEMPLATES -->
+  <section class="doc-section">
+    <div class="section-label">07</div>
+    <h2 class="section-heading">Social Media <em>Templates</em></h2>
+    <div class="section-body">
+      <p>Use these formats as the structural skeleton for posts. Fill in the specific job, service, or situation. The voice does the rest. Do not vary the structure — the format is part of the brand.</p>
+    </div>
+
+    <div class="template-stack">
+
+      <div class="template-card">
+        <div class="template-type">Template 01 — The Job</div>
+        <div class="template-name">Problem · Assessment · Result</div>
+        <div class="template-format">[THE PROBLEM, described plainly. One or two sentences. No drama.]
+
+Came out to take a look.
+
+[THE ASSESSMENT. What he found. What it meant. Still plain.]
+
+[THE FIX. How long. What it cost or cost range. Clean ending.]
+
+That'll hold.
+
+On The Brink — [phone or Linktree]</div>
+        <div class="template-example-label">Example</div>
+        <div class="template-example">Fence post snapped clean off. Colorado winter'll do that to old wood.<br><br>Came out to take a look.<br><br>Post was rotten at the base — had been for a while. Replaced it, re-secured the rail, treated the wood.<br><br>Two hours. Problem's gone before the next storm.<br><br>That'll hold.<br><br>On The Brink — 720-555-0192</div>
+      </div>
+
+      <div class="template-card">
+        <div class="template-type">Template 02 — The Character Moment</div>
+        <div class="template-name">Situation · Reaction · Punchline</div>
+        <div class="template-format">[THE SITUATION. Set the scene briefly — where The Brinkman is, what he's looking at.]
+
+[THE REACTION. What he says or thinks. Keep it dry.]
+
+[THE PUNCHLINE or observation. One sentence. Clean stop.]</div>
+        <div class="template-example-label">Example</div>
+        <div class="template-example">Client said the fence "might need a little attention."<br><br>Showed up and half of it was Colorado now.<br><br>We fixed it. Still counts as a little attention.</div>
+      </div>
+
+      <div class="template-card">
+        <div class="template-type">Template 03 — That'll Hold Meme</div>
+        <div class="template-name">Image · Statement · Tagline</div>
+        <div class="template-format">[IMAGE: The Brinkman in situation — arms crossed, job behind him, Colorado in frame]
+
+TOP TEXT: [The situation, exaggerated or plain]
+BOTTOM TEXT: That'll hold.
+
+Caption: [Single sentence in The Brinkman voice, optional]</div>
+        <div class="template-example-label">Example</div>
+        <div class="template-example">Top text: Your fence after a Colorado winter<br>Bottom text: That'll hold.<br><br>Caption: We've seen worse. Not much, but some.</div>
+      </div>
+
+      <div class="template-card">
+        <div class="template-type">Template 04 — Service Direct</div>
+        <div class="template-name">What he does, plainly stated</div>
+        <div class="template-format">[SERVICE NAME]. [One sentence: what it is and who needs it.]
+
+[What The Brinkman brings to it — the character angle, briefly.]
+
+If you've been putting it off — that's what the number's for.
+
+On The Brink — [contact]</div>
+        <div class="template-example-label">Example</div>
+        <div class="template-example">Smart home setup. The stuff you bought but never got around to installing.<br><br>The Brinkman handles it — devices, routing, the whole system working the way it was supposed to from the start.<br><br>If you've been putting it off — that's what the number's for.<br><br>On The Brink — 720-555-0192</div>
+      </div>
+
+      <div class="template-card">
+        <div class="template-type">Template 05 — Colorado Seasonal</div>
+        <div class="template-name">Weather · Consequence · The Brinkman</div>
+        <div class="template-format">[COLORADO WEATHER OBSERVATION. One sentence. Specific and true — altitude, timing, the particular thing Colorado does to a house.]
+
+[WHAT THAT MEANS for the homeowner. The consequence they're probably ignoring.]
+
+The Brinkman handles it before it handles you.
+
+On The Brink — [contact]</div>
+        <div class="template-example-label">Example</div>
+        <div class="template-example">First hard freeze of the year is coming Thursday.<br><br>That means pipes, gutters, and anything wood that's been "fine all summer."<br><br>The Brinkman handles it before it handles you.<br><br>On The Brink — 720-555-0192</div>
+      </div>
+
+      <div class="template-card">
+        <div class="template-type">Template 06 — Review Request</div>
+        <div class="template-name">What The Brinkman says when asking for a Google review</div>
+        <div class="template-format">Hey [NAME] — glad the [JOB] worked out. If you've got a minute, a Google review helps more people find the right handyman before the next fence goes down. Link below. Appreciate it.
+
+— Ben</div>
+        <div class="template-example-label">Notes</div>
+        <div class="template-example">Send via text, not email. Reference the specific job. Sign off as Ben, not The Brinkman — this is the man behind the character, reaching out person to person.</div>
+      </div>
+
+      <div class="template-card">
+        <div class="template-type">Template 07 — Nextdoor / Angi Intro</div>
+        <div class="template-name">How The Brinkman introduces himself to a new neighborhood</div>
+        <div class="template-format">Hey [NEIGHBORHOOD] —
+
+I'm Ben Brink, On The Brink Handyman Services. [1–2 sentences on what you do and your service area.]
+
+[One specific Colorado or seasonal callout — show you know the area.]
+
+Licensed and insured. [CONTACT]. Happy to come take a look.
+
+— Ben Brink, On The Brink</div>
+        <div class="template-example-label">Example</div>
+        <div class="template-example">Hey Evergreen —<br><br>I'm Ben Brink, On The Brink Handyman Services. I cover home repair, maintenance, and IT setup for the mountain communities west of Denver.<br><br>With spring finally showing up, a lot of fence posts and deck boards didn't survive the winter. Happy to come out and take a look before it turns into a bigger project.<br><br>Licensed and insured. 720-555-0192. Happy to come take a look.<br><br>— Ben Brink, On The Brink</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 08 READY-TO-POST CAPTIONS -->
+  <section class="doc-section">
+    <div class="section-label">08</div>
+    <h2 class="section-heading">10 Ready-to-Post <em>Captions</em></h2>
+    <div class="section-body">
+      <p>These are complete, use-now captions for The Brinkman's social channels. Pair each with the appropriate image type noted. Do not alter the voice — only update specifics (location, service, contact info) as needed.</p>
+    </div>
+
+    <div class="caption-grid">
+
+      <div class="caption-card">
+        <div class="caption-num">01</div>
+        <div>
+          <div class="caption-tag">The Job · Fence Repair</div>
+          <div class="caption-text">Client said the fence was "a little wobbly." That's one way to put it.<br><br>Four posts replaced, rails re-secured, wood treated. Done before lunch.<br><br>That'll hold.<br><br>On The Brink — [contact]</div>
+          <div class="caption-hashtags">#ColoradoHandyman #FenceRepair #OnTheBrink #ThatllHold</div>
+        </div>
+      </div>
+
+      <div class="caption-card">
+        <div class="caption-num">02</div>
+        <div>
+          <div class="caption-tag">Character · Meme</div>
+          <div class="caption-text">Colorado homeowners in spring, looking at their deck after winter:<br><br>"...that's probably fine."<br><br>It's not fine. But The Brinkman is.</div>
+          <div class="caption-hashtags">#Colorado #ColoradoLife #HandymanHumor #OnTheBrink</div>
+        </div>
+      </div>
+
+      <div class="caption-card">
+        <div class="caption-num">03</div>
+        <div>
+          <div class="caption-tag">Service · IT Setup</div>
+          <div class="caption-text">You've had that router in the box for eight months.<br><br>The Brinkman handles smart home setup — devices, connectivity, the whole thing working the way it was supposed to from day one.<br><br>Stop putting it off.<br><br>On The Brink — [contact]</div>
+          <div class="caption-hashtags">#SmartHome #ITSetup #ColoradoHandyman #OnTheBrink</div>
+        </div>
+      </div>
+
+      <div class="caption-card">
+        <div class="caption-num">04</div>
+        <div>
+          <div class="caption-tag">Colorado · Seasonal (Spring)</div>
+          <div class="caption-text">Colorado spring means a lot of things that looked fine in October are now problems.<br><br>Fences. Deck boards. Gutters. Anything wood that held its breath through six months of freeze-thaw.<br><br>The Brinkman handles it before it handles your weekend.<br><br>On The Brink — [contact]</div>
+          <div class="caption-hashtags">#ColoradoSpring #HomeMaintenace #OnTheBrink #ColoradoLiving</div>
+        </div>
+      </div>
+
+      <div class="caption-card">
+        <div class="caption-num">05</div>
+        <div>
+          <div class="caption-tag">Character · Dry Observation</div>
+          <div class="caption-text">The Brinkman's assessment of 90% of the jobs he sees:<br><br>"Should've called about a year ago. But we're here now."</div>
+          <div class="caption-hashtags">#HandymanLife #OnTheBrink #ThatllHold #ColoradoHandyman</div>
+        </div>
+      </div>
+
+      <div class="caption-card">
+        <div class="caption-num">06</div>
+        <div>
+          <div class="caption-tag">The Job · General Repair</div>
+          <div class="caption-text">Not every job is dramatic. Sometimes a door just doesn't close right, a shelf is a little optimistic, or something's been dripping longer than it should.<br><br>The Brinkman handles the list you've been adding to for a year.<br><br>One trip. Done right. Done.<br><br>On The Brink — [contact]</div>
+          <div class="caption-hashtags">#GeneralHandyman #HomeRepair #OnTheBrink #Colorado</div>
+        </div>
+      </div>
+
+      <div class="caption-card">
+        <div class="caption-num">07</div>
+        <div>
+          <div class="caption-tag">Service · Property Cleanout</div>
+          <div class="caption-text">That garage has been a "project" for three years.<br><br>The Brinkman does property cleanouts — haul it off, clear it out, done.<br><br>The garage can just be a garage again.<br><br>On The Brink — [contact]</div>
+          <div class="caption-hashtags">#PropertyCleanout #GaragecleanOut #OnTheBrink #ColoradoHandyman</div>
+        </div>
+      </div>
+
+      <div class="caption-card">
+        <div class="caption-num">08</div>
+        <div>
+          <div class="caption-tag">Character · Philosophy</div>
+          <div class="caption-text">The Brinkman's take on home repair:<br><br>The problem doesn't get smaller by waiting.<br><br>But the bill does get bigger.</div>
+          <div class="caption-hashtags">#OnTheBrink #HomeRepair #ThatllHold #ColoradoHandyman</div>
+        </div>
+      </div>
+
+      <div class="caption-card">
+        <div class="caption-num">09</div>
+        <div>
+          <div class="caption-tag">Colorado · Winter Prep</div>
+          <div class="caption-text">First hard freeze is coming.<br><br>That's pipes. That's outdoor fixtures. That's anything that didn't quite get winterized last year and you were hoping would hold.<br><br>The Brinkman is already booked up for emergencies. Don't be an emergency.<br><br>On The Brink — [contact]</div>
+          <div class="caption-hashtags">#ColoradoWinter #WinterpreppIng #OnTheBrink #ColoradoHandyman</div>
+        </div>
+      </div>
+
+      <div class="caption-card">
+        <div class="caption-num">10</div>
+        <div>
+          <div class="caption-tag">Service · Landscaping</div>
+          <div class="caption-text">The yard doesn't take care of itself. Neither does the back fence, the gate that doesn't close, or the patio situation from last summer.<br><br>The Brinkman handles yard work and landscaping tasks — the outside of the house, done right.<br><br>On The Brink — [contact]</div>
+          <div class="caption-hashtags">#Landscaping #YardWork #ColoradoLiving #OnTheBrink</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="doc-footer">
+  <div class="footer-wordmark">QI <em>Studios</em> × On The Brink</div>
+  <div class="footer-note">Character Bible — Confidential Client Document</div>
+</footer>
+
+</body>
+</html>

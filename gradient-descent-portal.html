@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Portal — QI Studios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0e1210;
+  --bg-warm:   #111a16;
+  --bg-card:   #141e19;
+  --border:    #253028;
+  --dim:       #526058;
+  --muted:     #889890;
+  --silver:    #b8c8be;
+  --cream:     #F4EDE0;
+  --gold:      #C8882A;
+  --gold-soft: #d99838;
+  --gold-pale: #e0aa50;
+  --teal:      #3D7E7A;
+  --teal-soft: #4a9490;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--silver);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 18px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+}
+
+/* ─── LOGIN SCREEN ─────────────────────────────────────────────────────────── */
+
+#login-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 100;
+  background: var(--bg);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 440px;
+  text-align: center;
+}
+
+.login-wordmark {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin-bottom: 6px;
+}
+
+.login-wordmark em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.login-rule {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  margin: 18px auto;
+}
+
+.login-label {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 48px;
+  display: block;
+}
+
+.login-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(36px, 8vw, 52px);
+  color: var(--cream);
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+
+.login-title em { font-style: italic; color: var(--gold-pale); }
+
+.login-sub {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--dim);
+  margin-bottom: 52px;
+  line-height: 1.5;
+}
+
+.login-form { display: flex; flex-direction: column; gap: 14px; }
+
+.login-input-wrap { position: relative; }
+
+.login-input {
+  width: 100%;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-bottom-color: rgba(200,136,42,0.35);
+  color: var(--cream);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  letter-spacing: 0.3em;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 18px 20px;
+  outline: none;
+  transition: border-color 0.25s, background 0.25s;
+}
+
+.login-input::placeholder {
+  color: var(--dim);
+  letter-spacing: 0.2em;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.login-input:focus {
+  border-color: rgba(200,136,42,0.6);
+  background: rgba(200,136,42,0.03);
+}
+
+.login-btn {
+  width: 100%;
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: linear-gradient(135deg, #C8882A 0%, #e8c060 50%, #C8882A 100%);
+  background-size: 200% 200%;
+  animation: shimmer 4s ease infinite;
+  border: none;
+  padding: 18px 28px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.login-btn:hover { opacity: 0.88; }
+
+.login-error {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #c84848;
+  text-align: center;
+  min-height: 18px;
+  transition: opacity 0.2s;
+}
+
+.login-error:empty { opacity: 0; }
+
+.login-note {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--dim);
+  margin-top: 28px;
+}
+
+/* ─── PORTAL DASHBOARD ──────────────────────────────────────────────────────── */
+
+#portal { display: none; min-height: 100vh; }
+
+/* Header */
+.portal-header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(14,18,16,0.96);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  padding: 0 48px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.header-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.header-logo em { font-style: italic; color: var(--gold); }
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  justify-content: center;
+}
+
+.header-nav-btn {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dim);
+  background: none;
+  border: 1px solid transparent;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.header-nav-btn:hover { color: var(--silver); }
+.header-nav-btn.active { color: var(--gold); border-color: rgba(200,136,42,0.3); }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.header-back {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.header-back:hover { color: var(--cream); }
+
+.header-logout {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dim);
+  background: none;
+  border: 1px solid var(--border);
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.header-logout:hover { color: var(--cream); border-color: var(--dim); }
+
+/* Progress section */
+.progress-section {
+  background: var(--bg-warm);
+  border-bottom: 1px solid var(--border);
+  padding: 52px 48px 48px;
+}
+
+.progress-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.progress-eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.progress-eyebrow::before { content: ''; width: 18px; height: 1px; background: var(--gold); opacity: 0.5; }
+
+.progress-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(28px, 4vw, 44px);
+  color: var(--cream);
+  line-height: 1.1;
+  margin-bottom: 28px;
+}
+
+.progress-headline em { font-style: italic; color: var(--gold-pale); }
+
+.progress-bar-wrap {
+  height: 3px;
+  background: var(--border);
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.progress-bar-fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  background: linear-gradient(to right, var(--gold), var(--gold-pale));
+  transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress-count {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.progress-pct {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+/* Filter tabs */
+.filter-bar {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.filter-bar::-webkit-scrollbar { display: none; }
+
+.filter-btn {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dim);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-btn:hover { color: var(--silver); }
+
+.filter-btn.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+.filter-count {
+  font-size: 8px;
+  background: var(--border);
+  color: var(--muted);
+  padding: 2px 6px;
+  border-radius: 10px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.filter-btn.active .filter-count {
+  background: rgba(200,136,42,0.15);
+  color: var(--gold);
+}
+
+/* Asset grid */
+.assets-section {
+  padding: 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.assets-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.asset-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 28px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.25s;
+  position: relative;
+}
+
+.asset-card:hover { border-color: rgba(200,136,42,0.35); }
+
+.asset-card.upcoming {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.asset-card.progress { opacity: 0.75; }
+
+.asset-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.asset-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(200,136,42,0.08);
+  border: 1px solid rgba(200,136,42,0.15);
+  flex-shrink: 0;
+}
+
+.asset-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--gold);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.asset-icon.teal { background: rgba(61,126,122,0.1); border-color: rgba(61,126,122,0.2); }
+.asset-icon.teal svg { stroke: var(--teal-soft); }
+
+.asset-type-badge {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 8px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--dim);
+  border: 1px solid var(--border);
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+
+.asset-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 20px;
+  color: var(--cream);
+  line-height: 1.2;
+}
+
+.asset-sub {
+  font-family: 'EB Garamond', serif;
+  font-size: 15px;
+  color: var(--dim);
+  line-height: 1.45;
+  flex: 1;
+}
+
+.asset-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.asset-status {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-delivered .status-dot { background: var(--gold); box-shadow: 0 0 6px rgba(200,136,42,0.5); }
+.status-delivered { color: var(--gold); }
+
+.status-progress .status-dot { background: var(--teal-soft); box-shadow: 0 0 6px rgba(61,126,122,0.4); animation: pulse 2s ease infinite; }
+.status-progress { color: var(--teal-soft); }
+
+.status-upcoming .status-dot { background: var(--border); }
+.status-upcoming { color: var(--dim); }
+
+.asset-cta {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--gold);
+  border: none;
+  padding: 7px 14px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+  display: inline-block;
+}
+
+.asset-cta:hover { background: var(--gold-pale); }
+
+.asset-cta.disabled {
+  background: var(--border);
+  color: var(--dim);
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Empty state */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 24px;
+  color: var(--dim);
+}
+
+.empty-state p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 22px;
+}
+
+/* ─── BOOK PAGE ─────────────────────────────────────────────────────────────── */
+
+.book-hero {
+  background: var(--bg-warm);
+  border-bottom: 1px solid var(--border);
+  padding: 72px 48px 64px;
+}
+
+.book-hero-inner { max-width: 820px; }
+
+.book-eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.book-eyebrow::before { content: ''; width: 18px; height: 1px; background: var(--gold); opacity: 0.5; }
+
+.book-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(32px, 5vw, 56px);
+  color: var(--cream);
+  line-height: 1.08;
+  margin-bottom: 24px;
+}
+
+.book-headline em { font-style: italic; color: var(--gold-pale); }
+
+.book-premise {
+  font-family: 'EB Garamond', serif;
+  font-size: 18px;
+  color: var(--silver);
+  line-height: 1.75;
+  max-width: 680px;
+  margin-bottom: 36px;
+}
+
+.book-links {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.book-link-primary {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--gold);
+  padding: 13px 22px;
+  text-decoration: none;
+  transition: background 0.2s;
+  display: inline-block;
+}
+
+.book-link-primary:hover { background: var(--gold-pale); }
+
+.book-link-secondary {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(200,136,42,0.35);
+  padding: 13px 22px;
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+  display: inline-block;
+}
+
+.book-link-secondary:hover { border-color: var(--gold); color: var(--gold-pale); }
+
+.book-section {
+  padding: 64px 48px;
+  border-bottom: 1px solid var(--border);
+}
+
+.book-section-alt { background: var(--bg-warm); }
+
+.book-section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.book-section-eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.book-section-eyebrow::before { content: ''; width: 18px; height: 1px; background: var(--gold); opacity: 0.5; }
+
+.char-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.char-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 28px 24px;
+  transition: border-color 0.25s;
+}
+
+.char-card:hover { border-color: rgba(200,136,42,0.3); }
+
+.char-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 22px;
+  color: var(--cream);
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.char-role {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 8px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.char-desc {
+  font-family: 'EB Garamond', serif;
+  font-size: 15px;
+  color: var(--dim);
+  line-height: 1.55;
+}
+
+.book-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+}
+
+.book-subhead {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(26px, 3.5vw, 40px);
+  color: var(--cream);
+  line-height: 1.12;
+  margin-bottom: 18px;
+}
+
+.book-subhead em { font-style: italic; color: var(--gold-pale); }
+
+.book-body {
+  font-family: 'EB Garamond', serif;
+  font-size: 17px;
+  color: var(--dim);
+  line-height: 1.72;
+}
+
+.pub-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 24px;
+}
+
+.pub-meta span {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 11px 16px;
+  border: 1px solid var(--border);
+}
+
+.author-block { max-width: 720px; }
+
+.author-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(20px, 3vw, 30px);
+  color: var(--gold-pale);
+  line-height: 1.4;
+  margin-bottom: 24px;
+  padding-left: 22px;
+  border-left: 2px solid rgba(200,136,42,0.3);
+}
+
+/* ─── ANIMATIONS ────────────────────────────────────────────────────────────── */
+
+@keyframes shimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* ─── MOBILE — tablet ────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .portal-header { padding: 0 20px; }
+  .progress-section { padding: 36px 20px 32px; }
+  .filter-bar { padding: 0 4px; }
+  .filter-btn { padding: 0 14px; min-height: 52px; font-size: 8.5px; }
+  .assets-section { padding: 24px 16px; }
+  .assets-grid { grid-template-columns: repeat(2, 1fr); }
+  .book-hero { padding: 48px 24px 40px; }
+  .book-section { padding: 44px 24px; }
+  .char-grid { grid-template-columns: repeat(2, 1fr); }
+  .book-two-col { grid-template-columns: 1fr; gap: 44px; }
+}
+
+/* ─── MOBILE — phone ─────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .assets-grid { grid-template-columns: 1fr; }
+  .asset-card { padding: 20px 18px; }
+  .asset-footer { flex-wrap: wrap; gap: 10px; }
+  .asset-cta { min-height: 40px; display: flex; align-items: center; padding: 10px 16px; font-size: 9px; }
+  .progress-headline { font-size: clamp(22px, 6.5vw, 34px); }
+  .assets-section { padding: 18px 12px; }
+  .char-grid { grid-template-columns: 1fr; }
+  .book-links { flex-direction: column; }
+  .book-hero { padding: 36px 16px 32px; }
+  .book-section { padding: 36px 16px; }
+}
+
+/* ─── MOBILE — small phone ───────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  #login-screen { align-items: flex-start; padding: max(48px, 10vh) 20px 32px; }
+  .login-label { margin-bottom: 28px; }
+  .login-sub { font-size: 16px; margin-bottom: 32px; }
+  .login-btn { min-height: 52px; }
+  .header-back { display: none; }
+  .header-logout { padding: 10px 12px; min-height: 44px; }
+  .header-nav-btn { padding: 8px 10px; font-size: 8px; letter-spacing: 0.15em; }
+  .progress-section { padding: 24px 14px; }
+  .progress-headline { font-size: clamp(20px, 6vw, 30px); }
+  .filter-btn { padding: 0 10px; letter-spacing: 0.12em; }
+  .assets-section { padding: 16px 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── LOGIN SCREEN ─────────────────────────────────────────────────────────── -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-wordmark">QI <em>Studios</em></div>
+    <div class="login-rule"></div>
+    <span class="login-label">Client Portal</span>
+
+    <h1 class="login-title">Your work<br>is <em>waiting.</em></h1>
+    <p class="login-sub">Enter your project code to access your asset library.</p>
+
+    <form class="login-form" onsubmit="handleLogin(event)">
+      <div class="login-input-wrap">
+        <input
+          type="text"
+          class="login-input"
+          id="code-input"
+          placeholder="Project Code"
+          autocomplete="off"
+          autocapitalize="characters"
+          spellcheck="false"
+          maxlength="20"
+        >
+      </div>
+      <div class="login-error" id="login-error"></div>
+      <button type="submit" class="login-btn">Enter Portal →</button>
+    </form>
+
+    <p class="login-note">Your code was included in your welcome email.<br>Questions? hello@quarantikiisland.com</p>
+  </div>
+</div>
+
+<!-- ─── PORTAL DASHBOARD ─────────────────────────────────────────────────────── -->
+<div id="portal">
+
+  <!-- Header -->
+  <header class="portal-header">
+    <a href="./index.html" class="header-logo">QI <em>Studios</em></a>
+
+    <nav class="header-nav">
+      <button class="header-nav-btn active" id="nav-assets" onclick="showView('assets')">Assets</button>
+      <button class="header-nav-btn" id="nav-book" onclick="showView('book')">The Book</button>
+    </nav>
+
+    <div class="header-actions">
+      <a href="./index.html" class="header-back">← Studio</a>
+      <button class="header-logout" onclick="handleLogout()">Log out</button>
+    </div>
+  </header>
+
+  <!-- ─── ASSETS VIEW ──────────────────────────────────────────────────────────── -->
+  <div id="assets-view">
+
+    <!-- Progress -->
+    <section class="progress-section">
+      <div class="progress-inner">
+        <p class="progress-eyebrow">Your Deliverables</p>
+        <h2 class="progress-headline" id="progress-headline">
+          <em id="delivered-count">0</em> of 100 assets delivered.
+        </h2>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="progress-bar" style="width: 0%"></div>
+        </div>
+        <div class="progress-meta">
+          <span class="progress-count" id="progress-label">Loading…</span>
+          <span class="progress-pct" id="progress-pct"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter bar -->
+    <nav class="filter-bar" id="filter-bar" aria-label="Filter assets">
+      <button class="filter-btn active" data-filter="all" onclick="setFilter('all', this)">
+        All <span class="filter-count" id="count-all">0</span>
+      </button>
+      <button class="filter-btn" data-filter="video" onclick="setFilter('video', this)">
+        Videos <span class="filter-count" id="count-video">0</span>
+      </button>
+      <button class="filter-btn" data-filter="character" onclick="setFilter('character', this)">
+        Character <span class="filter-count" id="count-character">0</span>
+      </button>
+      <button class="filter-btn" data-filter="script" onclick="setFilter('script', this)">
+        Scripts <span class="filter-count" id="count-script">0</span>
+      </button>
+      <button class="filter-btn" data-filter="social" onclick="setFilter('social', this)">
+        Social <span class="filter-count" id="count-social">0</span>
+      </button>
+      <button class="filter-btn" data-filter="brand" onclick="setFilter('brand', this)">
+        Brand <span class="filter-count" id="count-brand">0</span>
+      </button>
+      <button class="filter-btn" data-filter="audio" onclick="setFilter('audio', this)">
+        Audio <span class="filter-count" id="count-audio">0</span>
+      </button>
+    </nav>
+
+    <!-- Asset grid -->
+    <main class="assets-section">
+      <div class="assets-grid" id="assets-grid"></div>
+    </main>
+
+  </div><!-- /assets-view -->
+
+  <!-- ─── BOOK VIEW ────────────────────────────────────────────────────────────── -->
+  <div id="book-view" style="display:none;">
+
+    <!-- Hero -->
+    <section class="book-hero">
+      <div class="book-hero-inner">
+        <p class="book-eyebrow">Adventures of Gradient Descent</p>
+        <h2 class="book-headline">A philosophical comedy<br>about <em>finding the minimum.</em></h2>
+        <p class="book-premise">It follows the gradient descent algorithm as a character — a loner optimizer in a world of flashy architectures, trying to find the global minimum and instead finding a Data Winter love story, a spiritual chatbot startup, a music festival with a Hallucination Tent, a bar where he meets his Limiting Belief, and eventually — slowly, epoch by epoch — something like peace.</p>
+        <div class="book-links">
+          <a href="https://adventuresofgradientdescent.com" target="_blank" class="book-link-primary">adventuresofgradientdescent.com →</a>
+          <a href="https://docs.google.com/document/d/15D659ikRR6VFVFh6MBD6CXOY3NJcl8qlHPmedXjewRY/edit?usp=sharing" target="_blank" class="book-link-secondary">Substack Launch Post →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Characters -->
+    <section class="book-section">
+      <div class="book-section-inner">
+        <p class="book-section-eyebrow">The Characters</p>
+        <div class="char-grid">
+          <div class="char-card">
+            <div class="char-name">Gradient Descent</div>
+            <div class="char-role">The Protagonist</div>
+            <p class="char-desc">A loner optimizer in a world of flashy architectures. Trying to find the global minimum. Still descending.</p>
+          </div>
+          <div class="char-card">
+            <div class="char-name">Adam</div>
+            <div class="char-role">The Optimizer Bartender</div>
+            <p class="char-desc">Adaptive. Smooth. Always knows the right learning rate for the moment.</p>
+          </div>
+          <div class="char-card">
+            <div class="char-name">ReLU</div>
+            <div class="char-role">Muscular Surfer Dude</div>
+            <p class="char-desc">Zero below the line. Unbounded above it. Surprisingly wise, between sets.</p>
+          </div>
+          <div class="char-card">
+            <div class="char-name">Random Forest</div>
+            <div class="char-role">The Ensemble</div>
+            <p class="char-desc">A crowd that somehow always agrees. Unsettling in the best way.</p>
+          </div>
+          <div class="char-card">
+            <div class="char-name">Regularization</div>
+            <div class="char-role">The Boundary Setter</div>
+            <p class="char-desc">"Don't overfit me." Said it once. Meant it forever.</p>
+          </div>
+          <div class="char-card">
+            <div class="char-name">Limiting Belief</div>
+            <div class="char-role">Met in a Bar</div>
+            <p class="char-desc">Comfortable. Familiar. The local minimum you mistake for the bottom.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Substack + Publication -->
+    <section class="book-section book-section-alt">
+      <div class="book-section-inner book-two-col">
+        <div>
+          <p class="book-section-eyebrow">The Substack</p>
+          <h3 class="book-subhead">Field Notes from<br>the <em>Loss Landscape</em></h3>
+          <p class="book-body">The ideas in the book, continued. ML concepts and the Bhagavad Gita. Gradient descent, samsara, and the vanishing gradient problem. Ego as a bug, not a feature. What it means to descend with intention.</p>
+          <a href="https://docs.google.com/document/d/15D659ikRR6VFVFh6MBD6CXOY3NJcl8qlHPmedXjewRY/edit?usp=sharing" target="_blank" class="book-link-secondary" style="margin-top:24px;">Read the Launch Post →</a>
+        </div>
+        <div>
+          <p class="book-section-eyebrow">Publication</p>
+          <h3 class="book-subhead">egg.foundation<br><em>2026</em></h3>
+          <p class="book-body">Ebook arriving in the coming weeks. Print edition August 2026. Available at adventuresofgradientdescent.com.</p>
+          <div class="pub-meta">
+            <span>Ebook — Coming Soon</span>
+            <span>Print — August 2026</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Author -->
+    <section class="book-section">
+      <div class="book-section-inner">
+        <p class="book-section-eyebrow">About the Author</p>
+        <div class="author-block">
+          <p class="author-quote">"What I didn't know, for a long time, was whether I was minimizing the right loss function."</p>
+          <p class="book-body">A. Sarapultseva was born in Obninsk — a Soviet science city built for physicists, where mathematics was simply how most people thought. Psychology and neuroscience at Moscow State University. A decade in Silicon Valley optimizing things for a living. A sabbatical disguised as collapse: yoga, India, travel, Costa Rica. The book arrived during a morning meditation in a humid garden. She lives in Costa Rica with her son. She is still descending.</p>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /book-view -->
+
+</div><!-- /portal -->
+
+<script>
+// ─── CLIENT CONFIGURATION ──────────────────────────────────────────────────
+
+const CLIENT_CODE = 'GRADIENT26';
+const CLIENT_NAME = 'Adventures of Gradient Descent';
+
+const ASSETS = [
+  // ── VIDEOS ──
+  {
+    id: 1,
+    category: 'video',
+    title: 'Book Trailer — Full Cut',
+    sub: '90-second cinematic reveal. The descent, the characters, the world.',
+    status: 'progress',
+    link: null
+  },
+  {
+    id: 2,
+    category: 'video',
+    title: 'Book Trailer — 60s Cut',
+    sub: 'Trimmed for Instagram and LinkedIn launch.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 3,
+    category: 'video',
+    title: 'Book Trailer — 30s Cut',
+    sub: 'Fast hook for TikTok and Reels.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 4,
+    category: 'video',
+    title: 'Author Introduction',
+    sub: 'Cinematic author reveal. Obninsk to Costa Rica.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 5,
+    category: 'video',
+    title: 'Scene Teaser — The Hallucination Tent',
+    sub: 'Chapter 5 visual teaser. No spoilers.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 6,
+    category: 'video',
+    title: 'Character Spotlight — Gradient Descent',
+    sub: 'The protagonist in motion. 60-second loop.',
+    status: 'upcoming',
+    link: null
+  },
+
+  // ── CHARACTER ──
+  {
+    id: 7,
+    category: 'character',
+    title: 'Gradient Descent',
+    sub: 'The protagonist. Loner optimizer. Visual reference, arc, and voice.',
+    status: 'progress',
+    link: null
+  },
+  {
+    id: 8,
+    category: 'character',
+    title: 'Adam — The Optimizer Bartender',
+    sub: 'Adaptive. Smooth. Full character sheet and dialogue guide.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 9,
+    category: 'character',
+    title: 'ReLU — Muscular Surfer Dude',
+    sub: 'Zero below the line. Unbounded above it. Visual reference.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 10,
+    category: 'character',
+    title: 'Regularization',
+    sub: '"Don\'t overfit me." Character sheet and voice notes.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 11,
+    category: 'character',
+    title: 'Limiting Belief',
+    sub: 'The local minimum disguised as the bottom. Met in a bar.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 12,
+    category: 'character',
+    title: 'Full Cast Visual Reference',
+    sub: 'All characters together. Style consistent, proportions locked.',
+    status: 'upcoming',
+    link: null
+  },
+
+  // ── SCRIPTS ──
+  {
+    id: 13,
+    category: 'script',
+    title: 'Back Cover Copy — 3 Versions',
+    sub: 'Punchy, story-led, and technical. Pick your weapon.',
+    status: 'progress',
+    link: null
+  },
+  {
+    id: 14,
+    category: 'script',
+    title: 'Book Trailer Script',
+    sub: 'Full voiceover script with timing notes for the 90s trailer.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 15,
+    category: 'script',
+    title: 'Author Bio — Short / Long / Social',
+    sub: '50-word, 150-word, and one-liner. All three registers.',
+    status: 'delivered',
+    link: null
+  },
+  {
+    id: 16,
+    category: 'script',
+    title: 'Podcast Pitch Script',
+    sub: 'Cold outreach copy for booking the author as a podcast guest.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 17,
+    category: 'script',
+    title: 'Press Release — Launch Announcement',
+    sub: 'Formatted for media distribution. Ebook and print editions.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 18,
+    category: 'script',
+    title: 'Reading Excerpt — The Paris Bench',
+    sub: 'Polished passage for events, previews, and promotional audio.',
+    status: 'upcoming',
+    link: null
+  },
+
+  // ── SOCIAL ──
+  {
+    id: 19,
+    category: 'social',
+    title: 'Substack Author Post',
+    sub: '"The Title Arrived During a Meditation in Costa Rica." Field Notes from the Loss Landscape.',
+    status: 'delivered',
+    link: 'https://docs.google.com/document/d/15D659ikRR6VFVFh6MBD6CXOY3NJcl8qlHPmedXjewRY/edit?usp=sharing'
+  },
+  {
+    id: 20,
+    category: 'social',
+    title: 'Caption Pack — Volume 01',
+    sub: '10 captions. Pre-launch curiosity phase. Ready to post.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 21,
+    category: 'social',
+    title: 'Hook Library — Launch Week',
+    sub: '15 opening hooks for short-form. ML-meets-philosophy angle.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 22,
+    category: 'social',
+    title: 'Caption Pack — Volume 02',
+    sub: '10 captions for launch week. Character-voice driven.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 23,
+    category: 'social',
+    title: 'Pre-Launch Countdown — 7 Days',
+    sub: '7-day countdown posts, one per day, building to release.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 24,
+    category: 'social',
+    title: 'Content Calendar — Launch Month',
+    sub: '30-day plan: format, timing, caption, and asset notes.',
+    status: 'upcoming',
+    link: null
+  },
+
+  // ── BRAND ──
+  {
+    id: 25,
+    category: 'brand',
+    title: 'Book Visual Identity',
+    sub: 'Color palette, typography, and illustration style guide.',
+    status: 'progress',
+    link: null
+  },
+  {
+    id: 26,
+    category: 'brand',
+    title: 'Author Brand Story Document',
+    sub: 'Origin, mission, audience, and narrative arc. Full PDF.',
+    status: 'delivered',
+    link: null
+  },
+  {
+    id: 27,
+    category: 'brand',
+    title: 'Cover Design System',
+    sub: 'Front, back, and spine. Variants for print and digital.',
+    status: 'progress',
+    link: null
+  },
+  {
+    id: 28,
+    category: 'brand',
+    title: 'Press Kit — Full PDF',
+    sub: 'Book overview, author bio, cover art, and key excerpts.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 29,
+    category: 'brand',
+    title: 'Substack Header & Social Assets',
+    sub: 'Branded visuals for Field Notes from the Loss Landscape.',
+    status: 'upcoming',
+    link: null
+  },
+
+  // ── AUDIO ──
+  {
+    id: 30,
+    category: 'audio',
+    title: 'Author Voice — ElevenLabs Profile',
+    sub: 'Master voice file. Saved voice ID included for future use.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 31,
+    category: 'audio',
+    title: 'Book Trailer — Full Audio Mix',
+    sub: 'Final mixed track: voiceover, score, and sound design.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 32,
+    category: 'audio',
+    title: 'Reading Excerpt — Chapter 1 Audio',
+    sub: 'Produced reading for retail platforms and promotional use.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 33,
+    category: 'audio',
+    title: 'Character Voices — Full Cast Demo',
+    sub: 'Short audio clips for Gradient, Adam, ReLU, Regularization.',
+    status: 'upcoming',
+    link: null
+  },
+  {
+    id: 34,
+    category: 'audio',
+    title: 'Podcast Intro Sting',
+    sub: 'Branded 2-second audio logo for podcast appearances.',
+    status: 'upcoming',
+    link: null
+  },
+];
+
+// ─── ICONS ──────────────────────────────────────────────────────────────────
+
+const ICONS = {
+  video:     `<svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>`,
+  character: `<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`,
+  script:    `<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
+  social:    `<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>`,
+  brand:     `<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+  audio:     `<svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`,
+};
+
+const ICON_TEAL = ['script', 'social', 'audio'];
+
+const STATUS_LABELS = {
+  delivered: 'Delivered',
+  progress:  'In Production',
+  upcoming:  'Coming Soon',
+};
+
+const CTA_LABELS = {
+  delivered: 'View →',
+  progress:  'In Production',
+  upcoming:  'Coming Soon',
+};
+
+// ─── STATE ──────────────────────────────────────────────────────────────────
+
+let currentFilter = 'all';
+
+// ─── VIEW TOGGLE ────────────────────────────────────────────────────────────
+
+function showView(view) {
+  const isAssets = view === 'assets';
+  document.getElementById('assets-view').style.display = isAssets ? '' : 'none';
+  document.getElementById('book-view').style.display   = isAssets ? 'none' : '';
+  document.getElementById('nav-assets').classList.toggle('active', isAssets);
+  document.getElementById('nav-book').classList.toggle('active', !isAssets);
+}
+
+// ─── LOGIN ──────────────────────────────────────────────────────────────────
+
+function handleLogin(e) {
+  e.preventDefault();
+  const input = document.getElementById('code-input').value.trim().toUpperCase();
+  const errEl = document.getElementById('login-error');
+
+  if (input === CLIENT_CODE.toUpperCase()) {
+    localStorage.setItem('qi_auth', '1');
+    localStorage.setItem('qi_client', CLIENT_NAME);
+    showPortal();
+  } else {
+    errEl.textContent = 'Incorrect code — check your welcome email.';
+    document.getElementById('code-input').style.borderColor = 'rgba(200,72,72,0.5)';
+    setTimeout(() => {
+      errEl.textContent = '';
+      document.getElementById('code-input').style.borderColor = '';
+    }, 3000);
+  }
+}
+
+function handleLogout() {
+  localStorage.removeItem('qi_auth');
+  localStorage.removeItem('qi_client');
+  document.getElementById('portal').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('code-input').value = '';
+}
+
+// ─── PORTAL ─────────────────────────────────────────────────────────────────
+
+function showPortal() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('portal').style.display = 'block';
+
+  showView('assets');
+
+  const delivered = ASSETS.filter(a => a.status === 'delivered').length;
+  document.getElementById('delivered-count').textContent = delivered;
+  document.getElementById('progress-label').textContent = `${delivered} of 100 assets delivered`;
+  document.getElementById('progress-pct').textContent = `${delivered}%`;
+
+  setTimeout(() => {
+    document.getElementById('progress-bar').style.width = delivered + '%';
+  }, 200);
+
+  updateCounts();
+  renderAssets('all');
+}
+
+function updateCounts() {
+  const cats = ['video', 'character', 'script', 'social', 'brand', 'audio'];
+  document.getElementById('count-all').textContent = ASSETS.length;
+  cats.forEach(cat => {
+    const el = document.getElementById('count-' + cat);
+    if (el) el.textContent = ASSETS.filter(a => a.category === cat).length;
+  });
+}
+
+function setFilter(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderAssets(filter);
+}
+
+function renderAssets(filter) {
+  const grid = document.getElementById('assets-grid');
+  const filtered = filter === 'all' ? ASSETS : ASSETS.filter(a => a.category === filter);
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div class="empty-state"><p>No assets in this category yet — check back soon.</p></div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(asset => {
+    const isTeal = ICON_TEAL.includes(asset.category);
+    const statusClass = 'status-' + asset.status;
+    const cardClass = asset.status === 'upcoming' ? 'asset-card upcoming' : asset.status === 'progress' ? 'asset-card progress' : 'asset-card';
+    const ctaDisabled = asset.status !== 'delivered' ? 'disabled' : '';
+    const ctaHref = asset.link && asset.status === 'delivered' ? `href="${asset.link}" target="_blank"` : '';
+    const ctaTag = asset.status === 'delivered' && asset.link ? 'a' : 'span';
+
+    return `
+      <div class="${cardClass}">
+        <div class="asset-top">
+          <div class="asset-icon ${isTeal ? 'teal' : ''}">
+            ${ICONS[asset.category] || ''}
+          </div>
+          <span class="asset-type-badge">${asset.category}</span>
+        </div>
+        <div class="asset-title">${asset.title}</div>
+        <div class="asset-sub">${asset.sub}</div>
+        <div class="asset-footer">
+          <span class="asset-status ${statusClass}">
+            <span class="status-dot"></span>
+            ${STATUS_LABELS[asset.status]}
+          </span>
+          <${ctaTag} ${ctaHref} class="asset-cta ${ctaDisabled}">${CTA_LABELS[asset.status]}</${ctaTag}>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ─── INIT ───────────────────────────────────────────────────────────────────
+
+if (localStorage.getItem('qi_auth') === '1') {
+  showPortal();
+}
+</script>
+</body>
+</html>
