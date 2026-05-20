@@ -1,0 +1,16 @@
+{
+  "name": "regularization-horoscope-agent",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "Daily horoscope agent — Regularization's voice for the Gradient Descent client portal",
+  "scripts": {
+    "generate": "node generate-horoscopes.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.30.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
