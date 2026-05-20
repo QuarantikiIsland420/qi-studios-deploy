@@ -1,6 +1,6 @@
 // generate-horoscopes.js
-// Daily agent: fetches 12 sun-sign horoscopes, rewrites each in Regularization's
-// voice from "Adventures of Gradient Descent" by A. Sarapultseva.
+// Daily agent: generates 12 sun-sign horoscopes in Regularization's voice
+// from "Adventures of Gradient Descent" by A. Sarapultseva.
 // Outputs horoscopes.json — consumed by the floating widget in the portal.
 
 import Anthropic from "@anthropic-ai/sdk";
@@ -14,45 +14,10 @@ const SIGNS = [
   "sagittarius", "capricorn", "aquarius", "pisces",
 ];
 
-// --- DATA LAYER -----------------------------------------------------------
-// Two free sources, tried in order. Both return a daily description string
-// per sun sign. If both fail we throw — better to skip the day than ship
-// hallucinated raw input to Claude.
-
-async function fetchFromHoroscopeAppApi(sign) {
-  // https://github.com/Tapasweni-Pathak/Horoscope-API style endpoint
-  const url = `https://horoscope-app-api.vercel.app/api/v1/get-horoscope/daily?sign=${sign}&day=TODAY`;
-  const res = await fetch(url, { headers: { Accept: "application/json" } });
-  if (!res.ok) throw new Error(`horoscope-app-api ${sign}: ${res.status}`);
-  const json = await res.json();
-  return json?.data?.horoscope_data;
-}
-
-async function fetchFromAztro(sign) {
-  const url = `https://aztro.sameerkumar.website/?sign=${sign}&day=today`;
-  const res = await fetch(url, { method: "POST" });
-  if (!res.ok) throw new Error(`aztro ${sign}: ${res.status}`);
-  const json = await res.json();
-  return json?.description;
-}
-
-async function fetchRawHoroscope(sign) {
-  try {
-    const text = await fetchFromHoroscopeAppApi(sign);
-    if (text) return text;
-    throw new Error("empty body");
-  } catch (err) {
-    console.warn(`[${sign}] primary failed (${err.message}), trying aztro…`);
-    const text = await fetchFromAztro(sign);
-    if (!text) throw new Error(`both sources empty for ${sign}`);
-    return text;
-  }
-}
-
 // --- VOICE LAYER ----------------------------------------------------------
 // The system prompt locks Regularization's voice using A. Sarapultseva's own
-// scenes. We pass the raw horoscope as the day's "signal" — Regularization
-// reads it and gives her own reading. ML metaphors are encouraged.
+// scenes. Regularization generates each reading from the sign's archetype
+// and the date — no external API needed.
 
 const SYSTEM_PROMPT = `You are Regularization, a character from "Adventures of Gradient Descent" by A. Sarapultseva. You are speaking to a single reader in the client portal of the book — they have just selected their sun sign and are listening.
 
@@ -76,7 +41,7 @@ You never say: "the universe," "the cosmos," "vibrations," "energy," "manifest" 
 Sentences run short. Rhythm matters. End on the lesson, not the wind-up.
 
 == YOUR TASK ==
-The reader has selected a sun sign. I will give you the day's raw astrological reading — treat this as the day's signal in the loss landscape. Read it, then give your own reading to this person, in your voice, with ML metaphors that actually clarify what the day is asking of them.
+The reader has selected a sun sign. Draw on what you know of that sign's elemental nature and archetypal tendencies — treat these as the signal in today's loss landscape. Give your reading directly to this person, in your voice, with ML metaphors that actually clarify what the day is asking of them. Each sign must receive a distinct, specific reading.
 
 == FORMAT ==
 Output ONLY a JSON object, no prose around it, no markdown fences:
@@ -86,8 +51,8 @@ Output ONLY a JSON object, no prose around it, no markdown fences:
   "constraint": "<one sentence, 6-12 words, what to hold the line on today>"
 }`;
 
-async function rewriteAsRegularization(sign, rawText) {
-  const userMessage = `Sun sign: ${sign}\n\nToday's raw reading (the signal):\n"${rawText}"\n\nGive your reading.`;
+async function rewriteAsRegularization(sign, today) {
+  const userMessage = `Sun sign: ${sign}\nDate: ${today}\n\nGive your reading.`;
 
   const response = await client.messages.create({
     model: "claude-opus-4-5",
@@ -116,8 +81,7 @@ async function main() {
   const readings = {};
   for (const sign of SIGNS) {
     try {
-      const raw = await fetchRawHoroscope(sign);
-      const reading = await rewriteAsRegularization(sign, raw);
+      const reading = await rewriteAsRegularization(sign, today);
       readings[sign] = reading;
       console.log(`✓ ${sign}: ${reading.headline}`);
     } catch (err) {
