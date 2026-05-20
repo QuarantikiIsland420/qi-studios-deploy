@@ -1550,56 +1550,55 @@ if (localStorage.getItem('qi_auth') === '1') {
   /* ── Regularization widget ──────────────────────────────────────────── */
   .reg-widget {
     position: fixed;
-    bottom: 1.5rem;
+    top: 1.2rem;
     right: 1.5rem;
     z-index: 9999;
     font-family: "DM Mono", ui-monospace, monospace;
-    color: #f4ecd8; /* warm cream */
+    color: #f4ecd8;
     --reg-ink: #f4ecd8;
-    --reg-ground: #0c1410; /* deep forest green-black */
-    --reg-line: rgba(244, 236, 216, 0.22);
-    --reg-gold: #b89968; /* aged gold */
+    --reg-ground: #0c1410;
+    --reg-line: rgba(244, 236, 216, 0.28);
+    --reg-gold: #c8a84b;
     --reg-teal: #4a7a72;
   }
 
-  /* Collapsed tab — a vertical strip, like a margin annotation */
+  /* Collapsed tab — horizontal pill */
   .reg-widget__tab {
     background: var(--reg-ground);
     color: var(--reg-ink);
-    border: 1px solid var(--reg-line);
-    padding: 0.9rem 0.75rem;
+    border: 1px solid var(--reg-gold);
+    padding: 0.6rem 1.2rem;
     cursor: pointer;
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    font-size: 0.68rem;
-    letter-spacing: 0.28em;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    transition: border-color 220ms ease, color 220ms ease;
+    transition: border-color 220ms ease, color 220ms ease, background 220ms ease;
     user-select: none;
+    box-shadow: 0 0 18px -6px rgba(200, 168, 75, 0.35);
   }
   .reg-widget__tab:hover {
-    border-color: var(--reg-gold);
+    background: rgba(200, 168, 75, 0.1);
     color: var(--reg-gold);
   }
   .reg-widget__tab::before {
     content: "∇";
-    display: block;
     color: var(--reg-gold);
     font-family: "Cormorant Garamond", Georgia, serif;
-    font-size: 1.1rem;
-    text-align: center;
-    margin-bottom: 0.5rem;
-    writing-mode: horizontal-tb;
+    font-size: 1.25rem;
+    line-height: 1;
   }
 
-  /* Expanded panel */
+  /* Expanded panel — drops down from top right */
   .reg-widget__panel {
     display: none;
-    width: min(360px, calc(100vw - 3rem));
-    max-height: min(620px, calc(100vh - 3rem));
+    width: min(400px, calc(100vw - 3rem));
+    max-height: min(640px, calc(100vh - 5rem));
     background: var(--reg-ground);
     border: 1px solid var(--reg-line);
-    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(200, 168, 75, 0.12);
     flex-direction: column;
     overflow: hidden;
   }
@@ -1742,7 +1741,7 @@ if (localStorage.getItem('qi_auth') === '1') {
   }
 
   @media (max-width: 480px) {
-    .reg-widget { bottom: 1rem; right: 1rem; }
+    .reg-widget { top: 0.75rem; right: 0.75rem; }
   }
 </style>
 
