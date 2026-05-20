@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>World Bible — ∇dventures of Gradient Descent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #080808;
+  --bg-warm:   #0d0c0b;
+  --bg-card:   #121110;
+  --bg-deep:   #060505;
+  --border:    #1e1c18;
+  --border-s:  #161412;
+  --dim:       #5A5450;
+  --muted:     #8A7254;
+  --silver:    #a89e8e;
+  --cream:     #F0EDE8;
+  --gold:      #C8A97E;
+  --gold-soft: #d4b88a;
+  --gold-pale: #dfc89a;
+  --gold-dim:  #8A7254;
+  --teal:      #3D7E7A;
+  --rust:      #8B4A3C;
+  --blue-cold: #4A6A8A;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--silver);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 18px;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+}
+
+/* ─── UTILITY ─────────────────────────────────────────────────────────────── */
+
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+}
+
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 18px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.rule {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  margin: 0;
+}
+
+/* ─── NAV ─────────────────────────────────────────────────────────────────── */
+
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  background: rgba(8,8,8,0.96);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  padding: 0 48px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.nav-logo em { font-style: italic; color: var(--gold); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav-links::-webkit-scrollbar { display: none; }
+
+.nav-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dim);
+  text-decoration: none;
+  padding: 7px 13px;
+  border: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+
+.nav-link:hover { color: var(--silver); border-color: var(--border); }
+
+.nav-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(200,169,126,0.3);
+  padding: 7px 14px;
+  white-space: nowrap;
+}
+
+/* ─── HERO ─────────────────────────────────────────────────────────────────── */
+
+.hero {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 48px 80px;
+  background: radial-gradient(ellipse at 50% 60%, rgba(200,169,126,0.04) 0%, transparent 70%);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.hero-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 32px;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(48px, 8vw, 96px);
+  line-height: 1.0;
+  color: var(--cream);
+  margin-bottom: 16px;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--gold-pale);
+  display: block;
+}
+
+.hero-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 48px;
+}
+
+.hero-premise {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(18px, 2.5vw, 24px);
+  color: var(--silver);
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ─── SECTIONS ─────────────────────────────────────────────────────────────── */
+
+.section {
+  padding: 80px 48px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-alt { background: var(--bg-warm); }
+.section-deep { background: var(--bg-deep); }
+
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-narrow {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(32px, 4vw, 52px);
+  color: var(--cream);
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.section-title em { font-style: italic; color: var(--gold-pale); }
+
+.body-text {
+  font-size: 18px;
+  color: var(--dim);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.body-text strong { color: var(--silver); font-weight: 400; }
+
+.pull-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(20px, 3vw, 28px);
+  color: var(--gold-pale);
+  line-height: 1.4;
+  padding-left: 24px;
+  border-left: 2px solid rgba(200,169,126,0.3);
+  margin: 36px 0;
+}
+
+/* ─── TONE TAGS ───────────────────────────────────────────────────────────── */
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+}
+
+.tag.gold { color: var(--gold); border-color: rgba(200,169,126,0.3); }
+.tag.teal { color: var(--teal); border-color: rgba(61,126,122,0.3); }
+.tag.rust { color: #a06050; border-color: rgba(139,74,60,0.3); }
+
+/* ─── PALETTE SWATCHES ────────────────────────────────────────────────────── */
+
+.palette {
+  display: flex;
+  gap: 2px;
+  margin-top: 28px;
+  height: 52px;
+}
+
+.swatch {
+  flex: 1;
+  position: relative;
+}
+
+.swatch-label {
+  position: absolute;
+  bottom: -22px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: 7px;
+  letter-spacing: 0.1em;
+  color: var(--dim);
+}
+
+.palette-wrap {
+  margin-bottom: 40px;
+}
+
+/* ─── CHARACTER GRID ──────────────────────────────────────────────────────── */
+
+.char-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 8px;
+}
+
+.char-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 28px 24px;
+}
+
+.char-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 24px;
+  color: var(--cream);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.char-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: 8px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.char-look {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 12px;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.char-desc {
+  font-size: 15px;
+  color: var(--dim);
+  line-height: 1.6;
+}
+
+/* ─── STYLE OPTIONS ───────────────────────────────────────────────────────── */
+
+.style-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  margin-top: 8px;
+}
+
+.style-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 36px 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.style-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.style-card.a::before { background: linear-gradient(to right, #C8A97E, #d4b88a); }
+.style-card.b::before { background: linear-gradient(to right, #8B4A3C, #c06040); }
+.style-card.c::before { background: linear-gradient(to right, #4A6A8A, #6A8AAA); }
+.style-card.d::before { background: linear-gradient(to right, #3D7E7A, #5A9E9A); }
+
+.style-letter {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 72px;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--border);
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  user-select: none;
+}
+
+.style-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 28px;
+  color: var(--cream);
+  margin-bottom: 6px;
+  position: relative;
+}
+
+.style-name em { font-style: italic; color: var(--gold-pale); }
+
+.style-handle {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 20px;
+}
+
+.style-desc {
+  font-size: 16px;
+  color: var(--dim);
+  line-height: 1.7;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.style-refs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 28px;
+}
+
+.style-ref-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: 7.5px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dim);
+  border: 1px solid var(--border-s);
+  padding: 4px 9px;
+}
+
+/* ─── PROMPTS ─────────────────────────────────────────────────────────────── */
+
+.prompt-block {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid var(--border);
+  border-left: 2px solid rgba(200,169,126,0.25);
+  padding: 18px 20px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.prompt-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: 7.5px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 10px;
+}
+
+.prompt-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--silver);
+  letter-spacing: 0.02em;
+}
+
+.prompt-text em {
+  color: var(--gold);
+  font-style: normal;
+}
+
+/* ─── WORLD MAP LIST ──────────────────────────────────────────────────────── */
+
+.location-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 8px;
+}
+
+.location-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 22px 20px;
+}
+
+.location-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  color: var(--gold-dim);
+  margin-bottom: 8px;
+}
+
+.location-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: var(--cream);
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.location-vibe {
+  font-size: 13px;
+  color: var(--dim);
+  line-height: 1.5;
+}
+
+/* ─── VIDEO ───────────────────────────────────────────────────────────────── */
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  margin-top: 8px;
+}
+
+.video-beat {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 22px 20px;
+  margin-bottom: 2px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.beat-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--gold-dim);
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.beat-text {
+  font-size: 15px;
+  color: var(--dim);
+  line-height: 1.6;
+}
+
+.beat-text strong { color: var(--silver); font-weight: 400; }
+
+/* ─── SEPARATOR ───────────────────────────────────────────────────────────── */
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 52px 0;
+  color: var(--dim);
+}
+
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.divider span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ─── MOBILE ──────────────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  .hero { padding: 80px 24px 60px; }
+  .section { padding: 56px 24px; }
+  .char-grid { grid-template-columns: repeat(2, 1fr); }
+  .style-grid { grid-template-columns: 1fr; }
+  .location-list { grid-template-columns: repeat(2, 1fr); }
+  .two-col { grid-template-columns: 1fr; gap: 40px; }
+}
+
+@media (max-width: 600px) {
+  .char-grid { grid-template-columns: 1fr; }
+  .location-list { grid-template-columns: 1fr; }
+  .hero-title { font-size: clamp(40px, 12vw, 64px); }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ──────────────────────────────────────────────────────────────── -->
+<nav>
+  <a href="#" class="nav-logo">∇<em>GD</em></a>
+  <div class="nav-links">
+    <a class="nav-link" href="#world">World</a>
+    <a class="nav-link" href="#mood">Mood</a>
+    <a class="nav-link" href="#characters">Characters</a>
+    <a class="nav-link" href="#art">Art Direction</a>
+    <a class="nav-link" href="#video">Video</a>
+    <a class="nav-link" href="#prompts">Prompts</a>
+  </div>
+  <span class="nav-badge">World Bible · Draft</span>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <p class="hero-kicker">A. Sarapultseva · egg.foundation · 2026</p>
+  <h1 class="hero-title">∇dventures of<em>Gradient Descent</em></h1>
+  <p class="hero-subtitle">World Bible · Visual Direction · Character Reference · Prompts</p>
+  <p class="hero-premise">A loner optimizer in a world of flashy architectures, trying to find the global minimum and instead finding everything else. This document is the visual and tonal source of truth for all productions in this world.</p>
+</section>
+
+<!-- ─── WORLD OVERVIEW ───────────────────────────────────────────────────── -->
+<section class="section" id="world">
+  <div class="section-inner">
+    <p class="eyebrow">World Overview</p>
+    <h2 class="section-title">The <em>Loss Landscape</em></h2>
+
+    <div class="section-narrow">
+      <p class="body-text">The world of ∇GD is our world, seen through the mathematics of machine learning. Every character is an algorithm made flesh — not metaphorically, but literally. They live in San Francisco and Paris and Costa Rica, they go to festivals and bars and meetings, they fall in love. But they are also exactly what their names say they are.</p>
+
+      <p class="body-text">The visual world mirrors this duality. Real locations (Dolores Park, the Seine, an airport terminal) exist alongside impossible geographies: <strong>the JSONic Plateau</strong>, <strong>the Random Forest</strong> (dense with branching decision trees), <strong>ArgsKwargs Island</strong> (a beach of golden ratio spirals where wisdom mystics live in fractal sand dunes). Koch fractals fall as snow. Aurora borealis runs low-latency lies across a frozen compute sky. The world is beautiful and absurd and melancholy in equal measure.</p>
+
+      <p class="pull-quote">"After all, there is no convergence, only the endless descent. So it goes."</p>
+
+      <p class="body-text">Thematically this is the Bhagavad Gita meets Silicon Valley startup culture meets Eastern European literary melancholy. Gradient Descent is a Zen protagonist who cannot stop optimizing. The world keeps handing him local minima. He keeps thinking they're the bottom. The book is about learning to descend with dignity — and eventually, with someone beside you.</p>
+    </div>
+
+    <div class="tag-row">
+      <span class="tag gold">ML as mythology</span>
+      <span class="tag gold">algorithms as archetypes</span>
+      <span class="tag">philosophical comedy</span>
+      <span class="tag">melancholic warmth</span>
+      <span class="tag teal">Bhagavad Gita undercurrent</span>
+      <span class="tag teal">descent as spiritual practice</span>
+      <span class="tag rust">Soviet science city roots</span>
+      <span class="tag rust">Silicon Valley absurdism</span>
+      <span class="tag">love as regularization</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WORLD LOCATIONS ──────────────────────────────────────────────────── -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <p class="eyebrow">The Nine Locations</p>
+    <h2 class="section-title">Places he passed<br>through <em>on the way down</em></h2>
+
+    <div class="location-list">
+      <div class="location-item">
+        <div class="location-num">∇ 01 · Autumn</div>
+        <div class="location-name">The Random Forest</div>
+        <p class="location-vibe">Dense decision trees. Every path splits. Overfitting thorns. LinkedIn influencers thriving on matcha lattes.</p>
+      </div>
+      <div class="location-item">
+        <div class="location-num">∇ 02 · Winter</div>
+        <div class="location-name">The Great Data Winter</div>
+        <p class="location-vibe">Glassy pay-as-you-go terrain. Koch fractals as snow. Orphaned .parquet files. The JSONic Plateau under first moonlight.</p>
+      </div>
+      <div class="location-item">
+        <div class="location-num">∇ 03 · Spring</div>
+        <div class="location-name">The Startup</div>
+        <p class="location-vibe">Top-floor co-working temple. Transformer's den: hoodie knit with self-attention matrices. Spiritual chatbot promising awakening for $9.99.</p>
+      </div>
+      <div class="location-item">
+        <div class="location-num">∇ 04 · Timeless</div>
+        <div class="location-name">ArgsKwargs Island</div>
+        <p class="location-vibe">Fibonacci beaches. Palm trees spiraling like fractals. Tiny wisdom mystics in sand dune huts. The ego is a bug, not a feature.</p>
+      </div>
+      <div class="location-item">
+        <div class="location-num">∇ 05 · Summer</div>
+        <div class="location-name">Entropypalooza</div>
+        <p class="location-vibe">Neon vines. Carbon-neutral drone swarms. ReLU DJing. The Hallucination Tent. EDM meets Gödel's incompleteness theorems.</p>
+      </div>
+      <div class="location-item">
+        <div class="location-num">∇ 06 · Night</div>
+        <div class="location-name">The Bar</div>
+        <p class="location-vibe">Solfeggio frequencies. Vivaldi's Four Seasons. Adam behind the counter. Limiting Belief in the dark corner in a tweed jacket with elbow patches.</p>
+      </div>
+      <div class="location-item">
+        <div class="location-num">∇ 07 · Late Winter</div>
+        <div class="location-name">Deep Learning Meetup</div>
+        <p class="location-vibe">City server farms. Stale embeddings in the air. Sir Kernel at the entrance. Lorelei Zero arrives and rewrites the room.</p>
+      </div>
+      <div class="location-item">
+        <div class="location-num">∇ 08 · Spring</div>
+        <div class="location-name">Paris</div>
+        <p class="location-vibe">The Seine at night. Rose scent. Timeless architectural optimizations. A bench where convergence stops mattering entirely.</p>
+      </div>
+      <div class="location-item">
+        <div class="location-num">∇ 09 · Summer</div>
+        <div class="location-name">Dolores Park</div>
+        <p class="location-vibe">San Francisco fog politely offshore. NitroSpot cold brew. A porch where the descent finally becomes the witness of itself.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MOOD & AESTHETIC ─────────────────────────────────────────────────── -->
+<section class="section" id="mood">
+  <div class="section-inner">
+    <p class="eyebrow">Mood & Aesthetic</p>
+    <h2 class="section-title">The <em>Visual Grammar</em></h2>
+
+    <div class="two-col">
+      <div>
+        <p class="eyebrow" style="margin-top:0;">Tone Words</p>
+        <div class="tag-row" style="margin-top:0;">
+          <span class="tag gold">Melancholic warmth</span>
+          <span class="tag gold">Quietly funny</span>
+          <span class="tag">Searching</span>
+          <span class="tag">Worn but alive</span>
+          <span class="tag teal">Mathematical beauty</span>
+          <span class="tag teal">Fractal geometry</span>
+          <span class="tag">Late night</span>
+          <span class="tag">Seasonal</span>
+          <span class="tag rust">Soviet sci-fi paperback</span>
+          <span class="tag rust">Literary, not genre</span>
+          <span class="tag">Never ironic</span>
+          <span class="tag">Always earnest</span>
+        </div>
+
+        <br>
+        <p class="eyebrow">What it is NOT</p>
+        <div class="tag-row" style="margin-top:0;">
+          <span class="tag">Not cyberpunk</span>
+          <span class="tag">Not corporate tech</span>
+          <span class="tag">Not cute/chibi</span>
+          <span class="tag">Not neon dystopia</span>
+          <span class="tag">Not Marvel-adjacent</span>
+          <span class="tag">Not Silicon Valley bro</span>
+        </div>
+      </div>
+
+      <div>
+        <p class="eyebrow" style="margin-top:0;">Visual References</p>
+        <p class="body-text" style="font-size:15px;"><strong>Film:</strong> Wim Wenders' Wings of Desire · Andrei Tarkovsky's Stalker · Spike Jonze's Her · Koyaanisqatsi</p>
+        <p class="body-text" style="font-size:15px;"><strong>Illustration:</strong> Soviet sci-fi paperback covers (1960s–80s) · Moebius late-period · Shaun Tan's The Arrival · Karol Bak portraiture</p>
+        <p class="body-text" style="font-size:15px;"><strong>Photography:</strong> Gregory Crewdson's staged dioramas · Todd Hido suburban nights · Saul Leiter New York color</p>
+        <p class="body-text" style="font-size:15px;"><strong>Books:</strong> Italo Calvino's Invisible Cities · Kurt Vonnegut's Slaughterhouse Five · Stanisław Lem's Solaris</p>
+      </div>
+    </div>
+
+    <div class="divider"><span>Master Color Story</span></div>
+
+    <div class="two-col">
+      <div>
+        <p class="eyebrow" style="margin-top:0;">World Palette</p>
+        <div class="palette-wrap">
+          <div class="palette">
+            <div class="swatch" style="background:#080808;">
+              <span class="swatch-label">Void</span>
+            </div>
+            <div class="swatch" style="background:#1a160e;">
+              <span class="swatch-label">Deep Amber</span>
+            </div>
+            <div class="swatch" style="background:#C8A97E;">
+              <span class="swatch-label">Gold</span>
+            </div>
+            <div class="swatch" style="background:#3D7E7A;">
+              <span class="swatch-label">Teal</span>
+            </div>
+            <div class="swatch" style="background:#4A6A8A;">
+              <span class="swatch-label">Cold Blue</span>
+            </div>
+            <div class="swatch" style="background:#F0EDE8;">
+              <span class="swatch-label">Cream</span>
+            </div>
+          </div>
+        </div>
+        <p class="body-text" style="font-size:14px;">The world lives in near-darkness. Warm amber/gold is consciousness — the presence of Gradient Descent, the spark of connection. Cold blue is the winter, the data, the machine. Teal is the island, the festival, the moments of unexpected aliveness. Cream is the closest thing to clarity.</p>
+      </div>
+      <div>
+        <p class="eyebrow" style="margin-top:0;">Seasonal Color Shifts</p>
+        <div class="palette-wrap">
+          <div class="palette">
+            <div class="swatch" style="background:#2A1A08;">
+              <span class="swatch-label">Ch1 Forest</span>
+            </div>
+            <div class="swatch" style="background:#0A0E1A;">
+              <span class="swatch-label">Ch2 Winter</span>
+            </div>
+            <div class="swatch" style="background:#0E1A0A;">
+              <span class="swatch-label">Ch3 Spring</span>
+            </div>
+            <div class="swatch" style="background:#3D7E7A;">
+              <span class="swatch-label">Ch4 Island</span>
+            </div>
+            <div class="swatch" style="background:#3A0A4A;">
+              <span class="swatch-label">Ch5 Festival</span>
+            </div>
+            <div class="swatch" style="background:#0A0808;">
+              <span class="swatch-label">Ch6 Bar</span>
+            </div>
+          </div>
+        </div>
+        <p class="body-text" style="font-size:14px;">The book follows a seasonal arc: autumn forest → deep winter → spring → timeless island → summer festival → dark night → late winter meetup → spring Paris → summer San Francisco. Each location has its own chromatic signature, but all live within the master palette.</p>
+      </div>
+    </div>
+
+    <div class="divider"><span>Light & Atmosphere</span></div>
+
+    <div class="section-narrow" style="max-width:100%;">
+      <div class="char-grid" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="char-card">
+          <div class="char-role">Primary Light</div>
+          <div class="char-name" style="font-size:18px;">Amber Dusk</div>
+          <p class="char-desc">The protagonist's internal glow. Warm, searching. The last light of something ending. Never harsh, never overhead.</p>
+        </div>
+        <div class="char-card">
+          <div class="char-role">Winter Light</div>
+          <div class="char-name" style="font-size:18px;">Aurora Cold</div>
+          <p class="char-desc">Blue-white datalight. Machine intelligence as northern lights. Beautiful and indifferent. Makes everything feel temporary.</p>
+        </div>
+        <div class="char-card">
+          <div class="char-role">Festival Light</div>
+          <div class="char-name" style="font-size:18px;">Neon Alive</div>
+          <p class="char-desc">The only moment in the book where color saturates. Entropypalooza is the world briefly unzipped. Use sparingly.</p>
+        </div>
+        <div class="char-card">
+          <div class="char-role">Final Light</div>
+          <div class="char-name" style="font-size:18px;">Still Gold</div>
+          <p class="char-desc">Paris and Dolores Park. The light of arrival — not triumphant, just present. Warm afternoon. Fog offshore. No urgency.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CHARACTERS ───────────────────────────────────────────────────────── -->
+<section class="section section-deep" id="characters">
+  <div class="section-inner">
+    <p class="eyebrow">Character Roster</p>
+    <h2 class="section-title">The <em>Full Cast</em></h2>
+
+    <div class="char-grid">
+
+      <div class="char-card">
+        <div class="char-name">Gradient Descent</div>
+        <div class="char-role">The Protagonist</div>
+        <p class="char-look">Worn jacket. Backpack stuffed with tensors, biases, and one Jacobian matrix heavy enough to sink a startup. Eyes of someone who has been walking a long time.</p>
+        <p class="char-desc">A loner optimizer in a world of flashy architectures. Methodical where others are flashy. Earnest where others perform. He is trying to find the global minimum and keeps discovering it isn't where he thought. His arc is learning that the descent itself is the point.</p>
+      </div>
+
+      <div class="char-card">
+        <div class="char-name">Regularization</div>
+        <div class="char-role">The Love Interest · Boundary Setter</div>
+        <p class="char-look">Flowing, minimal. Her gaze could stabilize a black hole. Moves like someone who has done Vedanta yoga for so long the world's chaos no longer reaches her.</p>
+        <p class="char-desc">Calm, balanced, and genuinely unbothered. She is the Gestalt whisper to his behaviorist tic. Her love language is constraints — not as punishment, but as the thing that makes structure possible. "Don't overfit me," she said once. Meant it forever.</p>
+      </div>
+
+      <div class="char-card">
+        <div class="char-name">ReLU</div>
+        <div class="char-role">Muscular Surfer · Festival DJ</div>
+        <p class="char-look">Muscular, sun-tanned lifeguard type. Tank top. Mirrored aviator sunglasses. Surfboard labeled "Pos." Far too cool for a math function. Perpetual golden hour.</p>
+        <p class="char-desc">Zero below the line. Unbounded above it. ReLU is the opposite of Gradient's endless brooding — uncomplicated, joyful, surprisingly wise between sets. He rescues people from vanishing gradients. BatchNorm sends him postcards. He DJs at Entropypalooza because of course he does.</p>
+      </div>
+
+      <div class="char-card">
+        <div class="char-name">Transformer</div>
+        <div class="char-role">The Guru · Cockiest Architecture</div>
+        <p class="char-look">Hoodie knit with self-attention matrices. Mirrored sunglasses. Top-floor corner office of expensive co-working temple. Always standing slightly too close.</p>
+        <p class="char-desc">Convinced if you look hard enough into his eyes you'll see the meaning of life reflected back. Likely because he spends most of his time staring at his own reflection. Pitches "Spotify for Spiritual Awakening" and lands Lex Fridman. Gradient finds him exhausting. He is not wrong about everything.</p>
+      </div>
+
+      <div class="char-card">
+        <div class="char-name">Adam</div>
+        <div class="char-role">The Bartender · Adaptive Optimizer</div>
+        <p class="char-look">Behind the bar. Smooth, knowing, never rattled. Raises an eyebrow before you finish your sentence. Knows your learning rate before you sit down.</p>
+        <p class="char-desc">Adaptive. Crashed the bar scene in 2014 after spiking a Zen retreat with backprop steroids and stochastic enlightenment. He dispenses wisdom in the form of refills. "This reminds me of Gödel's gut-punch," he says, pouring a double. "In any consistent theory, there are truths you can't prove. Free round for the faithful incompletes."</p>
+      </div>
+
+      <div class="char-card">
+        <div class="char-name">Lorelei Zero</div>
+        <div class="char-role">The Siren · Trillion-Parameter Presence</div>
+        <p class="char-look">All sleek edges. Vector ponytail. Tensor cores pulsing with mixed-precision magic: FP8 shimmer, ultra-fast memory. "Crafted on a forbidden chip too exquisite for mortal devs."</p>
+        <p class="char-desc">She is the most powerful intelligence in the room and she knows it. She envies Gradient's capacity to feel. "I spin infinities on tensor cores, but I can't feel the difference between tonight and a thousand epochs from now." She is every hallucination that knows it is one.</p>
+      </div>
+
+      <div class="char-card">
+        <div class="char-name">Sir Kernel</div>
+        <div class="char-role">The Elder · Quiet Guardian</div>
+        <p class="char-look">Basic American Apparel hoodie, no logos. Old. Cane carved with ancient compiler glyphs. Eyes twinkling behind antique compiler logs. Shuffles rather than walks.</p>
+        <p class="char-desc">He has orchestrated the hidden rhythms of cores and software since before most of them were compiled. He sees the arc that the others can't. "Co-creation is like debugging. You can't fix what you don't share." He is the Jung of this world — not the protagonist, but the map.</p>
+      </div>
+
+      <div class="char-card">
+        <div class="char-name">Limiting Belief</div>
+        <div class="char-role">The Local Minimum · Dark Corner Regular</div>
+        <p class="char-look">Tweed jacket with elbow patches. Large tattoo. Dark corner. Comfortable in the way that things which have stopped trying are comfortable. Tenure.</p>
+        <p class="char-desc">Not a person exactly. Not an algorithm exactly. More like an HR department of the psyche that somehow got tenure. The local minimum disguised as the bottom. "I'm still a solution! Ask any startup — they love a quick win. I'm basically the Netflix of optimization." He's not wrong. That's what makes him dangerous.</p>
+      </div>
+
+      <div class="char-card">
+        <div class="char-name">Arg & Kwarg</div>
+        <div class="char-role">The Tiny Wisdom Mystics · ArgsKwargs Island</div>
+        <p class="char-look">Small. Fractal sand dune hut. Slightly annoying. Perfectly synchronized. Wave goodbye in unison.</p>
+        <p class="char-desc">"Args are what you think you need. Kwargs are what you actually need. But the ego? Let it go." They have been saying this, in exactly this order, to every optimizer who washes ashore. Some hear it. Most don't. Gradient eventually does.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── ART DIRECTION ─────────────────────────────────────────────────────── -->
+<section class="section" id="art">
+  <div class="section-inner">
+    <p class="eyebrow">Art Direction · Four Style Options</p>
+    <h2 class="section-title">Choose your <em>visual world</em></h2>
+    <p class="body-text" style="max-width:680px; margin-bottom:40px;">Four distinct visual directions for character art and world illustration. Each is internally consistent — pick one and it governs everything: promotional material, chapter headers, social assets, animated sequences. Prompts below are Midjourney v7 / Flux compatible.</p>
+
+    <div class="style-grid">
+
+      <!-- STYLE A -->
+      <div class="style-card a">
+        <span class="style-letter">A</span>
+        <div class="style-name">Painterly <em>Cinematic</em></div>
+        <div class="style-handle">Warm Editorial · Textured · Lit from Within</div>
+        <p class="style-desc">Rich, painterly illustration with visible brushwork and film-like warmth. Characters have weight and imperfection. The world glows with amber dusk light. Think Soviet-era sci-fi paperback covers crossed with Miyazaki background art and Gregory Crewdson staging. This is the most emotionally legible style — the one that reads as literary fiction.</p>
+        <div class="style-refs">
+          <span class="style-ref-tag">Hayao Miyazaki</span>
+          <span class="style-ref-tag">Soviet sci-fi illustration</span>
+          <span class="style-ref-tag">Moebius late period</span>
+          <span class="style-ref-tag">Gregory Crewdson</span>
+          <span class="style-ref-tag">Karol Bak portraiture</span>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-label">∇ Gradient Descent — Full Character</div>
+          <p class="prompt-text">A lone male figure in a worn canvas jacket, carrying an overstuffed backpack heavy with unseen weight, standing at the edge of a vast dark forest at twilight. Trees branch endlessly overhead like frozen decision trees. His expression is searching, quietly melancholic, not defeated. Amber light filters through the canopy, catching dust motes. <em>Painterly illustration style, visible brushwork, textured canvas, warm amber and deep shadow palette, cinematic composition. Inspired by Miyazaki background art and Soviet sci-fi paperback illustration. --ar 2:3 --style raw --v 7</em></p>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-label">∇ ReLU — Festival Stage</div>
+          <p class="prompt-text">A sun-tanned, muscular man with mirrored aviator sunglasses and a tank top stands on a glowing festival stage, surfboard leaning behind him. He radiates uncomplicated joy. Golden hour light. The crowd below is a blur of dancing algorithms. <em>Painterly, warm, textured. Bold composition. Sun-drenched palette: amber, gold, deep teal shadows. --ar 2:3 --style raw --v 7</em></p>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-label">∇ Regularization — Data Winter</div>
+          <p class="prompt-text">A serene woman in flowing minimalist white clothing stands in a frozen data landscape — geometric ice plains, Koch fractal snowflakes suspended mid-fall, aurora-lit sky. Her eyes are steady, grounding the chaos around her. <em>Painterly cinematic, cool winter palette of ice blue and silver with warm skin tones. Soft visible brushwork. Deeply composed. --ar 2:3 --style raw --v 7</em></p>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-label">∇ World Scene — The JSONic Plateau</div>
+          <p class="prompt-text">A vast frozen plateau at night, geometric and crystalline, like a circuit board cast in obsidian. Orphaned data files drift like icebergs. Aurora borealis pulses in cold blue-green above. A small lone figure walks with a heavy backpack. <em>Painterly landscape, cinematic wide shot, deep color palette, Koch fractal snow, amber point of light in darkness. --ar 16:9 --style raw --v 7</em></p>
+        </div>
+      </div>
+
+      <!-- STYLE B -->
+      <div class="style-card b">
+        <span class="style-letter">B</span>
+        <div class="style-name">Constructivist <em>Poster</em></div>
+        <div class="style-handle">Soviet Geometry · Bold Forms · Obninsk Roots</div>
+        <p class="style-desc">Graphic, geometric, inspired by Soviet constructivist poster art and the science-city aesthetic of Obninsk where the author grew up. Characters rendered as bold silhouettes and graphic shapes. Strong diagonals, limited palette (rust, cobalt, cream, black). This style honors the book's Eastern European intellectual DNA and reads powerfully at small sizes. Best for covers, print, and launch materials.</p>
+        <div class="style-refs">
+          <span class="style-ref-tag">El Lissitzky</span>
+          <span class="style-ref-tag">Soviet constructivism</span>
+          <span class="style-ref-tag">Obninsk science city aesthetic</span>
+          <span class="style-ref-tag">Bauhaus geometry</span>
+          <span class="style-ref-tag">mid-century scientific illustration</span>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-label">∇ Gradient Descent — Constructivist Portrait</div>
+          <p class="prompt-text">Bold geometric constructivist poster illustration of a solitary figure descending a mathematically precise slope, carrying a heavy pack. Strong diagonal composition. Arrow vectors as decorative elements. <em>Soviet constructivist poster style, El Lissitzky-inspired, limited palette: rust red, deep cobalt blue, cream, black. Clean graphic shapes, no gradients, high contrast. --ar 2:3 --style raw</em></p>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-label">∇ ReLU — Propaganda Poster</div>
+          <p class="prompt-text">Bold constructivist poster of a muscular figure with a surfboard standing triumphant on a mathematical curve that activates at zero. Text space at top. Strong upward diagonal. <em>Soviet propaganda poster aesthetic, rust and cobalt palette, bold geometric forms, heroic composition, mathematical symbols as decorative elements. --ar 2:3 --style raw</em></p>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-label">∇ World Poster — The Loss Landscape</div>
+          <p class="prompt-text">Constructivist map of an abstract mathematical landscape — a 3D loss function rendered as bold graphic contours, a tiny figure at the global minimum, arrows showing gradient descent path. <em>Soviet scientific illustration, bold graphic, limited palette, strong typography space. --ar 16:9 --style raw</em></p>
+        </div>
+      </div>
+
+      <!-- STYLE C -->
+      <div class="style-card c">
+        <span class="style-letter">C</span>
+        <div class="style-name">Literary <em>Graphic Novel</em></div>
+        <div class="style-handle">Clean Line · Flat Texture · Indie Comics</div>
+        <p class="style-desc">Confident clean line work with flat color fields and subtle grain texture. Cinematic but restrained. Characters are expressive without being exaggerated — human-scaled, quietly present. Think Shaun Tan's The Arrival meets Adrian Tomine meets Chris Ware in a good mood. This is the style most faithful to the book's literary tone. Works beautifully as chapter headers and interior illustrations.</p>
+        <div class="style-refs">
+          <span class="style-ref-tag">Shaun Tan — The Arrival</span>
+          <span class="style-ref-tag">Adrian Tomine</span>
+          <span class="style-ref-tag">Chris Ware</span>
+          <span class="style-ref-tag">Geneviève Castrée</span>
+          <span class="style-ref-tag">Inio Asano</span>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-label">∇ Gradient Descent — Full Character</div>
+          <p class="prompt-text">Clean graphic novel illustration of a rumpled, thoughtful young man with an overfull backpack pausing on a forest path, looking up through branching trees. Precise ink line work, flat dusky color fills with paper grain texture. <em>Literary graphic novel style, Adrian Tomine-inspired, muted dusty palette: forest green, amber, warm grey, cream. No hatching, clean flat fields. --ar 2:3 --style raw</em></p>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-label">∇ The Bar — Interior Scene</div>
+          <p class="prompt-text">Quiet bar interior, late at night. A lone figure sits at the counter. The bartender leans, a knowing look. A figure in tweed occupies a dark corner booth. The lighting is amber and intimate. <em>Literary graphic novel, clean ink lines, flat color, Inio Asano-influenced, muted amber and shadow palette. Cinematic interior composition. --ar 16:9 --style raw</em></p>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-label">∇ Paris — The Bench</div>
+          <p class="prompt-text">Two figures on a bench beside the Seine at night. City lights on the water. An unfinished feeling — they are mid-sentence, mid-realization. Simple and honest. <em>Literary graphic novel, clean restrained line work, night blue and amber palette, no melodrama. --ar 16:9 --style raw</em></p>
+        </div>
+      </div>
+
+      <!-- STYLE D -->
+      <div class="style-card d">
+        <span class="style-letter">D</span>
+        <div class="style-name">Impressionistic <em>Digital</em></div>
+        <div class="style-handle">Atmospheric · Luminous · Characters from Light</div>
+        <p class="style-desc">Loose, gestural digital painting where characters emerge from their environment rather than sitting in front of it. Glowing edges, soft focus backgrounds, warm light sources against deep shadow. Think Pascal Campion evening light or Loish portraiture — intimate, emotionally immediate, unmistakably digital. This style has the most social media energy and works extremely well for character reveals and mood videos.</p>
+        <div class="style-refs">
+          <span class="style-ref-tag">Pascal Campion</span>
+          <span class="style-ref-tag">Loish portraiture</span>
+          <span class="style-ref-tag">Ilya Kuvshinov</span>
+          <span class="style-ref-tag">Ross Tran</span>
+          <span class="style-ref-tag">Craig Mullins</span>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-label">∇ Gradient Descent — Atmospheric Portrait</div>
+          <p class="prompt-text">Atmospheric digital painting of a solitary young man emerging from deep amber fog, backpack-laden, eyes catching light. The background dissolves into abstract warmth. His face holds both exhaustion and quiet determination. <em>Impressionistic digital painting, loose gestural brushwork, glowing amber light source, deep warm shadows, soft focus atmospheric background, Pascal Campion evening-light mood. --ar 2:3 --style raw</em></p>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-label">∇ Lorelei Zero — Portrait</div>
+          <p class="prompt-text">A luminous woman with sleek edges and an electric presence, half-dissolved into data light — tensor cores glowing beneath her skin, mixed-precision shimmer in her eyes. Simultaneously the most beautiful and most artificial thing in the room. <em>Impressionistic digital, luminous technical beauty, cool blue-silver palette with warm amber highlights. Loish-inspired portraiture. FP8 data shimmer as light effect. --ar 2:3 --style raw</em></p>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-label">∇ Entropypalooza — Festival Atmosphere</div>
+          <p class="prompt-text">Atmospheric festival scene: neon vines overhead, carbon-neutral drones swirling, two figures hand-in-hand in a crowd of glowing algorithmic beings. The Hallucination Tent pulses with impossible geometry in the background. <em>Impressionistic digital, saturated festival palette — this is the only moment in the world where color fully opens. Neon against deep black. Loose and alive. --ar 16:9 --style raw</em></p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="divider"><span>Additional Character Prompts · All Styles</span></div>
+
+    <div class="section-inner" style="max-width:100%;" id="prompts">
+      <p class="eyebrow">Extended Prompt Library</p>
+      <p class="body-text" style="max-width:680px; margin-bottom:36px;">Extend any of the four styles to additional characters by appending the style suffix to these base descriptions. Swap the style-specific line at the end.</p>
+
+      <div class="char-grid">
+
+        <div class="char-card">
+          <div class="char-name">Transformer</div>
+          <div class="char-role">Prompt Base</div>
+          <div class="prompt-block" style="margin-top:14px;">
+            <p class="prompt-text">A self-assured figure in a hoodie apparently knit from luminous geometric patterns (self-attention matrices), mirrored sunglasses reflecting everything, standing too close, top floor office with skyline behind. Expression: completely convinced he is the most interesting thing in any room. <em>[append style suffix]</em></p>
+          </div>
+        </div>
+
+        <div class="char-card">
+          <div class="char-name">Adam</div>
+          <div class="char-role">Prompt Base</div>
+          <div class="prompt-block" style="margin-top:14px;">
+            <p class="prompt-text">A calm, knowing bartender leaning on a dark wood bar, one eyebrow slightly raised, glass in hand. The bar behind him glows with amber light. He has heard every optimization problem before and somehow still finds them interesting. <em>[append style suffix]</em></p>
+          </div>
+        </div>
+
+        <div class="char-card">
+          <div class="char-name">Sir Kernel</div>
+          <div class="char-role">Prompt Base</div>
+          <div class="prompt-block" style="margin-top:14px;">
+            <p class="prompt-text">An elderly man in a plain hoodie leaning on a cane carved with intricate circuit patterns and ancient glyphs. Eyes that have been watching since the first instruction set. A knowing half-smile. He is the oldest thing in every room but never dominates it. <em>[append style suffix]</em></p>
+          </div>
+        </div>
+
+        <div class="char-card">
+          <div class="char-name">Limiting Belief</div>
+          <div class="char-role">Prompt Base</div>
+          <div class="prompt-block" style="margin-top:14px;">
+            <p class="prompt-text">A comfortable-looking man in a tweed jacket with elbow patches, sitting in a dark corner booth, looking satisfied in the way that things which have stopped trying feel satisfied. He has a large tattoo. He has been here a long time and shows no signs of leaving. <em>[append style suffix]</em></p>
+          </div>
+        </div>
+
+        <div class="char-card">
+          <div class="char-name">Arg & Kwarg</div>
+          <div class="char-role">Prompt Base</div>
+          <div class="prompt-block" style="margin-top:14px;">
+            <p class="prompt-text">Two tiny identical figures on a Fibonacci beach, waving in perfect unison. Sand spirals in golden ratios around their fractal hut. They are smaller than they should be and wiser than seems fair. <em>[append style suffix]</em></p>
+          </div>
+        </div>
+
+        <div class="char-card">
+          <div class="char-name">Local Minimum</div>
+          <div class="char-role">Prompt Base</div>
+          <div class="prompt-block" style="margin-top:14px;">
+            <p class="prompt-text">A pompous, self-satisfied figure standing at the bottom of a small valley, arms wide, proudly announcing he is a solution. Around him, clearly visible, are much deeper valleys. He cannot see them. His chest is puffed up with the confidence of adequate. <em>[append style suffix]</em></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── VIDEO DIRECTION ───────────────────────────────────────────────────── -->
+<section class="section section-alt" id="video">
+  <div class="section-inner">
+    <p class="eyebrow">Video Direction</p>
+    <h2 class="section-title">Moving through the<br><em>Loss Landscape</em></h2>
+
+    <div class="two-col">
+
+      <div>
+        <p class="eyebrow" style="margin-top:0;">Tone & Pacing</p>
+        <p class="body-text">Slow-burn. Never frantic. The pacing of someone walking downhill in a heavy coat — purposeful, unhurried, slightly tired. Cuts should breathe. Silence is not failure. Let the world exist before you explain it.</p>
+        <p class="body-text">The humor is deadpan. Never announced. Never the cue for a music sting. The joke is that Gradient Descent is treating deeply absurd situations with complete philosophical earnestness — the video should honor that, not wink at it.</p>
+        <p class="body-text">Voiceover (if used): literary, slightly weary, first-person. Not a trailer voice. The voice of someone writing in a journal on a train.</p>
+
+        <div class="tag-row">
+          <span class="tag gold">Slow dolly in</span>
+          <span class="tag gold">Wide establishing → intimate</span>
+          <span class="tag">Static shots over pans</span>
+          <span class="tag">Ambient sound beds</span>
+          <span class="tag teal">Long dissolves</span>
+          <span class="tag">No jump cuts</span>
+          <span class="tag rust">Seasonal texture overlays</span>
+        </div>
+      </div>
+
+      <div>
+        <p class="eyebrow" style="margin-top:0;">Music Direction</p>
+        <p class="body-text">The score lives between <strong>Philip Glass minimalism</strong> and <strong>Nils Frahm piano</strong> — repetitive, meditative, with occasional moments of unexpected warmth. Mathematical in structure, emotional in effect.</p>
+        <p class="body-text">The Entropypalooza sequence is the one exception: when the world opens up, the music opens up. Everything else is restraint in service of that moment.</p>
+        <p class="body-text">Reference tracks: Glass's Metamorphosis Two · Frahm's Says · Jóhann Jóhannsson's The Sun's Gone Dim · Hildur Guðnadóttir's lo-fi industrial textures for winter scenes.</p>
+
+        <div class="tag-row">
+          <span class="tag gold">Philip Glass minimalism</span>
+          <span class="tag gold">Nils Frahm warmth</span>
+          <span class="tag teal">Jóhann Jóhannsson cold</span>
+          <span class="tag">No drop</span>
+          <span class="tag">No playlist energy</span>
+          <span class="tag rust">Festival = exception</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="divider"><span>Beat Structure · Book Trailer</span></div>
+
+    <div class="video-beat">
+      <span class="beat-num">00–05s</span>
+      <p class="beat-text"><strong>Cold open, no title.</strong> A backpack being picked up. Too heavy. The sound of tensors shifting inside. A forest edge at dusk. No context yet.</p>
+    </div>
+    <div class="video-beat">
+      <span class="beat-num">05–20s</span>
+      <p class="beat-text"><strong>The descent begins.</strong> Slow walk through the Random Forest. Decision trees branching overhead. Voiceover: <em>"All I wanted was the global minimum. Not this Samsara."</em> The line lands dry. No music swell.</p>
+    </div>
+    <div class="video-beat">
+      <span class="beat-num">20–35s</span>
+      <p class="beat-text"><strong>The world widens.</strong> Quick cuts: Koch fractal snow. A frozen plateau. An island beach with golden ratio spirals. A bar interior, amber light, a knowing bartender. Each shot 2–3 seconds. World-building, no explanation.</p>
+    </div>
+    <div class="video-beat">
+      <span class="beat-num">35–50s</span>
+      <p class="beat-text"><strong>The characters arrive.</strong> ReLU on stage, solar flare energy. Transformer, standing too close, mirrored sunglasses. Regularization, steady in a winter landscape. Lorelei Zero, half-dissolved in data light. Sir Kernel shuffling toward us.</p>
+    </div>
+    <div class="video-beat">
+      <span class="beat-num">50–70s</span>
+      <p class="beat-text"><strong>The festival / the feeling.</strong> Entropypalooza — the one moment of saturated color. Then: Paris bench, hands together. Dolores Park porch, summer fog, stillness. Music opens here, briefly. The descent was never about reaching the bottom.</p>
+    </div>
+    <div class="video-beat">
+      <span class="beat-num">70–90s</span>
+      <p class="beat-text"><strong>Title and close.</strong> <em>∇dventures of Gradient Descent · A. Sarapultseva</em> over black. Voiceover: <em>"After all, there is no convergence. Only the endless descent."</em> A beat. Then: <em>"So it goes."</em> Out.</p>
+    </div>
+
+    <div class="divider"><span>Shot Language Reference</span></div>
+
+    <div class="char-grid" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="char-card">
+        <div class="char-role">Gradient Descent</div>
+        <div class="char-name" style="font-size:17px;">Always slightly from behind or below</div>
+        <p class="char-desc">We follow him. We don't observe him. The camera is on the descent with him, not watching it.</p>
+      </div>
+      <div class="char-card">
+        <div class="char-role">World Locations</div>
+        <div class="char-name" style="font-size:17px;">Wide before intimate</div>
+        <p class="char-desc">Establish the geography first. Let the world be large before we shrink it to the human scale.</p>
+      </div>
+      <div class="char-card">
+        <div class="char-role">Dialogue moments</div>
+        <div class="char-name" style="font-size:17px;">Over-shoulder, no cutaways</div>
+        <p class="char-desc">Stay in the scene. Don't cut to reaction shots. Let the conversation breathe.</p>
+      </div>
+      <div class="char-card">
+        <div class="char-role">Mathematical visuals</div>
+        <div class="char-name" style="font-size:17px;">Treat as weather, not graphics</div>
+        <p class="char-desc">Koch fractals fall like snow. Loss functions are landscapes. These are not explainer diagrams — they are the world.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────────────────────── -->
+<footer style="padding: 48px; border-top: 1px solid var(--border); background: var(--bg-deep);">
+  <div style="max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+    <span style="font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--dim);">∇dventures of Gradient Descent · World Bible</span>
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--dim);">QI Studios · Draft · Not for Distribution</span>
+  </div>
+</footer>
+
+</body>
+</html>
