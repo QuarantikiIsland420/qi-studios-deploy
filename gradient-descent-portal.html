@@ -3,34 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Client Portal — QI Studios</title>
+<title>∇dventures of Gradient Descent — Client Portal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:        #0e1210;
-  --bg-warm:   #111a16;
-  --bg-card:   #141e19;
-  --border:    #253028;
-  --dim:       #526058;
-  --muted:     #889890;
-  --silver:    #b8c8be;
-  --cream:     #F4EDE0;
-  --gold:      #C8882A;
-  --gold-soft: #d99838;
-  --gold-pale: #e0aa50;
-  --teal:      #3D7E7A;
-  --teal-soft: #4a9490;
+  --bg:        #080808;
+  --bg-warm:   #0d0c0b;
+  --bg-card:   #121110;
+  --border:    #1e1c18;
+  --dim:       #5A5450;
+  --muted:     #8A7254;
+  --silver:    #a89e8e;
+  --cream:     #F0EDE8;
+  --gold:      #C8A97E;
+  --gold-soft: #d4b88a;
+  --gold-pale: #dfc89a;
+  --gold-dim:  #8A7254;
 }
 
 html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--silver);
-  font-family: 'EB Garamond', Georgia, serif;
+  font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 18px;
   line-height: 1.7;
   overflow-x: hidden;
@@ -89,7 +88,7 @@ body::after {
 }
 
 .login-label {
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 9px;
   letter-spacing: 0.4em;
@@ -111,7 +110,7 @@ body::after {
 .login-title em { font-style: italic; color: var(--gold-pale); }
 
 .login-sub {
-  font-family: 'EB Garamond', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-style: italic;
   font-size: 18px;
   color: var(--dim);
@@ -127,9 +126,9 @@ body::after {
   width: 100%;
   background: rgba(255,255,255,0.03);
   border: 1px solid var(--border);
-  border-bottom-color: rgba(200,136,42,0.35);
+  border-bottom-color: rgba(200,169,126,0.35);
   color: var(--cream);
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 16px;
   letter-spacing: 0.3em;
@@ -148,19 +147,19 @@ body::after {
 }
 
 .login-input:focus {
-  border-color: rgba(200,136,42,0.6);
-  background: rgba(200,136,42,0.03);
+  border-color: rgba(200,169,126,0.6);
+  background: rgba(200,169,126,0.03);
 }
 
 .login-btn {
   width: 100%;
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 10px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--bg);
-  background: linear-gradient(135deg, #C8882A 0%, #e8c060 50%, #C8882A 100%);
+  background: linear-gradient(135deg, #C8A97E 0%, #dfc89a 50%, #C8A97E 100%);
   background-size: 200% 200%;
   animation: shimmer 4s ease infinite;
   border: none;
@@ -172,7 +171,7 @@ body::after {
 .login-btn:hover { opacity: 0.88; }
 
 .login-error {
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 9px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -201,7 +200,7 @@ body::after {
   position: sticky;
   top: 0;
   z-index: 200;
-  background: rgba(14,18,16,0.96);
+  background: rgba(8,8,8,0.96);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(10px);
   padding: 0 48px;
@@ -232,7 +231,7 @@ body::after {
 }
 
 .header-nav-btn {
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 9px;
   letter-spacing: 0.22em;
@@ -247,7 +246,7 @@ body::after {
 }
 
 .header-nav-btn:hover { color: var(--silver); }
-.header-nav-btn.active { color: var(--gold); border-color: rgba(200,136,42,0.3); }
+.header-nav-btn.active { color: var(--gold); border-color: rgba(200,169,126,0.3); }
 
 .header-actions {
   display: flex;
@@ -257,7 +256,7 @@ body::after {
 }
 
 .header-back {
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 9px;
   letter-spacing: 0.2em;
@@ -270,7 +269,7 @@ body::after {
 .header-back:hover { color: var(--cream); }
 
 .header-logout {
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 9px;
   letter-spacing: 0.2em;
@@ -298,7 +297,7 @@ body::after {
 }
 
 .progress-eyebrow {
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 9px;
   letter-spacing: 0.38em;
@@ -344,7 +343,7 @@ body::after {
 }
 
 .progress-count {
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 9px;
   letter-spacing: 0.2em;
@@ -353,7 +352,7 @@ body::after {
 }
 
 .progress-pct {
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 9px;
   letter-spacing: 0.2em;
@@ -377,7 +376,7 @@ body::after {
 .filter-bar::-webkit-scrollbar { display: none; }
 
 .filter-btn {
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 9px;
   letter-spacing: 0.22em;
@@ -412,7 +411,7 @@ body::after {
 }
 
 .filter-btn.active .filter-count {
-  background: rgba(200,136,42,0.15);
+  background: rgba(200,169,126,0.15);
   color: var(--gold);
 }
 
@@ -440,7 +439,7 @@ body::after {
   position: relative;
 }
 
-.asset-card:hover { border-color: rgba(200,136,42,0.35); }
+.asset-card:hover { border-color: rgba(200,169,126,0.35); }
 
 .asset-card.upcoming {
   opacity: 0.45;
@@ -462,8 +461,8 @@ body::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(200,136,42,0.08);
-  border: 1px solid rgba(200,136,42,0.15);
+  background: rgba(200,169,126,0.08);
+  border: 1px solid rgba(200,169,126,0.15);
   flex-shrink: 0;
 }
 
@@ -477,11 +476,11 @@ body::after {
   stroke-linejoin: round;
 }
 
-.asset-icon.teal { background: rgba(61,126,122,0.1); border-color: rgba(61,126,122,0.2); }
-.asset-icon.teal svg { stroke: var(--teal-soft); }
+.asset-icon.teal { background: rgba(138,114,84,0.1); border-color: rgba(138,114,84,0.2); }
+.asset-icon.teal svg { stroke: var(--gold-dim); }
 
 .asset-type-badge {
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 8px;
   letter-spacing: 0.25em;
@@ -501,11 +500,20 @@ body::after {
 }
 
 .asset-sub {
-  font-family: 'EB Garamond', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 15px;
   color: var(--dim);
   line-height: 1.45;
   flex: 1;
+}
+
+.asset-qr-img {
+  width: 100%;
+  max-width: 130px;
+  display: block;
+  margin: 14px 0 8px;
+  border-radius: 4px;
+  opacity: 0.92;
 }
 
 .asset-footer {
@@ -518,7 +526,7 @@ body::after {
 }
 
 .asset-status {
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 8px;
   letter-spacing: 0.2em;
@@ -535,17 +543,17 @@ body::after {
   flex-shrink: 0;
 }
 
-.status-delivered .status-dot { background: var(--gold); box-shadow: 0 0 6px rgba(200,136,42,0.5); }
+.status-delivered .status-dot { background: var(--gold); box-shadow: 0 0 6px rgba(200,169,126,0.5); }
 .status-delivered { color: var(--gold); }
 
-.status-progress .status-dot { background: var(--teal-soft); box-shadow: 0 0 6px rgba(61,126,122,0.4); animation: pulse 2s ease infinite; }
-.status-progress { color: var(--teal-soft); }
+.status-progress .status-dot { background: var(--gold-dim); box-shadow: 0 0 6px rgba(138,114,84,0.4); animation: pulse 2s ease infinite; }
+.status-progress { color: var(--gold-dim); }
 
 .status-upcoming .status-dot { background: var(--border); }
 .status-upcoming { color: var(--dim); }
 
 .asset-cta {
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 8px;
   letter-spacing: 0.22em;
@@ -594,7 +602,7 @@ body::after {
 .book-hero-inner { max-width: 820px; }
 
 .book-eyebrow {
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 9px;
   letter-spacing: 0.38em;
@@ -620,7 +628,7 @@ body::after {
 .book-headline em { font-style: italic; color: var(--gold-pale); }
 
 .book-premise {
-  font-family: 'EB Garamond', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 18px;
   color: var(--silver);
   line-height: 1.75;
@@ -635,7 +643,7 @@ body::after {
 }
 
 .book-link-primary {
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 9px;
   letter-spacing: 0.25em;
@@ -651,13 +659,13 @@ body::after {
 .book-link-primary:hover { background: var(--gold-pale); }
 
 .book-link-secondary {
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 9px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--gold);
-  border: 1px solid rgba(200,136,42,0.35);
+  border: 1px solid rgba(200,169,126,0.35);
   padding: 13px 22px;
   text-decoration: none;
   transition: border-color 0.2s, color 0.2s;
@@ -679,7 +687,7 @@ body::after {
 }
 
 .book-section-eyebrow {
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 9px;
   letter-spacing: 0.38em;
@@ -706,7 +714,7 @@ body::after {
   transition: border-color 0.25s;
 }
 
-.char-card:hover { border-color: rgba(200,136,42,0.3); }
+.char-card:hover { border-color: rgba(200,169,126,0.3); }
 
 .char-name {
   font-family: 'Cormorant Garamond', serif;
@@ -718,7 +726,7 @@ body::after {
 }
 
 .char-role {
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 8px;
   letter-spacing: 0.25em;
@@ -728,7 +736,7 @@ body::after {
 }
 
 .char-desc {
-  font-family: 'EB Garamond', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 15px;
   color: var(--dim);
   line-height: 1.55;
@@ -752,7 +760,7 @@ body::after {
 .book-subhead em { font-style: italic; color: var(--gold-pale); }
 
 .book-body {
-  font-family: 'EB Garamond', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 17px;
   color: var(--dim);
   line-height: 1.72;
@@ -766,7 +774,7 @@ body::after {
 }
 
 .pub-meta span {
-  font-family: 'Jost', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 9px;
   letter-spacing: 0.2em;
@@ -786,7 +794,7 @@ body::after {
   line-height: 1.4;
   margin-bottom: 24px;
   padding-left: 22px;
-  border-left: 2px solid rgba(200,136,42,0.3);
+  border-left: 2px solid rgba(200,169,126,0.3);
 }
 
 /* ─── ANIMATIONS ────────────────────────────────────────────────────────────── */
@@ -851,12 +859,12 @@ body::after {
 <!-- ─── LOGIN SCREEN ─────────────────────────────────────────────────────────── -->
 <div id="login-screen">
   <div class="login-card">
-    <div class="login-wordmark">QI <em>Studios</em></div>
+    <div class="login-wordmark">egg<em>.foundation</em></div>
     <div class="login-rule"></div>
-    <span class="login-label">Client Portal</span>
+    <span class="login-label">Client Portal · QI Studios</span>
 
-    <h1 class="login-title">Your work<br>is <em>waiting.</em></h1>
-    <p class="login-sub">Enter your project code to access your asset library.</p>
+    <h1 class="login-title">∇dventures of<br><em>Gradient Descent</em></h1>
+    <p class="login-sub">He just wanted to find the bottom. Not this.</p>
 
     <form class="login-form" onsubmit="handleLogin(event)">
       <div class="login-input-wrap">
@@ -875,7 +883,7 @@ body::after {
       <button type="submit" class="login-btn">Enter Portal →</button>
     </form>
 
-    <p class="login-note">Your code was included in your welcome email.<br>Questions? hello@quarantikiisland.com</p>
+    <p class="login-note">Your code was included in your welcome email.<br>Questions? quarantikiisland@gmail.com</p>
   </div>
 </div>
 
@@ -884,11 +892,12 @@ body::after {
 
   <!-- Header -->
   <header class="portal-header">
-    <a href="./index.html" class="header-logo">QI <em>Studios</em></a>
+    <a href="./index.html" class="header-logo">egg<em>.foundation</em></a>
 
     <nav class="header-nav">
       <button class="header-nav-btn active" id="nav-assets" onclick="showView('assets')">Assets</button>
       <button class="header-nav-btn" id="nav-book" onclick="showView('book')">The Book</button>
+      <a class="header-nav-btn" href="./gradient-descent-world.html">The World</a>
     </nav>
 
     <div class="header-actions">
@@ -903,9 +912,9 @@ body::after {
     <!-- Progress -->
     <section class="progress-section">
       <div class="progress-inner">
-        <p class="progress-eyebrow">Your Deliverables</p>
+        <p class="progress-eyebrow">∇dventures of Gradient Descent · Deliverables</p>
         <h2 class="progress-headline" id="progress-headline">
-          <em id="delivered-count">0</em> of 100 assets delivered.
+          <em id="delivered-count">0</em> assets delivered.
         </h2>
         <div class="progress-bar-wrap">
           <div class="progress-bar-fill" id="progress-bar" style="width: 0%"></div>
@@ -940,6 +949,9 @@ body::after {
       <button class="filter-btn" data-filter="audio" onclick="setFilter('audio', this)">
         Audio <span class="filter-count" id="count-audio">0</span>
       </button>
+      <button class="filter-btn" data-filter="qr" onclick="setFilter('qr', this)">
+        QR Codes <span class="filter-count" id="count-qr">0</span>
+      </button>
     </nav>
 
     <!-- Asset grid -->
@@ -955,8 +967,8 @@ body::after {
     <!-- Hero -->
     <section class="book-hero">
       <div class="book-hero-inner">
-        <p class="book-eyebrow">Adventures of Gradient Descent</p>
-        <h2 class="book-headline">A philosophical comedy<br>about <em>finding the minimum.</em></h2>
+        <p class="book-eyebrow">egg.foundation · A. Sarapultseva · 2026</p>
+        <h2 class="book-headline">∇dventures of<br><em>Gradient Descent</em></h2>
         <p class="book-premise">It follows the gradient descent algorithm as a character — a loner optimizer in a world of flashy architectures, trying to find the global minimum and instead finding a Data Winter love story, a spiritual chatbot startup, a music festival with a Hallucination Tent, a bar where he meets his Limiting Belief, and eventually — slowly, epoch by epoch — something like peace.</p>
         <div class="book-links">
           <a href="https://adventuresofgradientdescent.com" target="_blank" class="book-link-primary">adventuresofgradientdescent.com →</a>
@@ -1330,6 +1342,35 @@ const ASSETS = [
     status: 'upcoming',
     link: null
   },
+
+  // ── QR CODES ──
+  {
+    id: 35,
+    category: 'qr',
+    title: 'QR Code — Adventures of Gradient Descent',
+    sub: 'Direct link to your book. Print-ready, share anywhere.',
+    status: 'delivered',
+    link: './agd-assets/adventuresofgradientdescent_qr.png',
+    qr: true
+  },
+  {
+    id: 36,
+    category: 'qr',
+    title: 'QR Code — ManifestYOU',
+    sub: 'Links to ManifestYOU campaign. Ready to use.',
+    status: 'delivered',
+    link: './agd-assets/manifestyou_qr.png',
+    qr: true
+  },
+  {
+    id: 37,
+    category: 'qr',
+    title: 'QR Code — Om Gradient Namaha',
+    sub: 'Meditative brand asset. Print-ready QR.',
+    status: 'delivered',
+    link: './agd-assets/omgradientnamaha_qr.png',
+    qr: true
+  },
 ];
 
 // ─── ICONS ──────────────────────────────────────────────────────────────────
@@ -1341,9 +1382,10 @@ const ICONS = {
   social:    `<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>`,
   brand:     `<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
   audio:     `<svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`,
+  qr:        `<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="5" y="5" width="3" height="3"/><rect x="16" y="5" width="3" height="3"/><rect x="5" y="16" width="3" height="3"/><path d="M14 14h2v2h-2zM18 14h3v2h-3zM14 18h3v3h-3zM18 18h3v3h-3z"/></svg>`,
 };
 
-const ICON_TEAL = ['script', 'social', 'audio'];
+const ICON_TEAL = ['script', 'social', 'audio', 'qr'];
 
 const STATUS_LABELS = {
   delivered: 'Delivered',
@@ -1410,7 +1452,7 @@ function showPortal() {
 
   const delivered = ASSETS.filter(a => a.status === 'delivered').length;
   document.getElementById('delivered-count').textContent = delivered;
-  document.getElementById('progress-label').textContent = `${delivered} of 100 assets delivered`;
+  document.getElementById('progress-label').textContent = `${delivered} of ${ASSETS.length} assets delivered`;
   document.getElementById('progress-pct').textContent = `${delivered}%`;
 
   setTimeout(() => {
@@ -1422,7 +1464,7 @@ function showPortal() {
 }
 
 function updateCounts() {
-  const cats = ['video', 'character', 'script', 'social', 'brand', 'audio'];
+  const cats = ['video', 'character', 'script', 'social', 'brand', 'audio', 'qr'];
   document.getElementById('count-all').textContent = ASSETS.length;
   cats.forEach(cat => {
     const el = document.getElementById('count-' + cat);
@@ -1450,9 +1492,17 @@ function renderAssets(filter) {
     const isTeal = ICON_TEAL.includes(asset.category);
     const statusClass = 'status-' + asset.status;
     const cardClass = asset.status === 'upcoming' ? 'asset-card upcoming' : asset.status === 'progress' ? 'asset-card progress' : 'asset-card';
-    const ctaDisabled = asset.status !== 'delivered' ? 'disabled' : '';
-    const ctaHref = asset.link && asset.status === 'delivered' ? `href="${asset.link}" target="_blank"` : '';
-    const ctaTag = asset.status === 'delivered' && asset.link ? 'a' : 'span';
+    const isDone = asset.status === 'delivered';
+    const ctaDisabled = !isDone ? 'disabled' : '';
+    const isQR = asset.qr && isDone;
+    let ctaHtml;
+    if (isQR) {
+      ctaHtml = `<a href="${asset.link}" download target="_blank" class="asset-cta">Download →</a>`;
+    } else {
+      const ctaHref = asset.link && isDone ? `href="${asset.link}" target="_blank"` : '';
+      const ctaTag = isDone && asset.link ? 'a' : 'span';
+      ctaHtml = `<${ctaTag} ${ctaHref} class="asset-cta ${ctaDisabled}">${CTA_LABELS[asset.status]}</${ctaTag}>`;
+    }
 
     return `
       <div class="${cardClass}">
@@ -1464,12 +1514,13 @@ function renderAssets(filter) {
         </div>
         <div class="asset-title">${asset.title}</div>
         <div class="asset-sub">${asset.sub}</div>
+        ${isQR ? `<img src="${asset.link}" class="asset-qr-img" alt="${asset.title}">` : ''}
         <div class="asset-footer">
           <span class="asset-status ${statusClass}">
             <span class="status-dot"></span>
             ${STATUS_LABELS[asset.status]}
           </span>
-          <${ctaTag} ${ctaHref} class="asset-cta ${ctaDisabled}">${CTA_LABELS[asset.status]}</${ctaTag}>
+          ${ctaHtml}
         </div>
       </div>
     `;
@@ -1481,6 +1532,344 @@ function renderAssets(filter) {
 if (localStorage.getItem('qi_auth') === '1') {
   showPortal();
 }
+</script>
+
+<!--
+  REGULARIZATION WIDGET
+  ─────────────────────
+  Paste this entire block once, anywhere before the closing </body> tag of
+  gradient-descent-portal.html. It is fully self-contained: own styles
+  (scoped to .reg-widget), own script, no external dependencies.
+
+  It reads from /horoscopes.json — same repo root as the page. If you
+  host the JSON elsewhere (Netlify Blob, separate CDN, etc.) change the
+  HOROSCOPES_URL constant in the script.
+-->
+
+<style>
+  /* ── Regularization widget ──────────────────────────────────────────── */
+  .reg-widget {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 9999;
+    font-family: "DM Mono", ui-monospace, monospace;
+    color: #f4ecd8; /* warm cream */
+    --reg-ink: #f4ecd8;
+    --reg-ground: #0c1410; /* deep forest green-black */
+    --reg-line: rgba(244, 236, 216, 0.22);
+    --reg-gold: #b89968; /* aged gold */
+    --reg-teal: #4a7a72;
+  }
+
+  /* Collapsed tab — a vertical strip, like a margin annotation */
+  .reg-widget__tab {
+    background: var(--reg-ground);
+    color: var(--reg-ink);
+    border: 1px solid var(--reg-line);
+    padding: 0.9rem 0.75rem;
+    cursor: pointer;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    transition: border-color 220ms ease, color 220ms ease;
+    user-select: none;
+  }
+  .reg-widget__tab:hover {
+    border-color: var(--reg-gold);
+    color: var(--reg-gold);
+  }
+  .reg-widget__tab::before {
+    content: "∇";
+    display: block;
+    color: var(--reg-gold);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    writing-mode: horizontal-tb;
+  }
+
+  /* Expanded panel */
+  .reg-widget__panel {
+    display: none;
+    width: min(360px, calc(100vw - 3rem));
+    max-height: min(620px, calc(100vh - 3rem));
+    background: var(--reg-ground);
+    border: 1px solid var(--reg-line);
+    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.6);
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .reg-widget.is-open .reg-widget__tab { display: none; }
+  .reg-widget.is-open .reg-widget__panel { display: flex; }
+
+  .reg-widget__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 1.1rem 0.85rem;
+    border-bottom: 1px solid var(--reg-line);
+  }
+  .reg-widget__eyebrow {
+    font-size: 0.6rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--reg-gold);
+    margin: 0 0 0.35rem;
+  }
+  .reg-widget__title {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.45rem;
+    line-height: 1.1;
+    margin: 0;
+    color: var(--reg-ink);
+  }
+  .reg-widget__close {
+    background: none;
+    border: none;
+    color: var(--reg-ink);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1.1rem;
+    line-height: 1;
+    padding: 0.2rem 0.4rem;
+    opacity: 0.6;
+    transition: opacity 180ms ease;
+  }
+  .reg-widget__close:hover { opacity: 1; }
+
+  .reg-widget__body {
+    padding: 1rem 1.1rem 1.2rem;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  /* Sign picker — grid of 12 */
+  .reg-widget__intro {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    margin: 0 0 1rem;
+    color: rgba(244, 236, 216, 0.78);
+  }
+  .reg-widget__signs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+  }
+  .reg-widget__sign {
+    background: transparent;
+    border: 1px solid var(--reg-line);
+    color: var(--reg-ink);
+    font-family: "DM Mono", ui-monospace, monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.65rem 0.3rem;
+    cursor: pointer;
+    transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+  }
+  .reg-widget__sign:hover {
+    border-color: var(--reg-gold);
+    color: var(--reg-gold);
+  }
+  .reg-widget__sign.is-active {
+    background: var(--reg-gold);
+    border-color: var(--reg-gold);
+    color: var(--reg-ground);
+  }
+
+  /* Reading */
+  .reg-widget__reading { display: none; }
+  .reg-widget.has-reading .reg-widget__reading { display: block; }
+  .reg-widget__reading-headline {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    margin: 1.2rem 0 0.85rem;
+    color: var(--reg-ink);
+  }
+  .reg-widget__reading-body {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: rgba(244, 236, 216, 0.9);
+    margin: 0;
+  }
+  .reg-widget__reading-body p { margin: 0 0 0.7rem; }
+  .reg-widget__reading-body p:last-child { margin-bottom: 0; }
+
+  .reg-widget__constraint {
+    margin-top: 1.1rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--reg-line);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--reg-teal);
+    line-height: 1.5;
+  }
+  .reg-widget__constraint::before {
+    content: "Hold the line —";
+    display: block;
+    color: var(--reg-gold);
+    margin-bottom: 0.35rem;
+    letter-spacing: 0.28em;
+  }
+
+  .reg-widget__meta {
+    margin-top: 1.2rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(244, 236, 216, 0.4);
+  }
+
+  .reg-widget__error {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
+    color: rgba(244, 236, 216, 0.6);
+    font-size: 0.9rem;
+    margin: 1.2rem 0 0;
+  }
+
+  @media (max-width: 480px) {
+    .reg-widget { bottom: 1rem; right: 1rem; }
+  }
+</style>
+
+<div class="reg-widget" id="reg-widget" aria-live="polite">
+  <button class="reg-widget__tab" type="button" data-reg-open>
+    Regularization · Daily
+  </button>
+
+  <div class="reg-widget__panel" role="dialog" aria-label="Daily reading from Regularization">
+    <div class="reg-widget__head">
+      <div>
+        <p class="reg-widget__eyebrow">Daily Reading</p>
+        <h2 class="reg-widget__title">from <em>Regularization</em></h2>
+      </div>
+      <button class="reg-widget__close" type="button" data-reg-close aria-label="Close">×</button>
+    </div>
+
+    <div class="reg-widget__body">
+      <p class="reg-widget__intro">Pick your sign. Don't overfit me.</p>
+
+      <div class="reg-widget__signs" role="group" aria-label="Choose your sun sign">
+        <!-- buttons injected by script -->
+      </div>
+
+      <div class="reg-widget__reading" aria-live="polite">
+        <h3 class="reg-widget__reading-headline" data-reg-headline></h3>
+        <div class="reg-widget__reading-body" data-reg-body></div>
+        <p class="reg-widget__constraint" data-reg-constraint></p>
+      </div>
+
+      <p class="reg-widget__meta" data-reg-meta></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const HOROSCOPES_URL = "/horoscopes.json"; // change if hosted elsewhere
+    const SIGNS = [
+      "aries", "taurus", "gemini", "cancer",
+      "leo", "virgo", "libra", "scorpio",
+      "sagittarius", "capricorn", "aquarius", "pisces",
+    ];
+
+    const root = document.getElementById("reg-widget");
+    if (!root) return;
+
+    const signsEl = root.querySelector(".reg-widget__signs");
+    const headlineEl = root.querySelector("[data-reg-headline]");
+    const bodyEl = root.querySelector("[data-reg-body]");
+    const constraintEl = root.querySelector("[data-reg-constraint]");
+    const metaEl = root.querySelector("[data-reg-meta]");
+
+    let data = null;
+    let activeSign = localStorage.getItem("reg-sign") || null;
+
+    // Build the sign grid
+    SIGNS.forEach((sign) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "reg-widget__sign";
+      btn.textContent = sign;
+      btn.dataset.sign = sign;
+      btn.addEventListener("click", () => selectSign(sign));
+      signsEl.appendChild(btn);
+    });
+
+    // Open / close
+    root.querySelector("[data-reg-open]").addEventListener("click", () => {
+      root.classList.add("is-open");
+      loadData();
+    });
+    root.querySelector("[data-reg-close]").addEventListener("click", () => {
+      root.classList.remove("is-open");
+    });
+
+    async function loadData() {
+      if (data) return;
+      try {
+        const res = await fetch(HOROSCOPES_URL, { cache: "no-store" });
+        if (!res.ok) throw new Error("not available");
+        data = await res.json();
+        if (metaEl) metaEl.textContent = `Generated ${data.date}`;
+        if (activeSign) selectSign(activeSign);
+      } catch (err) {
+        showError("The signal hasn't arrived yet today. Come back in a moment.");
+      }
+    }
+
+    function selectSign(sign) {
+      activeSign = sign;
+      localStorage.setItem("reg-sign", sign);
+
+      // Highlight active button
+      root.querySelectorAll(".reg-widget__sign").forEach((b) => {
+        b.classList.toggle("is-active", b.dataset.sign === sign);
+      });
+
+      if (!data || !data.readings || !data.readings[sign]) {
+        showError("This sign isn't ready yet today.");
+        return;
+      }
+
+      const r = data.readings[sign];
+      headlineEl.textContent = r.headline || "";
+      bodyEl.innerHTML = (r.reading || "")
+        .split(/\n\n+/)
+        .map((p) => `<p>${escapeHtml(p)}</p>`)
+        .join("");
+      constraintEl.textContent = r.constraint || "";
+      root.classList.add("has-reading");
+    }
+
+    function showError(msg) {
+      headlineEl.textContent = "";
+      bodyEl.innerHTML = `<p class="reg-widget__error">${escapeHtml(msg)}</p>`;
+      constraintEl.textContent = "";
+      root.classList.add("has-reading");
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+  })();
 </script>
 </body>
 </html>
