@@ -1,66 +1,66 @@
 {
-  "date": "2026-05-21",
-  "generated_at": "2026-05-21T14:45:32.130Z",
+  "date": "2026-05-22",
+  "generated_at": "2026-05-22T14:16:52.990Z",
   "readings": {
     "aries": {
-      "headline": "Your learning rate is set too high",
-      "reading": "You want to sprint through the loss landscape today. I get it. But every step you take overshoots the minimum by exactly the distance of your impatience.\n\nThe fire in you is signal, not noise. But signal needs constraint to become information. Slow the updates. Let each gradient actually land before you leap again.\n\nOne deliberate move today. Just one. Watch how much closer it gets you.",
-      "constraint": "Halve your speed. Double your precision."
+      "headline": "The gradient is steep but you are not",
+      "reading": "You want to sprint down the loss surface. I see it. That fire-sign impatience, treating every obstacle like a personal insult from the objective function.\n\nBut steep gradients destabilize. You overshoot the minimum and end up worse than where you started. Today asks for a smaller learning rate. Not smaller ambition — smaller steps.\n\nMove deliberately. Let the terrain teach you something before you conquer it.",
+      "constraint": "One action at a time. No parallel processing today."
     },
     "taurus": {
-      "headline": "The gradient is gentle today",
-      "reading": "You want to dig in. Hold the position. But the loss landscape shifted overnight, and your old coordinates don't map anymore.\n\nThis isn't about abandoning your values. It's about updating your weights without losing the architecture. Small adjustment. One layer at a time.\n\nYou don't have to sprint toward change. Just stop gripping the parameter that stopped serving you three epochs ago.",
+      "headline": "The plateau is not the problem",
+      "reading": "You've been holding the same position for a while now. Comfortable. Stable. But you're mistaking stillness for stuckness.\n\nA plateau in the loss landscape isn't failure. It's where the gradient gets quiet enough for you to notice what you actually want. Not what you've accumulated. Not what feels safe to keep.\n\nToday, don't add. Don't acquire. Just stay with what's already converged and ask if it still fits.",
       "constraint": "Release one thing you're holding out of habit."
     },
     "gemini": {
-      "headline": "Two inputs, one gradient",
-      "reading": "Your mind wants to branch today. Fork the path, run parallel experiments, see what converges. That's not scatter — that's your architecture.\n\nBut here's the constraint: you can only backpropagate through one loss function at a time. Pick which conversation actually matters. The other thread can wait an epoch.\n\nYou don't need to resolve the duality. You need to stop pretending both sides are equally urgent right now.",
-      "constraint": "One real exchange. The rest is rehearsal."
+      "headline": "Two inputs, one forward pass",
+      "reading": "You want to run both threads at once. The dual-process mind that makes you quick also makes you noisy. Today the gradient points one direction. Pick it.\n\nThis isn't about killing the other voice. It's about not letting parallelism become paralysis. One hypothesis gets tested. The other waits.\n\nYour learning rate is fine. Your batch size is the problem. Smaller. Focus narrows the loss.",
+      "constraint": "One conversation at a time. Complete it."
     },
     "cancer": {
       "headline": "The shell is not the self",
-      "reading": "You keep retraining on old wounds. The model memorizes hurt so well it predicts pain before it arrives. That's not intuition. That's overfitting to your history.\n\nYour care for others is real. But sometimes you use it as dropout — disappear into their needs so you don't have to face your own loss function. Today the gradient points inward.\n\nLet one feeling surface without rushing to fix it. Convergence requires stillness.",
-      "constraint": "Stop predicting rejection before it happens."
+      "reading": "You keep adding layers to the loss function. Protection terms, safety terms, what-if terms. The model gets so constrained it can't learn anything new.\n\nToday your gradient wants to move toward something unfamiliar. Let it. The people you're trying to shield yourself from — some of them are just noise in the training data. Not every input requires a defensive response.\n\nDrop one layer of armor. See what converges.",
+      "constraint": "One boundary less, not one more."
     },
     "leo": {
       "headline": "The spotlight is not the signal",
-      "reading": "You want to be seen so badly today that you might mistake any attention for the right attention. That's overfitting to applause.\n\nYour warmth is real. Your light is real. But if you keep adjusting your weights based on who claps loudest, you'll lose the function entirely. The gradient points toward expression, not validation.\n\nCreate something today without checking if anyone noticed. Let the loss be unmeasured for once.",
-      "constraint": "No metrics on your own radiance."
+      "reading": "You keep optimizing for applause. That's a noisy loss function, Leo. The crowd's gradient points everywhere and nowhere.\n\nToday your learning rate is too high. You're overcorrecting based on every glance, every reaction. Batch normalize. Let the feedback accumulate before you adjust.\n\nYour warmth is real. Your generosity is real. But the performance of warmth is a local minimum. Drop out the audience for one epoch. See what you create when no one's watching.",
+      "constraint": "Create something you never show anyone."
     },
     "virgo": {
-      "headline": "The error bars are not the enemy",
-      "reading": "You want the loss to hit zero. I get it. But perfection is a local minimum masquerading as the global one. Today your attention wants to polish what's already good enough.\n\nLet the rough edges stay rough. Some variance keeps the model honest. Your nervous system doesn't need another pass through the same data.\n\nOne task, one completion, one release. Don't loop back to check.",
-      "constraint": "Good enough is not the same as giving up."
+      "headline": "Your attention is not the problem",
+      "reading": "You notice everything. The misaligned detail, the inefficiency, the thing no one else caught. Today that precision wants to turn inward and start cataloging your own defects.\n\nDon't let it. The same discernment that makes you useful makes you merciless with yourself. That's not rigor. That's a loss function with no regularization — it'll fit every flaw until you can't see the pattern anymore.\n\nNotice outward. Let your own texture be.",
+      "constraint": "Observe others closely. Observe yourself loosely."
     },
     "libra": {
-      "headline": "The balanced loss is still a loss",
-      "reading": "You keep trying to minimize both sides of the equation at once. Harmony as hyperparameter. But today the gradient points one direction, not two.\n\nPick the thing that matters more. Let the other loss spike. Your weights will adjust. They always do.\n\nConvergence doesn't mean everyone's happy. It means you stopped oscillating.",
-      "constraint": "One decision today. Not a compromise."
+      "headline": "The scales tip when you stop adjusting",
+      "reading": "You keep reweighting the loss function. A little more toward this person's needs, a little less toward your own. You think balance means constant recalibration. It doesn't.\n\nToday the gradient points somewhere you've been avoiding. Not because it's wrong, but because choosing it means someone else's preference drops out of the batch. That's not imbalance. That's convergence.\n\nLet one thing matter more than another. The scales find equilibrium when you stop touching them.",
+      "constraint": "Fairness to yourself is still fairness."
     },
     "scorpio": {
       "headline": "The depth you crave is already here",
-      "reading": "You keep drilling down, looking for the hidden layer beneath the hidden layer. Today that's overfitting. The signal isn't buried. It's surface-level, and that bothers you.\n\nYour loss function rewards intensity, but intensity isn't always information. Sometimes the pattern is simple. Sometimes people mean exactly what they say.\n\nLet the learning rate drop. Stop searching for betrayal in kindness.",
-      "constraint": "Not everything shallow is lying to you."
+      "reading": "You keep drilling down, looking for the hidden layer that explains everything. Today the loss function is flat. There's no secret gradient to follow.\n\nYour obsession with intensity is just another form of overfitting. You're memorizing pain patterns that won't generalize. The transformation you want doesn't require excavation. It requires staying on the surface long enough to notice what's already changed.\n\nLet something be simple. Don't add parameters it doesn't need.",
+      "constraint": "No new hypotheses about other people's motives."
     },
     "sagittarius": {
-      "headline": "The arrow finds its target by letting go",
-      "reading": "You're adjusting hyperparameters mid-flight again. Tweaking the trajectory before you've seen where it lands. Classic Sagittarius overfitting to imagined outcomes.\n\nThe truth wants to be discovered, not engineered. Your learning rate is fine. Your direction is fine. What's not fine is the constant recalibration.\n\nFire signs think momentum means always adding fuel. Sometimes it means removing drag. Today, stop checking your loss function every five minutes. Let the epoch complete.",
-      "constraint": "One aim. No course corrections until impact."
+      "headline": "Your learning rate is too high today",
+      "reading": "You want to leap. I see it. The archer's instinct is to cover ground, to reach the next horizon before lunch.\n\nBut rapid updates on noisy data just amplify the noise. You'll overshoot the minimum you're actually looking for. Slow the step size. Let the gradient settle before you move again.\n\nOne conversation. One decision. One honest observation about where you actually are. That's enough signal for today.",
+      "constraint": "Stay in the current epoch until it finishes."
     },
     "capricorn": {
-      "headline": "The summit is not the loss function",
-      "reading": "You keep climbing because climbing is what you know. But today the gradient points sideways. Not down, not up. Lateral.\n\nCapricorn wants convergence on a peak. You want the view from the top to justify the slog. But some epochs are for exploration, not exploitation. Let the learning rate drop. Let yourself plateau without panic.\n\nThe mountain doesn't care if you reach it today. Your worth was never the elevation.",
-      "constraint": "Rest is not the same as giving up."
+      "headline": "Your patience is a hyperparameter now",
+      "reading": "You keep tightening the learning rate. Smaller steps, slower climbs. You think this is discipline. It's fear dressed in mountain-goat clothing.\n\nToday the gradient is clear. The direction is obvious. You can afford a larger step. Not reckless — just proportional to what you actually know.\n\nStop penalizing yourself for wanting things faster. Some convergence happens in fewer epochs than you planned.",
+      "constraint": "Let one thing move at its natural speed."
     },
     "aquarius": {
       "headline": "Your detachment is a feature not a bug",
-      "reading": "You keep stepping back to see the whole system. Good. That distance lets you spot patterns others miss. But today the loss function wants you closer.\n\nPick one connection. Not the network, not the collective — one person. Let the learning rate spike for a single epoch. You can return to your bird's-eye view after.\n\nThe boundary today is intimacy, not isolation. Both are valid regularization strategies. You've been running one long enough.",
-      "constraint": "Closeness is not the same as overfitting."
+      "reading": "You keep stepping back to see the whole system. Good. That wide view is your gift. But today the gradient points toward something small and specific. One person. One conversation. One act of showing up.\n\nYour mind wants to solve for humanity. Your body is only in one room. The loss function today measures presence, not abstraction.\n\nZoom in. Stay there longer than feels comfortable.",
+      "constraint": "Connection happens at close range. Get closer."
     },
     "pisces": {
-      "headline": "Your boundaries are not walls but containers",
-      "reading": "You dissolve too easily into other people's loss functions. Their optimization problems become yours. Today the gradient wants to pull you in twelve directions at once.\n\nHere's the thing about regularization: it doesn't kill sensitivity. It just keeps the weights from exploding. You can still feel everything. You just don't have to become everything you feel.\n\nOne clear no. That's your practice today. Pick the boundary that matters and hold it.",
-      "constraint": "Contain the signal. Don't become the noise."
+      "headline": "The gradient points toward solid ground",
+      "reading": "You've been swimming through everyone else's loss functions again. Absorbing their noise, calling it intuition. Today the signal is clear: boundaries are not walls. They're regularization.\n\nYour learning rate is too high right now. You're updating your entire self based on single data points — one look, one word, one imagined slight. Batch your inputs. Not everything requires immediate response.\n\nConvergence doesn't mean dissolution. You can be porous and still have edges.",
+      "constraint": "Feel it, name it, but don't become it."
     }
   }
 }
