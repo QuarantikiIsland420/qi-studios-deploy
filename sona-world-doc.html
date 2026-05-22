@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The SONA World Document — QI Studios × Sonokinetic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #060608;
+  --bg-warm:  #0a0a0e;
+  --card:     #0d0d12;
+  --border:   rgba(224,120,32,0.14);
+  --border-s: rgba(224,120,32,0.08);
+  --cream:    #F0EDE8;
+  --silver:   #b8b8c0;
+  --dim:      #60606a;
+  --orange:   #E07820;
+  --orange-s: #F09040;
+  --orange-p: rgba(224,120,32,0.06);
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-serif; font-size: 15px; line-height: 1.7; overflow-x: hidden; }
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999; opacity: 0.35; mix-blend-mode: overlay;
+}
+
+/* ── NAV ─────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  padding: 16px 52px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(6,6,8,0.95); border-bottom: 1px solid var(--border-s);
+  backdrop-filter: blur(12px);
+}
+.nav-left { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.nav-qi { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--cream); letter-spacing: 0.06em; }
+.nav-studios { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 16px; color: var(--orange); }
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-link { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dim); text-decoration: none; transition: color 0.25s; }
+.nav-link:hover { color: var(--orange); }
+.nav-badge { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); opacity: 0.6; border: 1px solid var(--border); padding: 5px 12px; }
+
+/* ── HERO ─────────────────────────────────────────────── */
+.hero {
+  position: relative; min-height: 100svh;
+  display: flex; align-items: flex-end;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('./sona-establishing.png');
+  background-size: cover; background-position: center 40%;
+  filter: brightness(0.22) saturate(0.75);
+}
+.hero-gradient {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, var(--bg) 0%, transparent 60%);
+}
+.hero-inner {
+  position: relative; z-index: 2;
+  max-width: 1040px; margin: 0 auto; padding: 0 64px 80px;
+  width: 100%;
+}
+.hero-kicker { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--orange); opacity: 0.65; margin-bottom: 24px; display: flex; align-items: center; gap: 14px; }
+.hero-kicker::before { content: ''; width: 24px; height: 1px; background: var(--orange); opacity: 0.5; }
+.hero-title { font-family: 'Cinzel', serif; font-weight: 400; font-size: clamp(40px, 7vw, 88px); color: var(--cream); line-height: 1.0; letter-spacing: 0.04em; margin-bottom: 12px; }
+.hero-title em { display: block; font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 4.5vw, 58px); color: var(--orange-s); font-weight: 300; }
+.hero-rule { width: 48px; height: 1px; background: var(--orange); opacity: 0.4; margin: 28px 0; }
+.hero-desc { font-family: 'Cormorant Garamond', serif; font-size: clamp(17px, 2vw, 22px); color: var(--silver); line-height: 1.75; max-width: 620px; }
+
+/* ── SECTIONS ─────────────────────────────────────────── */
+.section { padding: 100px 0; border-top: 1px solid var(--border-s); }
+.section-alt { background: var(--bg-warm); }
+.inner { max-width: 1040px; margin: 0 auto; padding: 0 64px; }
+.eyebrow {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.35em;
+  text-transform: uppercase; color: var(--orange); opacity: 0.65;
+  display: flex; align-items: center; gap: 16px; margin-bottom: 40px;
+}
+.eyebrow::before, .eyebrow::after { content: ''; width: 22px; height: 1px; background: var(--orange); opacity: 0.35; }
+.section-title {
+  font-family: 'Cinzel', serif; font-weight: 400;
+  font-size: clamp(26px, 3.5vw, 44px); color: var(--cream);
+  line-height: 1.15; letter-spacing: 0.04em; margin-bottom: 48px;
+}
+.section-title em { font-style: italic; font-family: 'Cormorant Garamond', serif; color: var(--orange-s); }
+.body-text { font-family: 'Cormorant Garamond', serif; font-size: 19px; color: var(--silver); line-height: 1.8; margin-bottom: 24px; }
+.pull-quote {
+  border-left: 2px solid rgba(224,120,32,0.4); padding: 20px 28px;
+  font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 22px;
+  color: var(--orange-s); line-height: 1.5; margin: 40px 0;
+}
+
+/* ── ZONES ─────────────────────────────────────────────── */
+.zone-grid { display: flex; flex-direction: column; gap: 2px; }
+.zone-row {
+  display: grid; grid-template-columns: 1fr 2fr; gap: 2px;
+  background: var(--card); border: 1px solid var(--border); border-left: 3px solid rgba(224,120,32,0.35);
+  overflow: hidden; text-decoration: none; transition: border-color 0.3s;
+}
+.zone-row:hover { border-left-color: var(--orange); }
+.zone-num-col { padding: 40px 36px; border-right: 1px solid var(--border-s); display: flex; flex-direction: column; justify-content: center; }
+.zone-num { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.25em; color: var(--orange); opacity: 0.55; margin-bottom: 10px; }
+.zone-name { font-family: 'Cinzel', serif; font-weight: 400; font-size: 22px; color: var(--cream); letter-spacing: 0.04em; line-height: 1.2; margin-bottom: 8px; }
+.zone-tag { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; color: var(--orange-s); }
+.zone-body-col { padding: 40px 48px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+.zone-feel { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--silver); line-height: 1.75; }
+.zone-catalog { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); opacity: 0.55; }
+.zone-link { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); opacity: 0.4; margin-top: 4px; transition: opacity 0.25s; }
+.zone-row:hover .zone-link { opacity: 0.8; }
+
+/* ── CHARACTERS ─────────────────────────────────────────── */
+.char-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; }
+.char-card {
+  background: var(--card); border: 1px solid var(--border); overflow: hidden;
+  text-decoration: none; display: block; transition: border-color 0.3s;
+}
+.char-card:hover { border-color: rgba(224,120,32,0.4); }
+.char-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top; filter: brightness(0.78) saturate(0.85); transition: filter 0.5s; display: block; }
+.char-card:hover .char-img { filter: brightness(0.9) saturate(1); }
+.char-img-placeholder { width: 100%; aspect-ratio: 3/4; background: var(--bg); display: flex; align-items: center; justify-content: center; }
+.char-img-placeholder span { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--dim); opacity: 0.5; text-transform: uppercase; }
+.char-info { padding: 24px 28px; border-top: 1px solid var(--border-s); }
+.char-role { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--orange); opacity: 0.55; margin-bottom: 8px; }
+.char-name { font-family: 'Cinzel', serif; font-weight: 400; font-size: 20px; color: var(--cream); letter-spacing: 0.04em; margin-bottom: 10px; }
+.char-bio { font-family: 'Cormorant Garamond', serif; font-size: 15px; color: var(--silver); line-height: 1.65; }
+.char-link { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); opacity: 0.4; margin-top: 14px; display: block; transition: opacity 0.25s; }
+.char-card:hover .char-link { opacity: 0.8; }
+.char-coming { opacity: 0.4; pointer-events: none; }
+
+/* ── PILLARS ─────────────────────────────────────────────── */
+.pillars { display: flex; flex-direction: column; gap: 2px; }
+.pillar { display: grid; grid-template-columns: 200px 1fr; gap: 0; background: var(--card); border: 1px solid var(--border); }
+.pillar-zone { padding: 32px 32px; border-right: 1px solid var(--border-s); display: flex; flex-direction: column; justify-content: center; }
+.pillar-zone-num { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); opacity: 0.4; margin-bottom: 8px; }
+.pillar-zone-name { font-family: 'Cinzel', serif; font-weight: 400; font-size: 14px; color: var(--cream); letter-spacing: 0.06em; line-height: 1.3; }
+.pillar-body { padding: 32px 40px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+.pillar-catalog { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--orange); opacity: 0.6; }
+.pillar-desc { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--silver); line-height: 1.65; }
+
+/* ── RULES ─────────────────────────────────────────────── */
+.rules { display: flex; flex-direction: column; gap: 2px; }
+.rule { background: var(--card); border: 1px solid var(--border); border-left: 2px solid rgba(224,120,32,0.3); padding: 30px 36px; display: grid; grid-template-columns: 40px 1fr; gap: 24px; align-items: start; }
+.rule-num { font-family: 'Cinzel', serif; font-size: 13px; color: var(--orange); opacity: 0.45; padding-top: 3px; }
+.rule-text { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--silver); line-height: 1.7; }
+.rule-text strong { color: var(--cream); font-weight: 500; }
+
+/* ── IDENTITY ─────────────────────────────────────────────── */
+.identity-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2px; }
+.identity-block { background: var(--card); border: 1px solid var(--border); padding: 32px 32px; }
+.identity-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--orange); opacity: 0.55; margin-bottom: 16px; }
+.identity-value { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--silver); line-height: 1.7; }
+.identity-value em { font-style: italic; color: var(--orange-s); }
+.color-swatch { display: flex; gap: 8px; margin-top: 12px; }
+.swatch { width: 32px; height: 32px; border: 1px solid var(--border); }
+
+/* ── FOOTER ─────────────────────────────────────────────── */
+.doc-footer { padding: 48px 64px; border-top: 1px solid var(--border-s); max-width: 1040px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+.footer-sig { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--dim); }
+.footer-sig em { font-style: italic; color: var(--orange); }
+.back-btn { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--bg); background: var(--orange); text-decoration: none; padding: 12px 28px; transition: background 0.25s; }
+.back-btn:hover { background: var(--orange-s); }
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .nav-links { display: none; }
+  .hero-inner { padding: 0 24px 60px; }
+  .inner { padding: 0 24px; }
+  .section { padding: 64px 0; }
+  .zone-row { grid-template-columns: 1fr; }
+  .zone-num-col { border-right: none; border-bottom: 1px solid var(--border-s); padding: 28px 24px 20px; }
+  .zone-body-col { padding: 20px 24px 28px; }
+  .pillar { grid-template-columns: 1fr; }
+  .pillar-zone { border-right: none; border-bottom: 1px solid var(--border-s); padding: 24px 24px 16px; }
+  .pillar-body { padding: 16px 24px 24px; }
+  .doc-footer { flex-direction: column; gap: 24px; padding: 40px 24px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-left" href="./sonokinetic-portal.html">
+    <span class="nav-qi">QI</span><span class="nav-studios"> Studios</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="#world">The World</a>
+    <a class="nav-link" href="#zones">Five Zones</a>
+    <a class="nav-link" href="#characters">Characters</a>
+    <a class="nav-link" href="#pillars">Catalog</a>
+    <a class="nav-link" href="#rules">The Rules</a>
+  </div>
+  <span class="nav-badge">World Document · SONA</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-gradient"></div>
+  <div class="hero-inner">
+    <div class="hero-kicker">QI Studios × Sonokinetic · Creative Reference</div>
+    <h1 class="hero-title">
+      SONA
+      <em>The World of Frequency</em>
+    </h1>
+    <div class="hero-rule"></div>
+    <p class="hero-desc">The complete creative reference for the SONA universe. Five zones. Five characters. A mythology built around the idea that Sonokinetic doesn't sell samples — it maps frequencies nobody else can find.</p>
+  </div>
+</section>
+
+<!-- SECTION 01 — THE WORLD -->
+<section class="section" id="world">
+  <div class="inner">
+    <div class="eyebrow">Section 01 — The World</div>
+    <h2 class="section-title">What <em>SONA is.</em></h2>
+
+    <p class="body-text">SONA is a universe built around frequency as a physical place. Every sound Sonokinetic has ever made came from somewhere — a room, a landscape, a piece of equipment, a particular hour of the day. SONA makes those places visible. Each zone is real in the way that mythology is real: it doesn't matter whether you've been there. You recognize it the moment you arrive.</p>
+
+    <p class="body-text">The world exists in parallel to ours. Not science fiction — not fantasy. A version of the world where sound is geography. Where the people who capture it are explorers. Where a frequency library is not a product catalog but a map of everywhere the sound has been.</p>
+
+    <div class="pull-quote">"Every frequency leads somewhere. Sound doesn't disappear — it gets absorbed, it echoes, it waits. The ones who find it before anyone else changes what music can be."</div>
+
+    <p class="body-text">Thematically, SONA sits at the intersection of craft mythology and cinematic world-building. The Conductor has been mapping the Grand Meridian longer than anyone else has been alive. The Signal Hunter finds frequencies that don't exist yet in any library. The Tuning Fork builds the invisible architecture that all sound runs through. These aren't job titles. They're vocations. The world is built on the idea that some people are called to sound the way others are called to exploration — and that the work they produce is evidence of somewhere real.</p>
+
+    <p class="body-text">For Sonokinetic, this means every library release has a home inside SONA. Orchestral belongs to The Grand Meridian. World instruments live in The Desert Signal. Field recordings come from The Field. Electronic and hybrid libraries are built in The Frequency Lab. And everything Sonokinetic has ever made is held, permanently and precisely, in The Archive.</p>
+  </div>
+</section>
+
+<!-- SECTION 02 — THE FIVE ZONES -->
+<section class="section section-alt" id="zones">
+  <div class="inner">
+    <div class="eyebrow">Section 02 — The Five Zones</div>
+    <h2 class="section-title">Five places.<br><em>One world that never stops transmitting.</em></h2>
+
+    <div class="zone-grid">
+
+      <a class="zone-row" href="./sona-zones/the-grand-meridian.html" target="_blank">
+        <div class="zone-num-col">
+          <div class="zone-num">Zone 01</div>
+          <div class="zone-name">The Grand Meridian</div>
+          <div class="zone-tag">The oldest frequencies in SONA.</div>
+        </div>
+        <div class="zone-body-col">
+          <p class="zone-feel">Monumental, ancient, reverent. Cathedral-scale stone and resonating metal. Orange frequency light through arch windows. The Conductor has been mapping these frequencies longer than anyone can remember. He says he always will be. Performances happen without announcement. Everyone who arrives either understands or they don't.</p>
+          <div class="zone-catalog">Catalog: Orchestral Libraries — strings, brass, woodwinds, choir</div>
+          <div class="zone-link">Open Zone →</div>
+        </div>
+      </a>
+
+      <a class="zone-row" href="./sona-zones/the-desert-signal.html" target="_blank">
+        <div class="zone-num-col">
+          <div class="zone-num">Zone 02</div>
+          <div class="zone-name">The Desert Signal</div>
+          <div class="zone-tag">Ancient instruments. Pre-dawn light.</div>
+        </div>
+        <div class="zone-body-col">
+          <p class="zone-feel">Vast, exposed, ancient. Stone platforms at altitude where dry air carries frequency differently than anything in a studio. No walls to reflect. No ceiling to trap. Instruments that predate the conservatoire by centuries. The Analyst arrives before sunrise and leaves before anyone else arrives. The frequencies here don't need an audience.</p>
+          <div class="zone-catalog">Catalog: World & Ethnic Libraries — oud, sitar, kora, duduk, erhu</div>
+          <div class="zone-link">Open Zone →</div>
+        </div>
+      </a>
+
+      <a class="zone-row" href="./sona-zones/the-field.html" target="_blank">
+        <div class="zone-num-col">
+          <div class="zone-num">Zone 03</div>
+          <div class="zone-name">The Field</div>
+          <div class="zone-tag">Sound before it becomes music.</div>
+        </div>
+        <div class="zone-body-col">
+          <p class="zone-feel">Exposed, transient, alive. The Field has no permanent address — it's wherever a frequency exists that hasn't been catalogued. Mist over still water. Wind through tall grass. Coastal cliffs at dusk. The raw frequency of the world before it gets shaped into anything. The Signal Hunter arrives before the light changes and leaves with something no one else has heard.</p>
+          <div class="zone-catalog">Catalog: Field Recording & Ambience Libraries — texture, environment, geography</div>
+          <div class="zone-link">Open Zone →</div>
+        </div>
+      </a>
+
+      <a class="zone-row" href="./sona-zones/the-frequency-lab.html" target="_blank">
+        <div class="zone-num-col">
+          <div class="zone-num">Zone 04</div>
+          <div class="zone-name">The Frequency Lab</div>
+          <div class="zone-tag">Underground. Analog warmth. Electronic architecture.</div>
+        </div>
+        <div class="zone-body-col">
+          <p class="zone-feel">Underground, dense, warm. Oscilloscope screens glow orange in deep shadow. Racks of equipment vintage and modern. The smell of solder and warm transformer coil. Every surface vibrates slightly — the Lab runs at all hours. The Tuning Fork doesn't build tracks. He builds the frequencies that tracks are built from.</p>
+          <div class="zone-catalog">Catalog: Hybrid & Electronic Libraries — synthesis, processing, acoustic origin transformed</div>
+          <div class="zone-link">Open Zone →</div>
+        </div>
+      </a>
+
+      <a class="zone-row" href="./sona-zones/the-archive.html" target="_blank">
+        <div class="zone-num-col">
+          <div class="zone-num">Zone 05</div>
+          <div class="zone-name">The Archive</div>
+          <div class="zone-tag">Every sound that has ever been captured lives here.</div>
+        </div>
+        <div class="zone-body-col">
+          <p class="zone-feel">Vast, sacred, still. An infinite corridor. Dark glass cases on both sides holding sealed sound vessels, amber light from below. The Keeper has catalogued every frequency in this space and knows exactly where each one lives. Nothing is ever lost here. Nothing is ever easily found. That's the point. The Archive holds sounds that were captured before SONA existed and have never been heard again.</p>
+          <div class="zone-catalog">Catalog: The complete Sonokinetic library — orchestral, world, field, hybrid, everything</div>
+          <div class="zone-link">Open Zone →</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 03 — CHARACTERS -->
+<section class="section" id="characters">
+  <div class="inner">
+    <div class="eyebrow">Section 03 — The Characters</div>
+    <h2 class="section-title">Five people who hear<br><em>what no one else does.</em></h2>
+
+    <div class="char-grid">
+
+      <a class="char-card" href="./sona-characters/the-conductor.html" target="_blank">
+        <img class="char-img" src="./sona-conductor.png" alt="The Conductor">
+        <div class="char-info">
+          <div class="char-role">Zone 01 · The Grand Meridian</div>
+          <div class="char-name">The Conductor</div>
+          <p class="char-bio">He commands what the world hears. Orchestrator of the oldest zone in SONA. Minimal, authoritative. Communicates in gesture more than language. Never speaks above a whisper. Has never explained how he knows which frequencies move people.</p>
+          <span class="char-link">Full Character →</span>
+        </div>
+      </a>
+
+      <a class="char-card char-coming">
+        <div class="char-img-placeholder"><span>In Development</span></div>
+        <div class="char-info">
+          <div class="char-role">Zone 02 · The Desert Signal</div>
+          <div class="char-name">The Analyst</div>
+          <p class="char-bio">She catalogues what an instrument was designed for before recording what it actually does. There's a difference. The best libraries capture both. Arrives before sunrise. Leaves before anyone else arrives.</p>
+        </div>
+      </a>
+
+      <a class="char-card" href="./sona-characters/the-signal-hunter.html" target="_blank">
+        <img class="char-img" src="./sona-signal-hunter.png" alt="The Signal Hunter" style="object-position: center top;">
+        <div class="char-info">
+          <div class="char-role">Zone 03 · The Field</div>
+          <div class="char-name">The Signal Hunter</div>
+          <p class="char-bio">She moves through all five zones but belongs to none of them. Terse and specific. Talks about sound the way others talk about places. Raises the recording device once. The waveform appears. She doesn't explain what she's capturing. She just keeps moving.</p>
+          <span class="char-link">Full Character →</span>
+        </div>
+      </a>
+
+      <a class="char-card char-coming">
+        <div class="char-img-placeholder"><span>In Development</span></div>
+        <div class="char-info">
+          <div class="char-role">Zone 04 · The Frequency Lab</div>
+          <div class="char-name">The Tuning Fork</div>
+          <p class="char-bio">He builds the frequencies that tracks are built from. Starts with a sound, strips it to components, rebuilds from the oscillator up. The result is recognizable as electronic but traces back to something real. Always. Nobody knows exactly when he sleeps.</p>
+        </div>
+      </a>
+
+      <a class="char-card char-coming">
+        <div class="char-img-placeholder"><span>In Development</span></div>
+        <div class="char-info">
+          <div class="char-role">Zone 05 · The Archive</div>
+          <div class="char-name">The Keeper</div>
+          <p class="char-bio">He has catalogued every frequency in The Archive and knows exactly where each one lives. His system for organizing them is precise and entirely his own. He has not explained it to anyone. It works. Nothing is ever lost. Nothing is ever easily found. That's the point.</p>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 04 — CONTENT PILLARS -->
+<section class="section section-alt" id="pillars">
+  <div class="inner">
+    <div class="eyebrow">Section 04 — Catalog Connection</div>
+    <h2 class="section-title">How every zone maps<br><em>to the Sonokinetic catalog.</em></h2>
+
+    <p class="body-text" style="margin-bottom:48px;">SONA isn't a brand exercise built on top of the catalog. It's a narrative structure that makes the catalog coherent as a world. Every library Sonokinetic has ever released fits inside one of these five zones — which means every release can be announced through SONA, every character can introduce it, every zone can frame what it does and why it matters.</p>
+
+    <div class="pillars">
+
+      <div class="pillar">
+        <div class="pillar-zone">
+          <div class="pillar-zone-num">Zone 01</div>
+          <div class="pillar-zone-name">The Grand Meridian</div>
+        </div>
+        <div class="pillar-body">
+          <div class="pillar-catalog">Orchestral Libraries</div>
+          <p class="pillar-desc">Symphonic instruments in full ensemble. Strings, brass, woodwinds, choir. The Grand Meridian is built for scale — these are the sounds that fill a physical space without apology. Every orchestral library release is a new mapping of the Meridian's frequencies. The Conductor introduces them. He doesn't explain why they matter. The performance does.</p>
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-zone">
+          <div class="pillar-zone-num">Zone 02</div>
+          <div class="pillar-zone-name">The Desert Signal</div>
+        </div>
+        <div class="pillar-body">
+          <div class="pillar-catalog">World & Ethnic Libraries</div>
+          <p class="pillar-desc">Instruments built in specific places for specific purposes. Oud, sitar, kora, duduk, erhu — each one carries a region inside it. The Analyst catalogues the history before the recording. This gives world instrument libraries their SONA frame: not exotic textures, but sounds with complete biographies. Every release is a dispatch from The Desert Signal.</p>
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-zone">
+          <div class="pillar-zone-num">Zone 03</div>
+          <div class="pillar-zone-name">The Field</div>
+        </div>
+        <div class="pillar-body">
+          <div class="pillar-catalog">Field Recording & Ambience Libraries</div>
+          <p class="pillar-desc">Sound that carries geography inside it. Close your eyes and you're somewhere specific — a wetland three hours from any road, a coastline at a particular hour. The quality of acoustic space that can't be synthesized because it was never designed. Field recording releases are dispatches from The Signal Hunter. She was there. This is evidence.</p>
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-zone">
+          <div class="pillar-zone-num">Zone 04</div>
+          <div class="pillar-zone-name">The Frequency Lab</div>
+        </div>
+        <div class="pillar-body">
+          <div class="pillar-catalog">Hybrid & Electronic Libraries</div>
+          <p class="pillar-desc">The intersection of acoustic origin and electronic transformation. The Tuning Fork starts with something real and rebuilds it from the oscillator up. Hybrid and electronic libraries are The Lab's output — recognizable as electronic but tracing back to something physical. Every release is The Tuning Fork showing his working. The equations are always right.</p>
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-zone">
+          <div class="pillar-zone-num">Zone 05</div>
+          <div class="pillar-zone-name">The Archive</div>
+        </div>
+        <div class="pillar-body">
+          <div class="pillar-catalog">The Complete Sonokinetic Library</div>
+          <p class="pillar-desc">Everything Sonokinetic has ever made lives in The Archive. This is where the catalog becomes permanent — not a product page but a physical record. The Keeper knows where every sound is. The Archive is the SONA frame for legacy libraries, bundles, the full catalog, and anything that defines what Sonokinetic has built over time. It's not a back catalog. It's a civilization.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 05 — THE RULES -->
+<section class="section" id="rules">
+  <div class="inner">
+    <div class="eyebrow">Section 05 — World Rules</div>
+    <h2 class="section-title">The rules that<br><em>SONA runs on.</em></h2>
+
+    <div class="rules">
+      <div class="rule">
+        <div class="rule-num">01</div>
+        <div class="rule-text"><strong>Every frequency has a location.</strong> Sounds don't float free in SONA — they belong to zones. A frequency without a zone is a frequency that hasn't been found yet. The job of every character is to find them and bring them home.</div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">02</div>
+        <div class="rule-text"><strong>No zone is louder than another.</strong> Volume is not power in SONA. Presence is. The Archive's silence carries as much weight as the Grand Meridian at full resonance. Scale doesn't determine importance. Precision does.</div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">03</div>
+        <div class="rule-text"><strong>The Archive remembers everything.</strong> No frequency is ever lost in SONA. This is law, not aspiration. What gets captured is permanent. The Keeper's system may be opaque, but it has never failed. If it's in The Archive, it can be found. If it can be found, it can be used again.</div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">04</div>
+        <div class="rule-text"><strong>Characters don't explain their methods.</strong> The work speaks or it doesn't. The Conductor has never explained how he knows which frequencies move people. The Signal Hunter doesn't caption her recordings. The Tuning Fork doesn't share his equations. SONA is a world where expertise is demonstrated, not described.</div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">05</div>
+        <div class="rule-text"><strong>SONA has no silence.</strong> Only frequencies not yet detected. There is always something transmitting. The zones never go dark, the characters never stop working. This is the world's promise to the people who live inside it — and to the composers who use what they find.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 06 — VISUAL IDENTITY -->
+<section class="section section-alt" id="identity">
+  <div class="inner">
+    <div class="eyebrow">Section 06 — Visual Identity</div>
+    <h2 class="section-title">What SONA<br><em>looks like.</em></h2>
+
+    <div class="identity-grid">
+
+      <div class="identity-block">
+        <div class="identity-label">Palette</div>
+        <div class="identity-value">Near-black ground. <em>Orange frequency light</em> as the primary accent — the color of oscilloscope readouts and amber glow through stone archways. Cream for headlines. Silver for body text. Nothing corporate, nothing cool-toned.</div>
+        <div class="color-swatch">
+          <div class="swatch" style="background:#060608;"></div>
+          <div class="swatch" style="background:#E07820;"></div>
+          <div class="swatch" style="background:#F09040;"></div>
+          <div class="swatch" style="background:#F0EDE8;"></div>
+          <div class="swatch" style="background:#b8b8c0;"></div>
+        </div>
+      </div>
+
+      <div class="identity-block">
+        <div class="identity-label">Typography</div>
+        <div class="identity-value"><em>Cinzel</em> for zone names and major headings — formal, ancient, architectural. <em>Cormorant Garamond</em> for body and character voice — literary, flowing, warm. <em>DM Mono</em> for labels, eyebrows, technical notation — precise, minimal, never decorative.</div>
+      </div>
+
+      <div class="identity-block">
+        <div class="identity-label">Mood</div>
+        <div class="identity-value">Cinematic and mythic without being fantasy. <em>Analog warmth</em> over digital precision. The feeling of a place that has been running for a long time without needing to explain itself. Not mysterious for the sake of mystery — specific, knowing, quiet.</div>
+      </div>
+
+      <div class="identity-block">
+        <div class="identity-label">Texture</div>
+        <div class="identity-value">Grain overlay on all surfaces. Film-stock warmth, not digital flatness. <em>Slight imperfection</em> — the kind that comes from something being real rather than rendered. Orange frequency light as the primary visual motif across all zones.</div>
+      </div>
+
+      <div class="identity-block">
+        <div class="identity-label">Avoid</div>
+        <div class="identity-value">Bright white. Glossy surfaces. Corporate blue. Generic music-industry imagery. Sound-wave clipart. Anything that looks like a tech product or an ad. SONA is a place, not a platform. It should feel like entering somewhere, not downloading something.</div>
+      </div>
+
+      <div class="identity-block">
+        <div class="identity-label">Voice</div>
+        <div class="identity-value">Minimal and precise. <em>No overselling.</em> The Conductor doesn't describe what the frequency does — he lets you hear it. Copy in SONA describes what is, not why it's great. The world speaks for itself. Characters demonstrate expertise. They don't claim it.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div style="border-top: 1px solid var(--border-s); margin-top: 0;">
+  <div class="doc-footer">
+    <div class="footer-sig">QI Studios × Sonokinetic · <em>SONA World Document</em></div>
+    <a href="./sonokinetic-portal.html" class="back-btn">← Back to Portal</a>
+  </div>
+</div>
+
+</body>
+</html>
