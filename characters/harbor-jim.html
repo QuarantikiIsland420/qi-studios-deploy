@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harbor Jim — District Chief of the Harbor | QI Studios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0E1410;
+  --ink-soft: #1A2318;
+  --border: rgba(200,168,75,0.2);
+  --cream: #F5F0E8;
+  --gold: #C8A84B;
+  --gold-light: #E2C97E;
+  --teal: #3D7E7A;
+  --muted: #6B7D6A;
+  --dim: #4A5A48;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--muted); font-family: 'Jost', sans-serif; font-size: 15px; line-height: 1.7; overflow-x: hidden; }
+
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 18px 52px; display: flex; justify-content: space-between; align-items: center; background: rgba(14,20,16,0.95); border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); }
+.nav-left { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.nav-qi { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--cream); letter-spacing: 0.06em; }
+.nav-studios { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 17px; color: var(--gold); }
+.nav-sep { color: var(--border); margin: 0 4px; }
+.nav-char { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 16px; color: var(--muted); }
+.nav-back { font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #29ABE2; text-decoration: none; border: 1px solid rgba(41,171,226,0.35); padding: 8px 16px; transition: all 0.25s; }
+.nav-back:hover { background: rgba(41,171,226,0.08); border-color: rgba(41,171,226,0.7); letter-spacing: 0.24em; }
+
+.hero { min-height: 100svh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 64px; }
+.hero-img-col { position: relative; overflow: hidden; }
+.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: brightness(0.75) saturate(0.85); }
+.hero-img-fade { position: absolute; inset: 0; background: linear-gradient(to right, transparent 50%, var(--bg) 100%); }
+.hero-content { display: flex; flex-direction: column; justify-content: center; padding: 80px 72px 80px 56px; }
+.eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); opacity: 0.7; display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--gold); opacity: 0.5; }
+.hero-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 5.5vw, 72px); font-weight: 300; color: var(--cream); line-height: 1; margin-bottom: 8px; }
+.hero-epithet { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(18px, 2.2vw, 26px); color: var(--gold-light); margin-bottom: 28px; }
+.hero-rule { width: 40px; height: 1px; background: var(--gold); opacity: 0.4; margin-bottom: 32px; }
+.hero-bio { font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 480px; }
+
+.section { padding: 100px 0; border-top: 1px solid var(--border); }
+.section-inner { max-width: 1060px; margin: 0 auto; padding: 0 64px; }
+.section-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); opacity: 0.6; display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 48px; }
+.section-eyebrow::before, .section-eyebrow::after { content: ''; width: 24px; height: 1px; background: var(--gold); opacity: 0.4; }
+.section-h { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 3.5vw, 42px); font-weight: 300; color: var(--cream); line-height: 1.2; margin-bottom: 40px; text-align: center; }
+.section-h em { font-style: italic; color: var(--gold-light); }
+
+.traits { display: flex; flex-direction: column; }
+.trait-row { display: grid; grid-template-columns: 180px 1fr; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--border); align-items: baseline; }
+.trait-row:first-child { border-top: 1px solid var(--border); }
+.trait-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--teal); }
+.trait-value { font-size: 15px; color: var(--muted); line-height: 1.65; }
+
+.lore-blocks { display: flex; flex-direction: column; gap: 2px; }
+.lore-block { background: var(--ink-soft); border: 1px solid var(--border); border-left: 2px solid rgba(200,168,75,0.35); padding: 32px 36px; }
+.lore-heading { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); opacity: 0.6; margin-bottom: 14px; }
+.lore-text { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--silver, #a8b8c8); line-height: 1.75; }
+.lore-text + .lore-text { margin-top: 12px; }
+
+.samples { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; }
+.sample { background: var(--ink-soft); border: 1px solid var(--border); padding: 28px 32px; }
+.sample-context { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); opacity: 0.6; margin-bottom: 10px; }
+.sample-text { font-family: 'Cormorant Garamond', serif; font-size: 19px; color: var(--cream); line-height: 1.6; font-style: italic; }
+
+.rumor-list { display: flex; flex-direction: column; gap: 1px; }
+.rumor-item { padding: 18px 0; border-bottom: 1px solid var(--border); font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; color: var(--muted); line-height: 1.6; }
+.rumor-item:first-child { border-top: 1px solid var(--border); }
+
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+.gallery-item { position: relative; aspect-ratio: 2/3; overflow: hidden; cursor: pointer; background: var(--ink-soft); border: 1px solid var(--border); transition: border-color 0.3s; }
+.gallery-item:hover { border-color: rgba(41,171,226,0.5); }
+.gallery-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: brightness(0.78) saturate(0.85); transition: transform 0.55s ease, filter 0.3s; }
+.gallery-item:hover .gallery-img { transform: scale(1.05); filter: brightness(0.92) saturate(1); }
+.gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(6,12,20,0.88) 0%, transparent 100%); padding: 20px 16px 14px; font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(41,171,226,0.8); opacity: 0; transform: translateY(4px); transition: opacity 0.3s, transform 0.3s; }
+.gallery-item:hover .gallery-caption { opacity: 1; transform: translateY(0); }
+
+.lb-overlay { position: fixed; inset: 0; background: rgba(6,12,20,0.95); z-index: 1000; display: none; align-items: center; justify-content: center; cursor: pointer; }
+.lb-overlay.active { display: flex; }
+.lb-img { max-width: 90vw; max-height: 90vh; object-fit: contain; pointer-events: none; }
+.lb-close { position: absolute; top: 24px; right: 32px; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); background: none; border: none; cursor: pointer; }
+
+.back-cta { text-align: center; padding: 80px 0; border-top: 1px solid var(--border); }
+.back-cta a { font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #29ABE2; text-decoration: none; border: 1px solid rgba(41,171,226,0.35); padding: 14px 28px; transition: all 0.3s; display: inline-block; }
+.back-cta a:hover { background: rgba(41,171,226,0.08); border-color: rgba(41,171,226,0.7); letter-spacing: 0.28em; }
+
+@media(max-width:768px) {
+  nav { padding: 16px 24px; }
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-img-col { height: 60vw; }
+  .hero-img-fade { background: linear-gradient(to bottom, transparent 50%, var(--bg) 100%); }
+  .hero-content { padding: 40px 28px 60px; }
+  .section { padding: 64px 0; }
+  .section-inner { padding: 0 24px; }
+  .trait-row { grid-template-columns: 1fr; gap: 6px; }
+  .lore-block { padding: 24px 22px; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-left" href="../index.html">
+    <span class="nav-qi">QI</span><span class="nav-studios"> Studios</span>
+    <span class="nav-sep">·</span>
+    <span class="nav-char">Harbor Jim</span>
+  </a>
+  <a class="nav-back" href="#" onclick="window.close(); return false;">← Back to portal</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-img-col">
+    <img class="hero-img" src="../cookies-harbor-jim.png" alt="Harbor Jim">
+    <div class="hero-img-fade"></div>
+  </div>
+  <div class="hero-content">
+    <div class="eyebrow">VELA · Harbor District</div>
+    <h1 class="hero-name">Harbor Jim</h1>
+    <div class="hero-epithet">The harbor knows his footsteps.</div>
+    <div class="hero-rule"></div>
+    <p class="hero-bio">Born James Aurelio Vásquez. Nobody calls him that anymore. Nineteen years at sea, then one night — fog so thick he couldn't see the bow of his own vessel — he followed lights he couldn't explain into a harbor he didn't recognize. He tied up. Stepped off the boat. The fog closed behind him. His boat was never found. He never looked for it.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">The Backstory</div>
+    <h2 class="section-h">How a fisherman became<br><em>the city's first filter.</em></h2>
+    <div class="lore-blocks">
+      <div class="lore-block">
+        <div class="lore-heading">How He Became The Harbor</div>
+        <p class="lore-text">Jim didn't take the security job. The security job came to him. His first two years in VELA, he just existed in the Harbor District. Drank at the dock bars. Fixed engines for people who couldn't afford repairs. Settled disagreements quietly. Learned names. Learned patterns. Learned which arrivals were looking for something good and which ones brought problems with them.</p>
+        <p class="lore-text">People started coming to him before they went to anyone else. The Harbor has no official owner — that's one of the Rules. But it has Jim. And for most people, that's the same thing. He took the title of Harbor Security Chief because someone printed it on a jacket and left it outside his door one morning. He still wears that jacket.</p>
+      </div>
+      <div class="lore-block">
+        <div class="lore-heading">What He Actually Does</div>
+        <p class="lore-text">On paper: he keeps order in the Harbor District. In reality: Jim is the first filter the city has. Every boat that pulls into the Harbor passes him. Every crew, every cargo, every mysterious arrival stepping off a night vessel at 2am — Jim sees them first. He's the reason certain people never make it past the docks. He's also the reason certain right people get quietly pointed toward exactly where they need to go.</p>
+        <p class="lore-text">He doesn't carry a weapon anyone can see. He doesn't raise his voice. He has never, in anyone's memory, lost a confrontation.</p>
+      </div>
+      <div class="lore-block">
+        <div class="lore-heading">What He Carries</div>
+        <p class="lore-text">Jim keeps one thing from his fishing days: a compass that no longer points north. He's checked it thousands of times. The needle always points toward the center of the city. He keeps it in his jacket pocket. He doesn't know what it means. He's stopped needing to.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Voice & Personality</div>
+    <h2 class="section-h">He doesn't threaten.<br><em>He just remembers.</em></h2>
+    <div class="traits">
+      <div class="trait-row">
+        <div class="trait-label">Tone</div>
+        <div class="trait-value">Direct. Weathered. Carries weight without trying. More comfortable in silence than most people are with words.</div>
+      </div>
+      <div class="trait-row">
+        <div class="trait-label">Register</div>
+        <div class="trait-value">Working-class precision. Short sentences. No performance. Says the thing nobody else will say and moves on.</div>
+      </div>
+      <div class="trait-row">
+        <div class="trait-label">Signature move</div>
+        <div class="trait-value">Notices what others miss. Mentions it once. Doesn't follow up. If you heard it, that was for you.</div>
+      </div>
+      <div class="trait-row">
+        <div class="trait-label">Avoids</div>
+        <div class="trait-value">Small talk. Flattery. Anyone who introduces themselves with their title. Deep-sea fishermen learn fast who's real.</div>
+      </div>
+      <div class="trait-row">
+        <div class="trait-label">Relationships</div>
+        <div class="trait-value">Mutual respect with Nyra Vale — she plays the dock bars, he clears the space. The Concierge uses him as the first vetting point for anyone entering VELA's inner circles. Sora keeps a bowl of noodles at 1am every night. He always shows up.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">The Rumors</div>
+    <h2 class="section-h">Nobody agrees<br><em>on how long he's been here.</em></h2>
+    <div class="rumor-list">
+      <div class="rumor-item">"People say the city chose him — that VELA needed someone to hold the emotional weight of the Harbor and pulled Jim through the fog specifically for that reason."</div>
+      <div class="rumor-item">"Some people say he arrived before the lights. Before the bars. Before the music. That he was standing on the dock when everything else showed up."</div>
+      <div class="rumor-item">"There's a story about a crew of eight men who arrived on a private vessel with cargo that wasn't supposed to move. Jim was alone on the dock. The crew left before sunrise. Nobody knows what happened. Jim has never addressed it."</div>
+      <div class="rumor-item">"The Archivist has been trying to get Jim to sit for a recorded interview for three years. Jim keeps saying next week."</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">In His Voice</div>
+    <h2 class="section-h">Content with<br><em>weight behind it.</em></h2>
+    <div class="samples">
+      <div class="sample">
+        <div class="sample-context">Harbor Stories — monologue</div>
+        <div class="sample-text">"Out there, the ocean doesn't care what your name is. Doesn't care what you're carrying. It just decides whether you make it. VELA's the same. The city already knows."</div>
+      </div>
+      <div class="sample">
+        <div class="sample-context">Philosophy</div>
+        <div class="sample-text">"Most people who cause problems aren't bad. They're just confused about where they are. My job is to help them figure that out before it becomes everybody's problem."</div>
+      </div>
+      <div class="sample">
+        <div class="sample-context">On VELA</div>
+        <div class="sample-text">"I've seen a thousand people arrive in this city with nothing but ambition. Most of them figured it out. A few of them didn't. I remember all of them."</div>
+      </div>
+      <div class="sample">
+        <div class="sample-context">On the Harbor</div>
+        <div class="sample-text">"The Harbor doesn't belong to anyone. I just make sure it stays that way."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Visual Archive</div>
+    <h2 class="section-h">The man the Harbor<br><em>keeps choosing.</em></h2>
+    <div class="gallery-grid">
+      <div class="gallery-item" onclick="openLb('../cookies-harbor-jim-4.png')">
+        <img class="gallery-img" src="../cookies-harbor-jim-4.png" alt="Harbor Jim">
+        <div class="gallery-caption">The Dock Watch</div>
+      </div>
+      <div class="gallery-item" onclick="openLb('../cookies-harbor-jim-2.png')">
+        <img class="gallery-img" src="../cookies-harbor-jim-2.png" alt="Harbor Jim">
+        <div class="gallery-caption">The Harbor</div>
+      </div>
+      <div class="gallery-item" onclick="openLb('../cookies-harbor-jim-3.png')">
+        <img class="gallery-img" src="../cookies-harbor-jim-3.png" alt="Harbor Jim">
+        <div class="gallery-caption">Night Shift</div>
+      </div>
+      <div class="gallery-item" onclick="openLb('../cookies-harbor-jim-5.png')">
+        <img class="gallery-img" src="../cookies-harbor-jim-5.png" alt="Harbor Jim">
+        <div class="gallery-caption">Last Call at the Water</div>
+      </div>
+      <div class="gallery-item" onclick="openLb('../cookies-harbor-jim-6.png')">
+        <img class="gallery-img" src="../cookies-harbor-jim-6.png" alt="Harbor Jim">
+        <div class="gallery-caption">Before the Shift</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="lb-overlay" id="lb" onclick="closeLb(event)">
+  <button class="lb-close" onclick="closeLb()">✕ Close</button>
+  <img class="lb-img" id="lb-img" src="" alt="">
+</div>
+
+<div class="back-cta">
+  <a href="#" onclick="window.close(); return false;">← Close &amp; return to portal</a>
+</div>
+
+<script>
+function openLb(src){ document.getElementById('lb-img').src=src; document.getElementById('lb').classList.add('active'); document.body.style.overflow='hidden'; }
+function closeLb(e){ if(e&&e.target===document.getElementById('lb-img'))return; document.getElementById('lb').classList.remove('active'); document.body.style.overflow=''; document.getElementById('lb-img').src=''; }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape')closeLb(); });
+</script>
+
+</body>
+</html>

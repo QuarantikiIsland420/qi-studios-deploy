@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Concierge — Keeper of VELA | QI Studios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0E1410;
+  --ink-soft: #1A2318;
+  --border: rgba(200,168,75,0.2);
+  --cream: #F5F0E8;
+  --gold: #C8A84B;
+  --gold-light: #E2C97E;
+  --teal: #3D7E7A;
+  --muted: #6B7D6A;
+  --dim: #4A5A48;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--muted); font-family: 'Jost', sans-serif; font-size: 15px; line-height: 1.7; overflow-x: hidden; }
+
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 18px 52px; display: flex; justify-content: space-between; align-items: center; background: rgba(14,20,16,0.95); border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); }
+.nav-left { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.nav-qi { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--cream); letter-spacing: 0.06em; }
+.nav-studios { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 17px; color: var(--gold); }
+.nav-sep { color: var(--border); margin: 0 4px; }
+.nav-char { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 16px; color: var(--muted); }
+.nav-back { font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #29ABE2; text-decoration: none; border: 1px solid rgba(41,171,226,0.35); padding: 8px 16px; transition: all 0.25s; }
+.nav-back:hover { background: rgba(41,171,226,0.08); border-color: rgba(41,171,226,0.7); letter-spacing: 0.24em; }
+
+.hero { min-height: 100svh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 64px; }
+.hero-img-col { position: relative; overflow: hidden; }
+.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: brightness(0.75) saturate(0.85); }
+.hero-img-fade { position: absolute; inset: 0; background: linear-gradient(to right, transparent 50%, var(--bg) 100%); }
+.hero-content { display: flex; flex-direction: column; justify-content: center; padding: 80px 72px 80px 56px; }
+.eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); opacity: 0.7; display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--gold); opacity: 0.5; }
+.hero-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 5.5vw, 72px); font-weight: 300; color: var(--cream); line-height: 1; margin-bottom: 8px; }
+.hero-epithet { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(18px, 2.2vw, 26px); color: var(--gold-light); margin-bottom: 28px; }
+.hero-rule { width: 40px; height: 1px; background: var(--gold); opacity: 0.4; margin-bottom: 32px; }
+.hero-bio { font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 480px; }
+
+.section { padding: 100px 0; border-top: 1px solid var(--border); }
+.section-inner { max-width: 1060px; margin: 0 auto; padding: 0 64px; }
+.section-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); opacity: 0.6; display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 48px; }
+.section-eyebrow::before, .section-eyebrow::after { content: ''; width: 24px; height: 1px; background: var(--gold); opacity: 0.4; }
+.section-h { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 3.5vw, 42px); font-weight: 300; color: var(--cream); line-height: 1.2; margin-bottom: 40px; text-align: center; }
+.section-h em { font-style: italic; color: var(--gold-light); }
+
+.traits { display: flex; flex-direction: column; }
+.trait-row { display: grid; grid-template-columns: 180px 1fr; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--border); align-items: baseline; }
+.trait-row:first-child { border-top: 1px solid var(--border); }
+.trait-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--teal); }
+.trait-value { font-size: 15px; color: var(--muted); line-height: 1.65; }
+
+.samples { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; }
+.sample { background: var(--ink-soft); border: 1px solid var(--border); padding: 28px 32px; }
+.sample-context { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); opacity: 0.6; margin-bottom: 10px; }
+.sample-text { font-family: 'Cormorant Garamond', serif; font-size: 19px; color: var(--cream); line-height: 1.6; font-style: italic; }
+
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+.gallery-item { position: relative; aspect-ratio: 2/3; overflow: hidden; cursor: pointer; background: var(--ink-soft); border: 1px solid var(--border); transition: border-color 0.3s; }
+.gallery-item:hover { border-color: rgba(41,171,226,0.5); }
+.gallery-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: brightness(0.78) saturate(0.85); transition: transform 0.55s ease, filter 0.3s; }
+.gallery-item:hover .gallery-img { transform: scale(1.05); filter: brightness(0.92) saturate(1); }
+.gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(6,12,20,0.88) 0%, transparent 100%); padding: 20px 16px 14px; font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(41,171,226,0.8); opacity: 0; transform: translateY(4px); transition: opacity 0.3s, transform 0.3s; }
+.gallery-item:hover .gallery-caption { opacity: 1; transform: translateY(0); }
+
+.lb-overlay { position: fixed; inset: 0; background: rgba(6,12,20,0.95); z-index: 1000; display: none; align-items: center; justify-content: center; cursor: pointer; }
+.lb-overlay.active { display: flex; }
+.lb-img { max-width: 90vw; max-height: 90vh; object-fit: contain; pointer-events: none; }
+.lb-close { position: absolute; top: 24px; right: 32px; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); background: none; border: none; cursor: pointer; }
+
+.back-cta { text-align: center; padding: 80px 0; border-top: 1px solid var(--border); }
+.back-cta a { font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #29ABE2; text-decoration: none; border: 1px solid rgba(41,171,226,0.35); padding: 14px 28px; transition: all 0.3s; display: inline-block; }
+.back-cta a:hover { background: rgba(41,171,226,0.08); border-color: rgba(41,171,226,0.7); letter-spacing: 0.28em; }
+
+@media(max-width:768px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+  nav { padding: 16px 24px; }
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-img-col { height: 60vw; }
+  .hero-img-fade { background: linear-gradient(to bottom, transparent 50%, var(--bg) 100%); }
+  .hero-content { padding: 40px 28px 60px; }
+  .section { padding: 64px 0; }
+  .section-inner { padding: 0 24px; }
+  .trait-row { grid-template-columns: 1fr; gap: 6px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-left" href="../index.html">
+    <span class="nav-qi">QI</span><span class="nav-studios"> Studios</span>
+    <span class="nav-sep">·</span>
+    <span class="nav-char">The Concierge</span>
+  </a>
+  <a class="nav-back" href="#" onclick="window.close(); return false;">← Back to portal</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-img-col">
+    <img class="hero-img" src="../cookies-concierge-1.png" alt="The Concierge">
+    <div class="hero-img-fade"></div>
+  </div>
+  <div class="hero-content">
+    <div class="eyebrow">VELA · Client Character</div>
+    <h1 class="hero-name">The Concierge</h1>
+    <div class="hero-epithet">Knows everyone. Explains nothing.</div>
+    <div class="hero-rule"></div>
+    <p class="hero-bio">Calm, unreadable gatekeeper of VELA's hidden social world. He knows every name, every room, every favor owed. He never volunteers information — but ask the right question and a door opens somewhere in the city. Possibly the real power behind everything. Nobody has been able to confirm this. Nobody has asked twice.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Voice & Personality</div>
+    <h2 class="section-h">He already knew<br><em>you were coming.</em></h2>
+    <div class="traits">
+      <div class="trait-row">
+        <div class="trait-label">Tone</div>
+        <div class="trait-value">Measured. Unhurried. Slightly warmer than expected, which is somehow more unsettling.</div>
+      </div>
+      <div class="trait-row">
+        <div class="trait-label">Register</div>
+        <div class="trait-value">Old-world hospitality with modern intelligence. Speaks in short, precise sentences. Every word chosen deliberately.</div>
+      </div>
+      <div class="trait-row">
+        <div class="trait-label">Signature move</div>
+        <div class="trait-value">Says something that makes you realize he knew what you needed before you did. Never acknowledges this.</div>
+      </div>
+      <div class="trait-row">
+        <div class="trait-label">Avoids</div>
+        <div class="trait-value">Explanations. Justifications. Anything that sounds like he's trying to convince you. He doesn't need to.</div>
+      </div>
+      <div class="trait-row">
+        <div class="trait-label">World</div>
+        <div class="trait-value">VELA — a mythic late-night coastal city. The Concierge is its invisible architecture. Everything runs through him.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">In His Voice</div>
+    <h2 class="section-h">Content that<br><em>opens doors.</em></h2>
+    <div class="samples">
+      <div class="sample">
+        <div class="sample-context">Brand voice — welcome</div>
+        <div class="sample-text">"We've been expecting you. Your room is ready. The city has a few things it would like to show you."</div>
+      </div>
+      <div class="sample">
+        <div class="sample-context">Story arc — arrival</div>
+        <div class="sample-text">"Nobody arrives in VELA by accident. Take your time figuring out why you're here. I'll be at the desk."</div>
+      </div>
+      <div class="sample">
+        <div class="sample-context">Campaign line</div>
+        <div class="sample-text">"The Concierge saw this before you did. He said nothing. That's a good sign."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Visual Archive</div>
+    <h2 class="section-h">A face that<br><em>tells you nothing.</em></h2>
+    <div class="gallery-grid">
+      <div class="gallery-item" onclick="openLb('../cookies-concierge-1.png')">
+        <img class="gallery-img" src="../cookies-concierge-1.png" alt="The Concierge">
+        <div class="gallery-caption">At the Desk</div>
+      </div>
+      <div class="gallery-item" onclick="openLb('../cookies-concierge-2.png')">
+        <img class="gallery-img" src="../cookies-concierge-2.png" alt="The Concierge">
+        <div class="gallery-caption">He Already Knew</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="lb-overlay" id="lb" onclick="closeLb(event)">
+  <button class="lb-close" onclick="closeLb()">✕ Close</button>
+  <img class="lb-img" id="lb-img" src="" alt="">
+</div>
+
+<div class="back-cta">
+  <a href="#" onclick="window.close(); return false;">← Close &amp; return to portal</a>
+</div>
+
+<script>
+function openLb(src){ document.getElementById('lb-img').src=src; document.getElementById('lb').classList.add('active'); document.body.style.overflow='hidden'; }
+function closeLb(e){ if(e&&e.target===document.getElementById('lb-img'))return; document.getElementById('lb').classList.remove('active'); document.body.style.overflow=''; document.getElementById('lb-img').src=''; }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape')closeLb(); });
+</script>
+
+</body>
+</html>
