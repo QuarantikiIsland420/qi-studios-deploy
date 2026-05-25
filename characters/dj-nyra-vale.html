@@ -81,8 +81,6 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 18px 52
 .back-cta a:hover { background: rgba(41,171,226,0.08); border-color: rgba(41,171,226,0.7); letter-spacing: 0.28em; }
 
 @media(max-width:768px) {
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-}
   nav { padding: 16px 24px; }
   .hero { grid-template-columns: 1fr; min-height: auto; }
   .hero-img-col { height: 60vw; }
@@ -91,6 +89,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 18px 52
   .section { padding: 64px 0; }
   .section-inner { padding: 0 24px; }
   .trait-row { grid-template-columns: 1fr; gap: 6px; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
 </head>
@@ -107,7 +106,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 18px 52
 
 <section class="hero">
   <div class="hero-img-col">
-    <img class="hero-img" src="../cookies-nyra-2.png" alt="DJ Nyra Vale">
+    <img class="hero-img" src="../cookies-nyra-djing.png" alt="DJ Nyra Vale">
     <div class="hero-img-fade"></div>
   </div>
   <div class="hero-content">
@@ -178,14 +177,6 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 18px 52
         <img class="gallery-img" src="../cookies-nyra-tour.png" alt="Nyra Vale">
         <div class="gallery-caption">Golden Hour</div>
       </div>
-      <div class="gallery-item" onclick="openLb('../cookies-nyra-djing.png')">
-        <img class="gallery-img" src="../cookies-nyra-djing.png" alt="Nyra Vale">
-        <div class="gallery-caption">On the Decks</div>
-      </div>
-      <div class="gallery-item" onclick="openLb('../cookies-nyra-rooftop.png')">
-        <img class="gallery-img" src="../cookies-nyra-rooftop.png" alt="Nyra Vale">
-        <div class="gallery-caption">The Rooftop</div>
-      </div>
       <div class="gallery-item" onclick="openLb('../cookies-nyra-7.png')">
         <img class="gallery-img" src="../cookies-nyra-7.png" alt="Nyra Vale">
         <div class="gallery-caption">Smoke & Signal</div>
@@ -201,6 +192,10 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 18px 52
       <div class="gallery-item" onclick="openLb('../cookies-nyra-4.png')">
         <img class="gallery-img" src="../cookies-nyra-4.png" alt="Nyra Vale">
         <div class="gallery-caption">Portrait</div>
+      </div>
+      <div class="gallery-item" onclick="openLb('../chars-flyat-nyra.jpg')">
+        <img class="gallery-img" src="../chars-flyat-nyra.jpg" alt="Nyra Vale">
+        <div class="gallery-caption">Flyat</div>
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Concierge — Keeper of VELA | QI Studios</title>
+<title>The Brinkman — Handyman | QI Studios</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -29,17 +29,17 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 18px 52
 .nav-studios { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 17px; color: var(--gold); }
 .nav-sep { color: var(--border); margin: 0 4px; }
 .nav-char { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 16px; color: var(--muted); }
-.nav-back { font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #29ABE2; text-decoration: none; border: 1px solid rgba(41,171,226,0.35); padding: 8px 16px; transition: all 0.25s; }
-.nav-back:hover { background: rgba(41,171,226,0.08); border-color: rgba(41,171,226,0.7); letter-spacing: 0.24em; }
+.nav-back { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.25s; }
+.nav-back:hover { color: var(--gold); }
 
 .hero { min-height: 100svh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 64px; }
 .hero-img-col { position: relative; overflow: hidden; }
-.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: brightness(0.75) saturate(0.85); }
+.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: brightness(0.8) saturate(0.85); }
 .hero-img-fade { position: absolute; inset: 0; background: linear-gradient(to right, transparent 50%, var(--bg) 100%); }
 .hero-content { display: flex; flex-direction: column; justify-content: center; padding: 80px 72px 80px 56px; }
 .eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); opacity: 0.7; display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
 .eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--gold); opacity: 0.5; }
-.hero-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 5.5vw, 72px); font-weight: 300; color: var(--cream); line-height: 1; margin-bottom: 8px; }
+.hero-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px, 6vw, 80px); font-weight: 300; color: var(--cream); line-height: 1; margin-bottom: 8px; }
 .hero-epithet { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(18px, 2.2vw, 26px); color: var(--gold-light); margin-bottom: 28px; }
 .hero-rule { width: 40px; height: 1px; background: var(--gold); opacity: 0.4; margin-bottom: 32px; }
 .hero-bio { font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 480px; }
@@ -64,22 +64,24 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 18px 52
 
 .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
 .gallery-item { position: relative; aspect-ratio: 2/3; overflow: hidden; cursor: pointer; background: var(--ink-soft); border: 1px solid var(--border); transition: border-color 0.3s; }
-.gallery-item:hover { border-color: rgba(41,171,226,0.5); }
-.gallery-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: brightness(0.78) saturate(0.85); transition: transform 0.55s ease, filter 0.3s; }
-.gallery-item:hover .gallery-img { transform: scale(1.05); filter: brightness(0.92) saturate(1); }
-.gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(6,12,20,0.88) 0%, transparent 100%); padding: 20px 16px 14px; font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(41,171,226,0.8); opacity: 0; transform: translateY(4px); transition: opacity 0.3s, transform 0.3s; }
+.gallery-item:hover { border-color: rgba(200,168,75,0.5); }
+.gallery-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: brightness(0.82) saturate(0.88); transition: transform 0.55s ease, filter 0.3s; }
+.gallery-item:hover .gallery-img { transform: scale(1.05); filter: brightness(0.95) saturate(1); }
+.gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(14,20,16,0.9) 0%, transparent 100%); padding: 20px 16px 14px; font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); opacity: 0; transform: translateY(4px); transition: opacity 0.3s, transform 0.3s; }
 .gallery-item:hover .gallery-caption { opacity: 1; transform: translateY(0); }
 
-.lb-overlay { position: fixed; inset: 0; background: rgba(6,12,20,0.95); z-index: 1000; display: none; align-items: center; justify-content: center; cursor: pointer; }
+.lb-overlay { position: fixed; inset: 0; background: rgba(14,20,16,0.96); z-index: 1000; display: none; align-items: center; justify-content: center; cursor: pointer; }
 .lb-overlay.active { display: flex; }
 .lb-img { max-width: 90vw; max-height: 90vh; object-fit: contain; pointer-events: none; }
 .lb-close { position: absolute; top: 24px; right: 32px; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); background: none; border: none; cursor: pointer; }
 
 .back-cta { text-align: center; padding: 80px 0; border-top: 1px solid var(--border); }
-.back-cta a { font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #29ABE2; text-decoration: none; border: 1px solid rgba(41,171,226,0.35); padding: 14px 28px; transition: all 0.3s; display: inline-block; }
-.back-cta a:hover { background: rgba(41,171,226,0.08); border-color: rgba(41,171,226,0.7); letter-spacing: 0.28em; }
+.back-cta a { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); text-decoration: none; transition: letter-spacing 0.3s; }
+.back-cta a:hover { letter-spacing: 0.32em; }
 
 @media(max-width:768px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
   nav { padding: 16px 24px; }
   .hero { grid-template-columns: 1fr; min-height: auto; }
   .hero-img-col { height: 60vw; }
@@ -88,7 +90,6 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 18px 52
   .section { padding: 64px 0; }
   .section-inner { padding: 0 24px; }
   .trait-row { grid-template-columns: 1fr; gap: 6px; }
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
 </head>
@@ -98,49 +99,49 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 18px 52
   <a class="nav-left" href="../index.html">
     <span class="nav-qi">QI</span><span class="nav-studios"> Studios</span>
     <span class="nav-sep">·</span>
-    <span class="nav-char">The Concierge</span>
+    <span class="nav-char">The Brinkman</span>
   </a>
-  <a class="nav-back" href="#" onclick="window.close(); return false;">← Back to portal</a>
+  <a class="nav-back" href="../index.html#work">← Back to work</a>
 </nav>
 
 <section class="hero">
   <div class="hero-img-col">
-    <img class="hero-img" src="../cookies-concierge-1.png" alt="The Concierge">
+    <img class="hero-img" src="../chars-brinkman.jpg" alt="The Brinkman">
     <div class="hero-img-fade"></div>
   </div>
   <div class="hero-content">
-    <div class="eyebrow">VELA · Client Character</div>
-    <h1 class="hero-name">The Concierge</h1>
-    <div class="hero-epithet">Knows everyone. Explains nothing.</div>
+    <div class="eyebrow">Handyman · Client Character</div>
+    <h1 class="hero-name">The Brinkman</h1>
+    <div class="hero-epithet">Quirky yet Relatable</div>
     <div class="hero-rule"></div>
-    <p class="hero-bio">Calm, unreadable gatekeeper of VELA's hidden social world. He knows every name, every room, every favor owed. He never volunteers information — but ask the right question and a door opens somewhere in the city. Possibly the real power behind everything. Nobody has been able to confirm this. Nobody has asked twice.</p>
+    <p class="hero-bio">He's the neighbor you always wanted. The one who knew what was wrong before you finished describing it. A Colorado man in his 40s — not defined by an age, but by what he knows and how he carries it. He's been doing this work long enough to have seen everything and been surprised by very little. His expertise isn't performed. It's just present.</p>
   </div>
 </section>
 
 <section class="section">
   <div class="section-inner">
     <div class="section-eyebrow">Voice & Personality</div>
-    <h2 class="section-h">He already knew<br><em>you were coming.</em></h2>
+    <h2 class="section-h">He says the true thing<br><em>in as few words as it takes.</em></h2>
     <div class="traits">
       <div class="trait-row">
         <div class="trait-label">Tone</div>
-        <div class="trait-value">Measured. Unhurried. Slightly warmer than expected, which is somehow more unsettling.</div>
+        <div class="trait-value">Dry wit, never performative. Understatement over emphasis. Says more by saying less.</div>
       </div>
       <div class="trait-row">
         <div class="trait-label">Register</div>
-        <div class="trait-value">Old-world hospitality with modern intelligence. Speaks in short, precise sentences. Every word chosen deliberately.</div>
+        <div class="trait-value">Colorado-rooted, mountain-shaped. Direct observations, plainly stated. Short sentences that end clean.</div>
       </div>
       <div class="trait-row">
         <div class="trait-label">Signature move</div>
-        <div class="trait-value">Says something that makes you realize he knew what you needed before you did. Never acknowledges this.</div>
+        <div class="trait-value">Sizes up the problem in silence, then says one sentence that explains everything.</div>
       </div>
       <div class="trait-row">
         <div class="trait-label">Avoids</div>
-        <div class="trait-value">Explanations. Justifications. Anything that sounds like he's trying to convince you. He doesn't need to.</div>
+        <div class="trait-value">Marketing language. Exclamation points. Anything that sounds like an ad. "Reach out" or "connect with us."</div>
       </div>
       <div class="trait-row">
-        <div class="trait-label">World</div>
-        <div class="trait-value">VELA — a mythic late-night coastal city. The Concierge is its invisible architecture. Everything runs through him.</div>
+        <div class="trait-label">Drives</div>
+        <div class="trait-value">The satisfaction of a problem solved. A job that's harder than it looks. Knowing the estimate was fair.</div>
       </div>
     </div>
   </div>
@@ -149,19 +150,23 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 18px 52
 <section class="section">
   <div class="section-inner">
     <div class="section-eyebrow">In His Voice</div>
-    <h2 class="section-h">Content that<br><em>opens doors.</em></h2>
+    <h2 class="section-h">Content that<br><em>sounds like him.</em></h2>
     <div class="samples">
       <div class="sample">
-        <div class="sample-context">Brand voice — welcome</div>
-        <div class="sample-text">"We've been expecting you. Your room is ready. The city has a few things it would like to show you."</div>
+        <div class="sample-context">When the job is obvious</div>
+        <div class="sample-text">"Yep. You should probably get that fixed."</div>
       </div>
       <div class="sample">
-        <div class="sample-context">Story arc — arrival</div>
-        <div class="sample-text">"Nobody arrives in VELA by accident. Take your time figuring out why you're here. I'll be at the desk."</div>
+        <div class="sample-context">When the work speaks for itself</div>
+        <div class="sample-text">"Two hours. Parts included. Problem's gone."</div>
       </div>
       <div class="sample">
-        <div class="sample-context">Campaign line</div>
-        <div class="sample-text">"The Concierge saw this before you did. He said nothing. That's a good sign."</div>
+        <div class="sample-context">When the client waited too long</div>
+        <div class="sample-text">"Probably should've called me sooner. But we're here now."</div>
+      </div>
+      <div class="sample">
+        <div class="sample-context">Signing off</div>
+        <div class="sample-text">"That'll hold."</div>
       </div>
     </div>
   </div>
@@ -170,23 +175,27 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 18px 52
 <section class="section">
   <div class="section-inner">
     <div class="section-eyebrow">Visual Archive</div>
-    <h2 class="section-h">A face that<br><em>tells you nothing.</em></h2>
+    <h2 class="section-h">The man who already<br><em>knows what's wrong.</em></h2>
     <div class="gallery-grid">
-      <div class="gallery-item" onclick="openLb('../cookies-concierge-1.png')">
-        <img class="gallery-img" src="../cookies-concierge-1.png" alt="The Concierge">
-        <div class="gallery-caption">At the Desk</div>
+      <div class="gallery-item" onclick="openLb('../brinkman-assets/Brinkman2.png')">
+        <img class="gallery-img" src="../brinkman-assets/Brinkman2.png" alt="The Brinkman">
+        <div class="gallery-caption">Colorado Character</div>
       </div>
-      <div class="gallery-item" onclick="openLb('../cookies-concierge-2.png')">
-        <img class="gallery-img" src="../cookies-concierge-2.png" alt="The Concierge">
-        <div class="gallery-caption">He Already Knew</div>
+      <div class="gallery-item" onclick="openLb('../brinkman-assets/Brinkman3.png')">
+        <img class="gallery-img" src="../brinkman-assets/Brinkman3.png" alt="The Brinkman">
+        <div class="gallery-caption">The Handyman</div>
       </div>
-      <div class="gallery-item" onclick="openLb('../chars-the-concierge.jpg')">
-        <img class="gallery-img" src="../chars-the-concierge.jpg" alt="The Concierge">
-        <div class="gallery-caption">The Lobby</div>
+      <div class="gallery-item" onclick="openLb('../brinkman-assets/brinkan4.png')">
+        <img class="gallery-img" src="../brinkman-assets/brinkan4.png" alt="The Brinkman">
+        <div class="gallery-caption">On the Job</div>
       </div>
-      <div class="gallery-item" onclick="openLb('../chars-the-concierge.png')">
-        <img class="gallery-img" src="../chars-the-concierge.png" alt="The Concierge">
-        <div class="gallery-caption">Portrait</div>
+      <div class="gallery-item" onclick="openLb('../brinkman-assets/Brinkaman.png')">
+        <img class="gallery-img" src="../brinkman-assets/Brinkaman.png" alt="The Brinkman">
+        <div class="gallery-caption">Brinkaman</div>
+      </div>
+      <div class="gallery-item" onclick="openLb('../chars-flyat-brinkman.jpg')">
+        <img class="gallery-img" src="../chars-flyat-brinkman.jpg" alt="The Brinkman">
+        <div class="gallery-caption">Flyat Style</div>
       </div>
     </div>
   </div>
@@ -198,7 +207,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 18px 52
 </div>
 
 <div class="back-cta">
-  <a href="#" onclick="window.close(); return false;">← Close &amp; return to portal</a>
+  <a href="../index.html#work">← Return to QI Studios</a>
 </div>
 
 <script>
