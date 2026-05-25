@@ -62,7 +62,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 18px 52
 .sample-context { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); opacity: 0.6; margin-bottom: 10px; }
 .sample-text { font-family: 'Cormorant Garamond', serif; font-size: 19px; color: var(--cream); line-height: 1.6; font-style: italic; }
 
-.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+.gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; }
 .gallery-item { position: relative; aspect-ratio: 2/3; overflow: hidden; cursor: pointer; background: var(--ink-soft); border: 1px solid var(--border); transition: border-color 0.3s; }
 .gallery-item:hover { border-color: rgba(200,168,75,0.5); }
 .gallery-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: brightness(0.82) saturate(0.88); transition: transform 0.55s ease, filter 0.3s; }
@@ -184,17 +184,9 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 18px 52
         <img class="gallery-img" src="../brinkman-assets/Brinkman3.png" alt="The Brinkman">
         <div class="gallery-caption">The Handyman</div>
       </div>
-      <div class="gallery-item" onclick="openLb('../brinkman-assets/brinkan4.png')">
-        <img class="gallery-img" src="../brinkman-assets/brinkan4.png" alt="The Brinkman">
-        <div class="gallery-caption">On the Job</div>
-      </div>
       <div class="gallery-item" onclick="openLb('../brinkman-assets/Brinkaman.png')">
         <img class="gallery-img" src="../brinkman-assets/Brinkaman.png" alt="The Brinkman">
         <div class="gallery-caption">Brinkaman</div>
-      </div>
-      <div class="gallery-item" onclick="openLb('../chars-flyat-brinkman.jpg')">
-        <img class="gallery-img" src="../chars-flyat-brinkman.jpg" alt="The Brinkman">
-        <div class="gallery-caption">Flyat Style</div>
       </div>
     </div>
   </div>
