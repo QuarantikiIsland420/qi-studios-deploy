@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Portal — QI Studios × TETRA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&family=Inter:wght@300;400&family=Jost:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:       #06150D;
+  --card:     #0B1F14;
+  --border:   rgba(27,126,176,0.18);
+  --blue:     #1B7EB0;
+  --blue-s:   #6EC5E9;
+  --amber:    #C87820;
+  --amber-s:  #E09840;
+  --cream:    #FAF7F0;
+  --muted:    #C8C4BA;
+  --silver:   #8A9890;
+  --dim:      #2A3C30;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-serif; font-size: 15px; line-height: 1.7; overflow-x: hidden; min-height: 100vh; }
+
+/* ── LOGIN ────────────────────────────────────────── */
+#login { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding: 24px; z-index: 200; background: var(--bg); }
+.login-box { width: 100%; max-width: 440px; text-align: center; }
+.login-wordmark { font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.42em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.login-wordmark em { font-style: normal; color: var(--blue-s); }
+.login-rule { width: 36px; height: 1px; background: linear-gradient(to right, transparent, var(--blue), transparent); margin: 20px auto; }
+.login-title { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(52px, 12vw, 76px); color: var(--blue-s); line-height: 1.0; margin-bottom: 6px; letter-spacing: 0.08em; }
+.login-sub { font-family: 'Share Tech Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: var(--silver); margin-bottom: 52px; }
+.login-form { display: flex; flex-direction: column; gap: 12px; }
+.login-input { width: 100%; background: rgba(27,126,176,0.04); border: 1px solid var(--border); border-bottom-color: rgba(27,126,176,0.4); color: var(--cream); font-family: 'Share Tech Mono', monospace; font-size: 15px; letter-spacing: 0.32em; text-align: center; text-transform: uppercase; padding: 18px 20px; outline: none; transition: border-color 0.25s, background 0.25s; }
+.login-input::placeholder { color: var(--dim); font-size: 11px; letter-spacing: 0.2em; }
+.login-input:focus { border-color: rgba(27,126,176,0.65); background: rgba(27,126,176,0.06); }
+.login-btn { width: 100%; font-family: 'Jost', sans-serif; font-weight: 400; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #06150D; background: linear-gradient(135deg, #136090 0%, #1B7EB0 50%, #136090 100%); background-size: 200% auto; animation: shimmer 4s ease infinite; border: none; padding: 18px 28px; cursor: pointer; transition: opacity 0.2s; }
+.login-btn:hover { opacity: 0.88; }
+.login-error { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #e85a5a; display: none; margin-top: 4px; }
+@keyframes shimmer { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+
+/* ── PORTAL ───────────────────────────────────────── */
+#portal { display: none; }
+.portal-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 16px 56px; background: rgba(6,21,13,0.97); border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); }
+.ph-left { display: flex; align-items: center; gap: 10px; }
+.ph-qi { font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
+.ph-sep { color: var(--dim); margin: 0 4px; }
+.ph-client { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 13px; color: var(--blue-s); letter-spacing: 0.1em; }
+.ph-logout { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--silver); background: none; border: none; cursor: pointer; transition: color 0.2s; }
+.ph-logout:hover { color: var(--blue-s); }
+.portal-body { padding-top: 56px; }
+
+/* ── HERO ─────────────────────────────────────────── */
+.portal-hero { position: relative; min-height: 520px; display: flex; align-items: flex-end; overflow: hidden; background: var(--bg); }
+.hero-bg { position: absolute; inset: 0; background-image: url('./tetra-arcade-tunnel.png'); background-size: cover; background-position: center; filter: brightness(0.22) saturate(0.8); }
+.hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(27,126,176,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(27,126,176,0.05) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; }
+.hero-scrim { position: absolute; inset: 0; background: linear-gradient(to top, var(--bg) 0%, rgba(6,21,13,0.2) 60%, transparent 100%); }
+.hero-glow { position: absolute; bottom: 0; left: 0; right: 0; height: 40%; background: radial-gradient(ellipse 70% 100% at 30% 100%, rgba(27,126,176,0.08) 0%, transparent 70%); pointer-events: none; }
+.ph-content { position: relative; z-index: 1; padding: 72px 64px 96px; max-width: 860px; }
+.ph-eyebrow { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 0.38em; text-transform: uppercase; color: var(--blue-s); opacity: 0.7; display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.ph-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--blue-s); opacity: 0.5; }
+.ph-headline { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(30px, 4.2vw, 56px); color: var(--cream); line-height: 1.1; margin-bottom: 24px; letter-spacing: 0.04em; }
+.ph-headline em { font-style: normal; color: var(--blue-s); }
+.ph-desc { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 16px; color: var(--silver); max-width: 540px; line-height: 1.85; }
+
+/* ── SECTIONS ─────────────────────────────────────── */
+.section { padding: 88px 64px; border-top: 1px solid var(--border); }
+.section-hd { margin-bottom: 52px; }
+.section-eyebrow { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--blue); opacity: 0.65; display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.section-eyebrow::before { content: ''; width: 18px; height: 1px; background: var(--blue); opacity: 0.4; }
+.section-title { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: clamp(20px, 2.6vw, 32px); color: var(--cream); line-height: 1.2; letter-spacing: 0.04em; }
+.section-title em { font-style: normal; color: var(--blue-s); }
+
+/* ── CHARACTER CARDS ──────────────────────────────── */
+.char-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; }
+.char-card { position: relative; aspect-ratio: 3/4; overflow: hidden; background: var(--card); border: 1px solid var(--border); transition: border-color 0.3s; cursor: pointer; }
+.char-card:hover { border-color: rgba(27,126,176,0.5); }
+.char-card.amber:hover { border-color: rgba(200,120,32,0.5); }
+.char-card-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: brightness(0.72) saturate(0.85); transition: transform 0.55s ease, filter 0.3s; }
+.char-card:hover .char-card-img { transform: scale(1.05); filter: brightness(0.88) saturate(1); }
+.char-card-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(27,126,176,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(27,126,176,0.04) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; opacity: 0; transition: opacity 0.4s; }
+.char-card:hover .char-card-grid { opacity: 1; }
+.char-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(6,21,13,0.96) 0%, rgba(6,21,13,0.1) 55%, transparent 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 28px 24px; }
+.char-card-tag { font-family: 'Share Tech Mono', monospace; font-size: 8px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--blue-s); opacity: 0.75; margin-bottom: 8px; }
+.char-card.amber .char-card-tag { color: var(--amber-s); }
+.char-card-name { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 18px; color: var(--cream); line-height: 1.15; margin-bottom: 8px; letter-spacing: 0.04em; }
+.char-card-bio { font-family: 'Inter', sans-serif; font-size: 12px; color: var(--silver); line-height: 1.6; margin-bottom: 16px; opacity: 0; transform: translateY(6px); transition: opacity 0.3s, transform 0.3s; }
+.char-card:hover .char-card-bio { opacity: 1; transform: translateY(0); }
+.char-cta { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--blue-s); transition: letter-spacing 0.3s; }
+.char-card.amber .char-cta { color: var(--amber-s); }
+.char-card:hover .char-cta { letter-spacing: 0.3em; }
+
+/* ── DOCUMENT LIST ────────────────────────────────── */
+.doc-list { display: flex; flex-direction: column; gap: 2px; }
+.doc-row { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px; background: var(--card); border: 1px solid var(--border); gap: 24px; transition: border-color 0.25s; }
+.doc-row:hover { border-color: rgba(27,126,176,0.4); }
+.doc-row-left { display: flex; align-items: center; gap: 20px; min-width: 0; }
+.doc-icon { width: 32px; height: 32px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.doc-icon svg { width: 14px; height: 14px; }
+.doc-info { min-width: 0; }
+.doc-type { font-family: 'Share Tech Mono', monospace; font-size: 8px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--blue); opacity: 0.6; margin-bottom: 3px; }
+.doc-name { font-family: 'Jost', sans-serif; font-size: 14px; color: var(--cream); font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.doc-action { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--blue-s); text-decoration: none; flex-shrink: 0; transition: letter-spacing 0.25s; }
+.doc-action:hover { letter-spacing: 0.32em; }
+.doc-action.download { color: var(--amber-s); }
+
+/* ── GALLERY ──────────────────────────────────────── */
+.gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
+.gallery-item { position: relative; aspect-ratio: 2/3; overflow: hidden; cursor: pointer; background: var(--card); border: 1px solid var(--border); transition: border-color 0.3s; }
+.gallery-item:hover { border-color: rgba(27,126,176,0.5); }
+.gallery-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; filter: brightness(0.72) saturate(0.82); transition: transform 0.55s ease, filter 0.3s; }
+.gallery-item:hover .gallery-img { transform: scale(1.06); filter: brightness(0.9) saturate(1); }
+.gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(6,21,13,0.9) 0%, transparent 100%); padding: 20px 12px 12px; font-family: 'Share Tech Mono', monospace; font-size: 7px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--blue-s); opacity: 0; transform: translateY(4px); transition: opacity 0.3s, transform 0.3s; }
+.gallery-item:hover .gallery-caption { opacity: 1; transform: translateY(0); }
+
+/* ── LIGHTBOX ─────────────────────────────────────── */
+.lb-overlay { position: fixed; inset: 0; background: rgba(6,21,13,0.97); z-index: 1000; display: none; align-items: center; justify-content: center; cursor: pointer; }
+.lb-overlay.active { display: flex; }
+.lb-img { max-width: 90vw; max-height: 90vh; object-fit: contain; pointer-events: none; }
+.lb-close { position: absolute; top: 24px; right: 32px; font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--silver); background: none; border: none; cursor: pointer; }
+
+/* ── FOOTER ───────────────────────────────────────── */
+.portal-footer { padding: 40px 64px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.footer-mark { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--dim); }
+.footer-mark em { font-style: normal; color: rgba(27,126,176,0.4); }
+.footer-conf { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
+
+/* ── RESPONSIVE ───────────────────────────────────── */
+@media (max-width: 900px) {
+  .portal-header { padding: 14px 24px; }
+  .section { padding: 64px 28px; }
+  .ph-content { padding: 48px 28px 64px; }
+  .char-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .portal-footer { padding: 32px 28px; flex-direction: column; gap: 8px; text-align: center; }
+}
+@media (max-width: 540px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .doc-row { padding: 16px 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login">
+  <div class="login-box">
+    <div class="login-wordmark">QI <em>Studios</em></div>
+    <div class="login-rule"></div>
+    <h1 class="login-title">TETRA</h1>
+    <p class="login-sub">Client Portal — Corewood World</p>
+    <form class="login-form" onsubmit="handleLogin(event)">
+      <input class="login-input" id="code-input" type="text" placeholder="Access Code" autocomplete="off" spellcheck="false">
+      <button class="login-btn" type="submit">Enter</button>
+      <div class="login-error" id="login-error">Invalid access code</div>
+    </form>
+  </div>
+</div>
+
+<!-- PORTAL -->
+<div id="portal">
+  <header class="portal-header">
+    <div class="ph-left">
+      <span class="ph-qi">QI Studios</span>
+      <span class="ph-sep">·</span>
+      <span class="ph-client">TETRA</span>
+    </div>
+    <button class="ph-logout" onclick="logout()">Log Out</button>
+  </header>
+
+  <div class="portal-body">
+
+    <!-- HERO -->
+    <div class="portal-hero">
+      <div class="hero-bg"></div>
+      <div class="hero-grid"></div>
+      <div class="hero-glow"></div>
+      <div class="hero-scrim"></div>
+      <div class="ph-content">
+        <div class="ph-eyebrow">QI Studios × TETRA — Corewood World</div>
+        <h1 class="ph-headline">The Graph of<br><em>Everything</em><br>That Got Us Here</h1>
+        <p class="ph-desc">A mythic world built on the idea that data has memory. Corewood is where every node has a name, every connection has a cost, and the ones who know the graph hold all the power.</p>
+      </div>
+    </div>
+
+    <!-- CHARACTERS -->
+    <section class="section">
+      <div class="section-hd">
+        <div class="section-eyebrow">Section 01 — Characters</div>
+        <h2 class="section-title">Two figures.<br><em>One builds. One maps.</em></h2>
+      </div>
+      <div class="char-grid">
+
+        <div class="char-card" onclick="window.open('./tetra-character-bibles.html','_blank')">
+          <img class="char-card-img" src="./tetra-player-1.png" alt="The Architect" loading="lazy">
+          <div class="char-card-grid"></div>
+          <div class="char-card-overlay">
+            <div class="char-card-tag">Corewood · The Graph</div>
+            <div class="char-card-name">The Architect</div>
+            <div class="char-card-bio">Designs the structures that hold Corewood together. Sees relationships others can't. Never explains how.</div>
+            <span class="char-cta">View Character Bible →</span>
+          </div>
+        </div>
+
+        <div class="char-card amber" onclick="window.open('./tetra-character-bibles.html','_blank')">
+          <img class="char-card-img" src="./tetra-1.png" alt="The Cartographer" loading="lazy" style="object-position: center top;">
+          <div class="char-card-grid" style="background-image: linear-gradient(rgba(200,120,32,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(200,120,32,0.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
+          <div class="char-card-overlay" style="background: linear-gradient(to top, rgba(6,21,13,0.96) 0%, rgba(6,21,13,0.1) 55%, transparent 100%);">
+            <div class="char-card-tag" style="color: var(--amber-s);">Corewood · The Edge</div>
+            <div class="char-card-name">The Cartographer</div>
+            <div class="char-card-bio">Traces paths no one else would follow. Keeps records of every route ever taken. Knows where the graph ends.</div>
+            <span class="char-cta" style="color: var(--amber-s);">View Character Bible →</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- DOCUMENTS -->
+    <section class="section">
+      <div class="section-hd">
+        <div class="section-eyebrow">Section 02 — Deliverables</div>
+        <h2 class="section-title">Everything we built.<br><em>All in one place.</em></h2>
+      </div>
+      <div class="doc-list">
+
+        <div class="doc-row">
+          <div class="doc-row-left">
+            <div class="doc-icon">
+              <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="12" height="12" stroke="#1B7EB0" stroke-width="0.75" stroke-opacity="0.5"/><path d="M3.5 5h7M3.5 7.5h5" stroke="#6EC5E9" stroke-width="0.75" stroke-linecap="square"/></svg>
+            </div>
+            <div class="doc-info">
+              <div class="doc-type">HTML · Concept Overview</div>
+              <div class="doc-name">TETRA One-Pager</div>
+            </div>
+          </div>
+          <a class="doc-action" href="./tetra-one-pager.html" target="_blank">View →</a>
+        </div>
+
+        <div class="doc-row">
+          <div class="doc-row-left">
+            <div class="doc-icon">
+              <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="12" height="12" stroke="#1B7EB0" stroke-width="0.75" stroke-opacity="0.5"/><path d="M3.5 5h7M3.5 7.5h5" stroke="#6EC5E9" stroke-width="0.75" stroke-linecap="square"/></svg>
+            </div>
+            <div class="doc-info">
+              <div class="doc-type">HTML · Character World</div>
+              <div class="doc-name">Character Bibles</div>
+            </div>
+          </div>
+          <a class="doc-action" href="./tetra-character-bibles.html" target="_blank">View →</a>
+        </div>
+
+        <div class="doc-row">
+          <div class="doc-row-left">
+            <div class="doc-icon">
+              <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="12" height="12" stroke="#1B7EB0" stroke-width="0.75" stroke-opacity="0.5"/><path d="M3.5 5h7M3.5 7.5h5" stroke="#6EC5E9" stroke-width="0.75" stroke-linecap="square"/></svg>
+            </div>
+            <div class="doc-info">
+              <div class="doc-type">HTML · Visual Direction</div>
+              <div class="doc-name">Corewood Moodboard</div>
+            </div>
+          </div>
+          <a class="doc-action" href="./corewood-moodboard.html" target="_blank">View →</a>
+        </div>
+
+        <div class="doc-row">
+          <div class="doc-row-left">
+            <div class="doc-icon">
+              <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="12" height="12" stroke="#C87820" stroke-width="0.75" stroke-opacity="0.5"/><path d="M4.5 4.5L9.5 9.5M9.5 4.5L4.5 9.5" stroke="#E09840" stroke-width="0.75" stroke-linecap="square" stroke-opacity="0.8"/></svg>
+            </div>
+            <div class="doc-info">
+              <div class="doc-type">DOCX · Final Package</div>
+              <div class="doc-name">TETRA Final Handoff</div>
+            </div>
+          </div>
+          <a class="doc-action download" href="./TETRA-FINAL-HANDOFF.docx" download>Download →</a>
+        </div>
+
+        <div class="doc-row">
+          <div class="doc-row-left">
+            <div class="doc-icon">
+              <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="12" height="12" stroke="#C87820" stroke-width="0.75" stroke-opacity="0.5"/><path d="M4.5 4.5L9.5 9.5M9.5 4.5L4.5 9.5" stroke="#E09840" stroke-width="0.75" stroke-linecap="square" stroke-opacity="0.8"/></svg>
+            </div>
+            <div class="doc-info">
+              <div class="doc-type">PPTX · Strategy Deck</div>
+              <div class="doc-name">Pitch Deck</div>
+            </div>
+          </div>
+          <a class="doc-action download" href="./tetra-pitch-deck.pptx" download>Download →</a>
+        </div>
+
+        <div class="doc-row">
+          <div class="doc-row-left">
+            <div class="doc-icon">
+              <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="12" height="12" stroke="#C87820" stroke-width="0.75" stroke-opacity="0.5"/><path d="M4.5 4.5L9.5 9.5M9.5 4.5L4.5 9.5" stroke="#E09840" stroke-width="0.75" stroke-linecap="square" stroke-opacity="0.8"/></svg>
+            </div>
+            <div class="doc-info">
+              <div class="doc-type">DOCX · World Lore</div>
+              <div class="doc-name">Corewood World Bible</div>
+            </div>
+          </div>
+          <a class="doc-action download" href="./corewood-world-bible.docx" download>Download →</a>
+        </div>
+
+        <div class="doc-row">
+          <div class="doc-row-left">
+            <div class="doc-icon">
+              <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="12" height="12" stroke="#C87820" stroke-width="0.75" stroke-opacity="0.5"/><path d="M4.5 4.5L9.5 9.5M9.5 4.5L4.5 9.5" stroke="#E09840" stroke-width="0.75" stroke-linecap="square" stroke-opacity="0.8"/></svg>
+            </div>
+            <div class="doc-info">
+              <div class="doc-type">DOCX · Visual System</div>
+              <div class="doc-name">8-Bit World Guide</div>
+            </div>
+          </div>
+          <a class="doc-action download" href="./tetra-8bit-world-guide.docx" download>Download →</a>
+        </div>
+
+        <div class="doc-row">
+          <div class="doc-row-left">
+            <div class="doc-icon">
+              <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="12" height="12" stroke="#C87820" stroke-width="0.75" stroke-opacity="0.5"/><path d="M4.5 4.5L9.5 9.5M9.5 4.5L4.5 9.5" stroke="#E09840" stroke-width="0.75" stroke-linecap="square" stroke-opacity="0.8"/></svg>
+            </div>
+            <div class="doc-info">
+              <div class="doc-type">DOCX · Content Library</div>
+              <div class="doc-name">Pixel Prompt Library</div>
+            </div>
+          </div>
+          <a class="doc-action download" href="./tetra-pixel-prompt-library.docx" download>Download →</a>
+        </div>
+
+        <div class="doc-row">
+          <div class="doc-row-left">
+            <div class="doc-icon">
+              <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="12" height="12" stroke="#C87820" stroke-width="0.75" stroke-opacity="0.5"/><path d="M4.5 4.5L9.5 9.5M9.5 4.5L4.5 9.5" stroke="#E09840" stroke-width="0.75" stroke-linecap="square" stroke-opacity="0.8"/></svg>
+            </div>
+            <div class="doc-info">
+              <div class="doc-type">DOCX · Production Notes</div>
+              <div class="doc-name">Corewood Video Prompts</div>
+            </div>
+          </div>
+          <a class="doc-action download" href="./corewood-video-prompts.docx" download>Download →</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VISUAL ARCHIVE -->
+    <section class="section">
+      <div class="section-hd">
+        <div class="section-eyebrow">Section 03 — Visual Archive</div>
+        <h2 class="section-title">The world.<br><em>Rendered.</em></h2>
+      </div>
+      <div class="gallery-grid">
+
+        <div class="gallery-item" onclick="openLb('./tetra-arcade.png')">
+          <img class="gallery-img" src="./tetra-arcade.png" alt="Tetra Arcade" loading="lazy">
+          <div class="gallery-caption">Arcade World</div>
+        </div>
+
+        <div class="gallery-item" onclick="openLb('./tetra-arcade-tunnel.png')">
+          <img class="gallery-img" src="./tetra-arcade-tunnel.png" alt="Tetra Arcade Tunnel" loading="lazy">
+          <div class="gallery-caption">Tunnel</div>
+        </div>
+
+        <div class="gallery-item" onclick="openLb('./tetra-player-1.png')">
+          <img class="gallery-img" src="./tetra-player-1.png" alt="Tetra Player" loading="lazy">
+          <div class="gallery-caption">Player 1</div>
+        </div>
+
+        <div class="gallery-item" onclick="openLb('./tetra-win.png')">
+          <img class="gallery-img" src="./tetra-win.png" alt="Win With Tetra" loading="lazy">
+          <div class="gallery-caption">Win</div>
+        </div>
+
+        <div class="gallery-item" onclick="openLb('./tetra-1.png')">
+          <img class="gallery-img" src="./tetra-1.png" alt="Tetra 1" loading="lazy">
+          <div class="gallery-caption">Corewood I</div>
+        </div>
+
+        <div class="gallery-item" onclick="openLb('./tetra-2.png')">
+          <img class="gallery-img" src="./tetra-2.png" alt="Tetra 2" loading="lazy">
+          <div class="gallery-caption">Corewood II</div>
+        </div>
+
+        <div class="gallery-item" onclick="openLb('./tetra-3.png')">
+          <img class="gallery-img" src="./tetra-3.png" alt="Tetra 3" loading="lazy">
+          <div class="gallery-caption">Corewood III</div>
+        </div>
+
+        <div class="gallery-item" onclick="openLb('./tetra-4.png')">
+          <img class="gallery-img" src="./tetra-4.png" alt="Tetra 4" loading="lazy">
+          <div class="gallery-caption">Corewood IV</div>
+        </div>
+
+        <div class="gallery-item" onclick="openLb('./tetra-5.png')">
+          <img class="gallery-img" src="./tetra-5.png" alt="Tetra 5" loading="lazy">
+          <div class="gallery-caption">Corewood V</div>
+        </div>
+
+        <div class="gallery-item" onclick="openLb('./tetra-openart.png')">
+          <img class="gallery-img" src="./tetra-openart.png" alt="Tetra Openart" loading="lazy">
+          <div class="gallery-caption">Open World</div>
+        </div>
+
+        <div class="gallery-item" onclick="openLb('./tetra-logo-1.png')">
+          <img class="gallery-img" src="./tetra-logo-1.png" alt="Tetra Logo" loading="lazy" style="object-fit: contain; background: var(--card);">
+          <div class="gallery-caption">Wordmark</div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="portal-footer">
+    <div class="footer-mark">QI <em>Studios</em> × TETRA</div>
+    <div class="footer-conf">Confidential · Client Use Only</div>
+  </footer>
+
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb-overlay" id="lb" onclick="closeLb(event)">
+  <button class="lb-close" onclick="closeLb()">✕ Close</button>
+  <img class="lb-img" id="lb-img" src="" alt="">
+</div>
+
+<script>
+const CODE = 'TETRA25';
+const KEY  = 'tetra_auth';
+
+function handleLogin(e) {
+  e.preventDefault();
+  const val = document.getElementById('code-input').value.trim().toUpperCase();
+  if (val === CODE) {
+    localStorage.setItem(KEY, '1');
+    showPortal();
+  } else {
+    const err = document.getElementById('login-error');
+    err.style.display = 'block';
+    setTimeout(() => { err.style.display = 'none'; }, 2800);
+  }
+}
+
+function showPortal() {
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('portal').style.display = 'block';
+}
+
+function logout() {
+  localStorage.removeItem(KEY);
+  document.getElementById('portal').style.display = 'none';
+  document.getElementById('login').style.display = 'flex';
+  document.getElementById('code-input').value = '';
+}
+
+if (localStorage.getItem(KEY) === '1') { showPortal(); }
+
+function openLb(src) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb(e) {
+  if (e && e.target === document.getElementById('lb-img')) return;
+  document.getElementById('lb').classList.remove('active');
+  document.body.style.overflow = '';
+  document.getElementById('lb-img').src = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+</script>
+
+</body>
+</html>

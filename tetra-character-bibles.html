@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TETRA — Character Bibles</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --f9: #06150D; --f8: #0B1F14; --f7: #122B1C;
+  --mb: #1B7EB0; --mg: #6EC5E9; --md: #0C3547;
+  --dc: #E23D28; --dg: #F2A093; --dd: #5C1410;
+  --fg: #1A5C35; --fb: #4A8F63;
+  --am: #C87820; --ag: #FFB347;
+  --cr: #FAF7F0; --cm: #C8C4BA; --cd: #8A8370;
+  --bark: #8B6F5E;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--f9);
+  color: var(--cr);
+  font-family: 'Crimson Pro', Georgia, serif;
+  overflow-x: hidden;
+}
+
+/* Grid bg */
+body::before {
+  content:''; position:fixed; inset:0;
+  background-image:
+    linear-gradient(rgba(27,126,176,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27,126,176,0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events:none; z-index:0;
+}
+body::after {
+  content:''; position:fixed; inset:0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.055) 3px, rgba(0,0,0,0.055) 4px);
+  pointer-events:none; z-index:0;
+}
+
+.wrap { position:relative; z-index:2; max-width:1100px; margin:0 auto; padding:0 48px 100px; }
+
+/* ── MASTHEAD ── */
+.masthead {
+  padding:56px 0 48px;
+  border-bottom: 1px solid rgba(27,126,176,0.2);
+  margin-bottom:72px;
+  display:flex; justify-content:space-between; align-items:flex-end;
+}
+.masthead-left {}
+.masthead-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px; letter-spacing:0.3em; color:var(--mb);
+  text-transform:uppercase; margin-bottom:14px;
+}
+.masthead-title {
+  font-family:'Orbitron',monospace;
+  font-size:clamp(28px,4vw,48px); font-weight:900;
+  letter-spacing:0.08em; line-height:1;
+  color:var(--cr);
+  text-shadow: 0 0 40px rgba(27,126,176,0.3);
+}
+.masthead-sub {
+  font-family:'Share Tech Mono',monospace;
+  font-size:11px; letter-spacing:0.15em;
+  color:var(--cd); margin-top:10px;
+}
+.masthead-right {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9px; letter-spacing:0.2em;
+  color:var(--cd); text-align:right; line-height:2;
+}
+
+/* ── CHARACTER SECTION HEADER ── */
+.char-header {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:2px; margin-bottom:48px;
+}
+.char-identity {
+  padding:40px 36px;
+  position:relative; overflow:hidden;
+}
+.char-identity.architect { background:var(--md); border:1px solid var(--mb); border-left:5px solid var(--mb); }
+.char-identity.cartographer { background:#1A0C05; border:1px solid var(--am); border-left:5px solid var(--ag); }
+
+.char-designation {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9px; letter-spacing:0.35em; text-transform:uppercase;
+  margin-bottom:14px;
+}
+.architect .char-designation { color:var(--mg); }
+.cartographer .char-designation { color:var(--ag); }
+
+.char-name {
+  font-family:'Orbitron',monospace;
+  font-size:clamp(26px,3.5vw,40px); font-weight:900;
+  letter-spacing:0.08em; line-height:1;
+  margin-bottom:10px;
+}
+.architect .char-name { color:var(--mg); text-shadow:0 0 30px rgba(110,197,233,0.4); }
+.cartographer .char-name { color:var(--ag); text-shadow:0 0 30px rgba(255,179,71,0.4); }
+
+.char-epithet {
+  font-family:'Crimson Pro',serif;
+  font-size:16px; font-style:italic;
+  color:var(--cm); line-height:1.5;
+}
+
+/* Avatar placeholder — graph SVG */
+.char-avatar {
+  position:relative; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+.char-avatar.architect { background:linear-gradient(135deg,#050D16,var(--md)); border:1px solid rgba(27,126,176,0.2); }
+.char-avatar.cartographer { background:linear-gradient(135deg,#110800,#1A0C05); border:1px solid rgba(200,120,32,0.2); }
+
+.char-avatar svg { width:100%; height:100%; }
+
+/* ── BODY CONTENT ── */
+.section-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9px; letter-spacing:0.32em; text-transform:uppercase;
+  margin-bottom:20px;
+  display:flex; align-items:center; gap:14px;
+}
+.section-label.blue { color:var(--mg); }
+.section-label.blue::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,rgba(27,126,176,0.3),transparent); }
+.section-label.amber { color:var(--ag); }
+.section-label.amber::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,rgba(200,120,32,0.3),transparent); }
+
+.section { margin-bottom:56px; }
+
+/* ── TWO CHARACTER COLUMNS ── */
+.dual-col { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-bottom:24px; }
+
+.char-col {
+  padding:28px 24px;
+  background:var(--f8);
+}
+.char-col.arch { border:1px solid rgba(27,126,176,0.1); border-top:3px solid var(--mb); }
+.char-col.cart { border:1px solid rgba(200,120,32,0.1); border-top:3px solid var(--ag); }
+
+.col-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:8px; letter-spacing:0.25em; text-transform:uppercase;
+  margin-bottom:14px;
+}
+.arch .col-label { color:var(--mg); }
+.cart .col-label { color:var(--ag); }
+
+.col-body {
+  font-size:15px; line-height:1.8; color:var(--cm);
+}
+.col-body strong { color:var(--cr); font-weight:600; }
+.col-body em { color:var(--cm); font-style:italic; }
+
+/* ── QUOTE BLOCKS ── */
+.quote {
+  padding:28px 32px;
+  margin-bottom:16px; position:relative;
+}
+.quote.blue { background:var(--md); border:1px solid rgba(27,126,176,0.2); border-left:4px solid var(--mb); }
+.quote.amber { background:#1A0C05; border:1px solid rgba(200,120,32,0.2); border-left:4px solid var(--ag); }
+
+.quote-text {
+  font-family:'Crimson Pro',serif;
+  font-size:20px; font-style:italic;
+  line-height:1.6; margin-bottom:10px;
+}
+.quote.blue .quote-text { color:var(--cr); }
+.quote.amber .quote-text { color:var(--cr); }
+
+.quote-attr {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9px; letter-spacing:0.2em; text-transform:uppercase;
+}
+.quote.blue .quote-attr { color:var(--mg); }
+.quote.amber .quote-attr { color:var(--ag); }
+
+/* ── ATTRIBUTE GRID ── */
+.attr-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-bottom:24px; }
+.attr-card {
+  padding:20px 18px;
+  background:var(--f8);
+}
+.attr-card.blue { border:1px solid rgba(27,126,176,0.1); }
+.attr-card.amber { border:1px solid rgba(200,120,32,0.1); }
+
+.attr-name {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9px; letter-spacing:0.2em; text-transform:uppercase;
+  margin-bottom:8px;
+}
+.attr-card.blue .attr-name { color:var(--mg); }
+.attr-card.amber .attr-name { color:var(--ag); }
+
+.attr-val { font-size:14px; color:var(--cm); line-height:1.6; }
+
+/* ── VOICE TABLE ── */
+.voice-table { display:flex; flex-direction:column; gap:2px; margin-bottom:24px; }
+.voice-row { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+.voice-cell {
+  padding:16px 20px;
+  background:var(--f8);
+}
+.voice-cell.kill { border:1px solid rgba(226,61,40,0.15); background:rgba(226,61,40,0.04); }
+.voice-cell.use.blue { border:1px solid rgba(27,126,176,0.12); }
+.voice-cell.use.amber { border:1px solid rgba(200,120,32,0.12); }
+
+.voice-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:8px; letter-spacing:0.2em; text-transform:uppercase;
+  margin-bottom:8px;
+}
+.voice-cell.kill .voice-label { color:var(--dc); }
+.voice-cell.use.blue .voice-label { color:var(--mg); }
+.voice-cell.use.amber .voice-label { color:var(--ag); }
+
+.voice-line { font-size:14px; color:var(--cm); line-height:1.7; font-style:italic; }
+
+/* ── MIDJOURNEY PROMPTS ── */
+.mj-block {
+  background:rgba(0,0,0,0.4);
+  border:1px solid rgba(27,126,176,0.12);
+  padding:24px 28px; margin-bottom:8px;
+  position:relative;
+}
+.mj-block.amber-border { border-color:rgba(200,120,32,0.15); }
+.mj-tag {
+  font-family:'Share Tech Mono',monospace;
+  font-size:8px; letter-spacing:0.25em; text-transform:uppercase;
+  margin-bottom:10px;
+}
+.mj-tag.blue { color:var(--mg); }
+.mj-tag.amber { color:var(--ag); }
+.mj-text {
+  font-family:'Share Tech Mono',monospace;
+  font-size:11.5px; line-height:1.85; color:rgba(200,196,186,0.8);
+}
+.mj-text em { font-style:normal; }
+.mj-text em.b { color:var(--mg); }
+.mj-text em.a { color:var(--ag); }
+.mj-params {
+  margin-top:10px; font-family:'Share Tech Mono',monospace;
+  font-size:10px; color:var(--mb); opacity:0.8;
+}
+
+/* ── INTERACTION SECTION ── */
+.interaction-block {
+  border:1px solid rgba(27,126,176,0.15);
+  padding:40px; margin-bottom:24px;
+  background:linear-gradient(135deg,var(--f8),rgba(12,53,71,0.4));
+  position:relative; overflow:hidden;
+}
+.interaction-block::before {
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--mb),var(--ag),var(--mb));
+}
+.interaction-title {
+  font-family:'Orbitron',monospace;
+  font-size:16px; font-weight:700; letter-spacing:0.1em;
+  color:var(--cr); margin-bottom:20px;
+}
+.interaction-body { font-size:16px; line-height:1.9; color:var(--cm); }
+.interaction-body strong { color:var(--cr); }
+.interaction-body em.b { color:var(--mg); font-style:normal; }
+.interaction-body em.a { color:var(--ag); font-style:normal; }
+
+/* ── VISUAL SPEC ── */
+.visual-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-bottom:24px; }
+.visual-card { padding:24px 22px; background:var(--f8); }
+.visual-card.blue { border:1px solid rgba(27,126,176,0.1); }
+.visual-card.amber { border:1px solid rgba(200,120,32,0.1); }
+.visual-card-title { font-family:'Orbitron',monospace; font-size:11px; letter-spacing:0.12em; margin-bottom:14px; }
+.visual-card.blue .visual-card-title { color:var(--mg); }
+.visual-card.amber .visual-card-title { color:var(--ag); }
+.spec-row { display:flex; gap:12px; margin-bottom:8px; align-items:flex-start; }
+.spec-key { font-family:'Share Tech Mono',monospace; font-size:9px; letter-spacing:0.15em; color:var(--cd); text-transform:uppercase; min-width:80px; padding-top:2px; }
+.spec-val { font-size:13px; color:var(--cm); line-height:1.6; }
+
+/* ── SWATCH ROW ── */
+.swatch-row { display:flex; gap:6px; margin-bottom:24px; flex-wrap:wrap; }
+.swatch-item { display:flex; flex-direction:column; align-items:center; gap:4px; }
+.swatch-chip { width:40px; height:40px; border:1px solid rgba(255,255,255,0.1); }
+.swatch-hex { font-family:'Share Tech Mono',monospace; font-size:8px; color:var(--cd); }
+
+/* ── DIVIDER ── */
+.divider {
+  border:none;
+  border-top:1px solid rgba(27,126,176,0.1);
+  margin:72px 0;
+  position:relative;
+}
+.divider::after {
+  content:attr(data-label);
+  position:absolute; top:-10px; left:50%; transform:translateX(-50%);
+  font-family:'Share Tech Mono',monospace; font-size:9px;
+  letter-spacing:0.3em; color:var(--cd); text-transform:uppercase;
+  background:var(--f9); padding:0 20px;
+}
+
+/* ── RELATIONSHIP MAP ── */
+.relationship {
+  padding:48px; text-align:center;
+  background:var(--f8);
+  border:1px solid rgba(27,126,176,0.12);
+  margin-bottom:56px; position:relative; overflow:hidden;
+}
+.rel-nodes {
+  display:flex; justify-content:center; align-items:center; gap:80px;
+  margin-bottom:32px;
+}
+.rel-node { text-align:center; }
+.rel-node-circle {
+  width:80px; height:80px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Orbitron',monospace; font-size:10px; font-weight:700;
+  letter-spacing:0.1em; margin:0 auto 10px;
+}
+.rel-node-circle.arch { background:rgba(27,126,176,0.15); border:2px solid var(--mb); color:var(--mg); box-shadow:0 0 20px rgba(27,126,176,0.2); }
+.rel-node-circle.cart { background:rgba(200,120,32,0.15); border:2px solid var(--ag); color:var(--ag); box-shadow:0 0 20px rgba(200,120,32,0.2); }
+.rel-node-circle.tetra { background:rgba(250,247,240,0.05); border:2px solid rgba(250,247,240,0.2); color:var(--cr); width:60px; height:60px; }
+.rel-edge {
+  width:60px; height:1px; background:linear-gradient(90deg,var(--mb),var(--ag));
+  position:relative;
+}
+.rel-edge::after {
+  content:''; position:absolute; top:-3px; right:0;
+  width:7px; height:7px; border-radius:50%; background:var(--ag);
+  box-shadow:0 0 8px var(--ag);
+}
+.rel-node-name { font-family:'Share Tech Mono',monospace; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; }
+.rel-node.arch .rel-node-name { color:var(--mg); }
+.rel-node.cart .rel-node-name { color:var(--ag); }
+.rel-node.tetra .rel-node-name { color:var(--cd); }
+.rel-body { font-size:15px; color:var(--cm); line-height:1.8; max-width:600px; margin:0 auto; }
+
+/* ── FOOTER ── */
+.footer { display:flex; justify-content:space-between; align-items:center; padding-top:32px; border-top:1px solid rgba(27,126,176,0.1); flex-wrap:wrap; gap:12px; }
+.footer-brand { font-family:'Orbitron',monospace; font-size:10px; letter-spacing:0.2em; color:var(--cd); }
+.footer-brand span { color:var(--mg); }
+.footer-win { font-family:'Orbitron',monospace; font-size:10px; letter-spacing:0.2em; color:var(--dc); }
+
+/* Animations */
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+.section { animation:fadeUp 0.7s ease both; }
+.section:nth-child(2){animation-delay:0.05s}
+.section:nth-child(3){animation-delay:0.1s}
+.section:nth-child(4){animation-delay:0.15s}
+.section:nth-child(5){animation-delay:0.2s}
+.section:nth-child(6){animation-delay:0.25s}
+
+/* Architect node pulse */
+@keyframes archPulse { 0%,100%{opacity:0.6;r:8} 50%{opacity:1;r:11} }
+@keyframes cartPulse { 0%,100%{opacity:0.6;r:8} 50%{opacity:1;r:11} }
+@keyframes edgeTrace { to{stroke-dashoffset:-40} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-left">
+    <div class="masthead-label">QI Studios · TETRA World · Character Development</div>
+    <div class="masthead-title">CHARACTER BIBLES</div>
+    <div class="masthead-sub">The Architect · The Cartographer · World Integration Guide</div>
+  </div>
+  <div class="masthead-right">
+    TETRA by Corewood<br>
+    QI Studios · 2026<br>
+    Internal Development<br>
+    v1.0
+  </div>
+</header>
+
+<!-- 8-BIT WORLD NOTICE -->
+<div style="background:linear-gradient(135deg,#1A0C05,#0C3547);border:1px solid #FFB347;border-left:5px solid #FFB347;padding:24px 32px;margin-bottom:32px;font-family:'Share Tech Mono',monospace;">
+  <div style="font-size:9px;letter-spacing:0.3em;color:#FFB347;text-transform:uppercase;margin-bottom:8px;">Art Direction Update · V4</div>
+  <div style="font-size:14px;color:#FAF7F0;line-height:1.6;font-family:'Crimson Pro',serif;">
+    <strong style="color:#FFB347;">All characters and world art now render as 8-bit pixel art.</strong> Photorealistic AI characters and cinematic 3D worlds are everywhere — they signal generic AI startup. 8-bit grounds TETRA in the arcade cabinet aesthetic that Mickey already established. The math is sophisticated. The art is humble. That contrast is the brand.
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     CHARACTER 01: THE ARCHITECT
+════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="char-header">
+
+    <div class="char-identity architect">
+      <div class="char-designation">Character 01 · The Grid · Primary</div>
+      <div class="char-name">THE ARCHITECT</div>
+      <div class="char-epithet">"The person who built what's inside the machine.<br>Not the machine."</div>
+    </div>
+
+    <div class="char-avatar architect">
+      <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" style="height:200px;image-rendering:pixelated;image-rendering:crisp-edges;" shape-rendering="crispEdges">
+        <!-- 8-bit Architect sprite -->
+        <rect width="200" height="150" fill="#050D16"/>
+        <!-- Scanlines -->
+        <g opacity="0.18">
+          <rect x="0" y="0" width="200" height="2" fill="#000"/>
+          <rect x="0" y="4" width="200" height="2" fill="#000"/>
+          <rect x="0" y="8" width="200" height="2" fill="#000"/>
+          <rect x="0" y="12" width="200" height="2" fill="#000"/>
+          <rect x="0" y="16" width="200" height="2" fill="#000"/>
+          <rect x="0" y="20" width="200" height="2" fill="#000"/>
+          <rect x="0" y="24" width="200" height="2" fill="#000"/>
+          <rect x="0" y="28" width="200" height="2" fill="#000"/>
+          <rect x="0" y="32" width="200" height="2" fill="#000"/>
+          <rect x="0" y="36" width="200" height="2" fill="#000"/>
+          <rect x="0" y="40" width="200" height="2" fill="#000"/>
+          <rect x="0" y="44" width="200" height="2" fill="#000"/>
+          <rect x="0" y="48" width="200" height="2" fill="#000"/>
+          <rect x="0" y="52" width="200" height="2" fill="#000"/>
+          <rect x="0" y="56" width="200" height="2" fill="#000"/>
+          <rect x="0" y="60" width="200" height="2" fill="#000"/>
+          <rect x="0" y="64" width="200" height="2" fill="#000"/>
+          <rect x="0" y="68" width="200" height="2" fill="#000"/>
+          <rect x="0" y="72" width="200" height="2" fill="#000"/>
+          <rect x="0" y="76" width="200" height="2" fill="#000"/>
+          <rect x="0" y="80" width="200" height="2" fill="#000"/>
+          <rect x="0" y="84" width="200" height="2" fill="#000"/>
+          <rect x="0" y="88" width="200" height="2" fill="#000"/>
+          <rect x="0" y="92" width="200" height="2" fill="#000"/>
+          <rect x="0" y="96" width="200" height="2" fill="#000"/>
+          <rect x="0" y="100" width="200" height="2" fill="#000"/>
+          <rect x="0" y="104" width="200" height="2" fill="#000"/>
+          <rect x="0" y="108" width="200" height="2" fill="#000"/>
+          <rect x="0" y="112" width="200" height="2" fill="#000"/>
+          <rect x="0" y="116" width="200" height="2" fill="#000"/>
+          <rect x="0" y="120" width="200" height="2" fill="#000"/>
+          <rect x="0" y="124" width="200" height="2" fill="#000"/>
+          <rect x="0" y="128" width="200" height="2" fill="#000"/>
+          <rect x="0" y="132" width="200" height="2" fill="#000"/>
+          <rect x="0" y="136" width="200" height="2" fill="#000"/>
+          <rect x="0" y="140" width="200" height="2" fill="#000"/>
+          <rect x="0" y="144" width="200" height="2" fill="#000"/>
+        </g>
+        <!-- Grid floor lines -->
+        <g fill="#1B7EB0" opacity="0.4">
+          <rect x="0" y="115" width="200" height="1"/>
+          <rect x="0" y="125" width="200" height="1"/>
+          <rect x="0" y="135" width="200" height="1"/>
+        </g>
+        <!-- Vertical grid -->
+        <g fill="#1B7EB0" opacity="0.3">
+          <rect x="40" y="100" width="1" height="50"/>
+          <rect x="80" y="100" width="1" height="50"/>
+          <rect x="120" y="100" width="1" height="50"/>
+          <rect x="160" y="100" width="1" height="50"/>
+        </g>
+        <!-- ARCHITECT SPRITE — 32 pixels tall, pixel by pixel -->
+        <!-- Head row 1 -->
+        <g fill="#FAF7F0">
+          <rect x="92" y="40" width="2" height="2"/>
+          <rect x="94" y="40" width="2" height="2"/>
+          <rect x="96" y="40" width="2" height="2"/>
+          <rect x="98" y="40" width="2" height="2"/>
+          <rect x="100" y="40" width="2" height="2"/>
+          <rect x="102" y="40" width="2" height="2"/>
+          <rect x="92" y="42" width="2" height="2"/>
+          <rect x="94" y="42" width="2" height="2"/>
+          <rect x="96" y="42" width="2" height="2"/>
+          <rect x="98" y="42" width="2" height="2"/>
+          <rect x="100" y="42" width="2" height="2"/>
+          <rect x="102" y="42" width="2" height="2"/>
+        </g>
+        <!-- Eyes -->
+        <g fill="#1B7EB0">
+          <rect x="94" y="44" width="2" height="2"/>
+          <rect x="100" y="44" width="2" height="2"/>
+        </g>
+        <!-- Lower face -->
+        <g fill="#FAF7F0">
+          <rect x="92" y="46" width="2" height="2"/>
+          <rect x="96" y="46" width="2" height="2"/>
+          <rect x="98" y="46" width="2" height="2"/>
+          <rect x="102" y="46" width="2" height="2"/>
+        </g>
+        <!-- Collar - dart red accent -->
+        <g fill="#E23D28">
+          <rect x="94" y="48" width="2" height="2"/>
+          <rect x="100" y="48" width="2" height="2"/>
+        </g>
+        <!-- Body / jacket - morpho blue -->
+        <g fill="#1B7EB0">
+          <rect x="88" y="50" width="2" height="2"/>
+          <rect x="90" y="50" width="2" height="2"/>
+          <rect x="92" y="50" width="2" height="2"/>
+          <rect x="94" y="50" width="2" height="2"/>
+          <rect x="96" y="50" width="2" height="2"/>
+          <rect x="98" y="50" width="2" height="2"/>
+          <rect x="100" y="50" width="2" height="2"/>
+          <rect x="102" y="50" width="2" height="2"/>
+          <rect x="104" y="50" width="2" height="2"/>
+          <rect x="106" y="50" width="2" height="2"/>
+          <rect x="86" y="52" width="2" height="2"/>
+          <rect x="88" y="52" width="2" height="2"/>
+          <rect x="90" y="52" width="2" height="2"/>
+          <rect x="92" y="52" width="2" height="2"/>
+          <rect x="94" y="52" width="2" height="2"/>
+          <rect x="96" y="52" width="2" height="2"/>
+          <rect x="98" y="52" width="2" height="2"/>
+          <rect x="100" y="52" width="2" height="2"/>
+          <rect x="102" y="52" width="2" height="2"/>
+          <rect x="104" y="52" width="2" height="2"/>
+          <rect x="106" y="52" width="2" height="2"/>
+          <rect x="108" y="52" width="2" height="2"/>
+          <rect x="86" y="54" width="2" height="2"/>
+          <rect x="88" y="54" width="2" height="2"/>
+          <rect x="90" y="54" width="2" height="2"/>
+          <rect x="92" y="54" width="2" height="2"/>
+          <rect x="94" y="54" width="2" height="2"/>
+          <rect x="96" y="54" width="2" height="2"/>
+          <rect x="98" y="54" width="2" height="2"/>
+          <rect x="100" y="54" width="2" height="2"/>
+          <rect x="102" y="54" width="2" height="2"/>
+          <rect x="104" y="54" width="2" height="2"/>
+          <rect x="106" y="54" width="2" height="2"/>
+          <rect x="108" y="54" width="2" height="2"/>
+        </g>
+        <!-- Graph node patch on jacket -->
+        <g fill="#6EC5E9">
+          <rect x="94" y="56" width="2" height="2"/>
+          <rect x="100" y="56" width="2" height="2"/>
+        </g>
+        <!-- Jacket continues -->
+        <g fill="#1B7EB0">
+          <rect x="86" y="58" width="2" height="2"/>
+          <rect x="88" y="58" width="2" height="2"/>
+          <rect x="90" y="58" width="2" height="2"/>
+          <rect x="92" y="58" width="2" height="2"/>
+          <rect x="96" y="58" width="2" height="2"/>
+          <rect x="98" y="58" width="2" height="2"/>
+          <rect x="102" y="58" width="2" height="2"/>
+          <rect x="104" y="58" width="2" height="2"/>
+          <rect x="106" y="58" width="2" height="2"/>
+          <rect x="108" y="58" width="2" height="2"/>
+          <rect x="86" y="60" width="2" height="2"/>
+          <rect x="88" y="60" width="2" height="2"/>
+          <rect x="90" y="60" width="2" height="2"/>
+          <rect x="92" y="60" width="2" height="2"/>
+          <rect x="94" y="60" width="2" height="2"/>
+          <rect x="96" y="60" width="2" height="2"/>
+          <rect x="98" y="60" width="2" height="2"/>
+          <rect x="100" y="60" width="2" height="2"/>
+          <rect x="102" y="60" width="2" height="2"/>
+          <rect x="104" y="60" width="2" height="2"/>
+          <rect x="106" y="60" width="2" height="2"/>
+          <rect x="108" y="60" width="2" height="2"/>
+        </g>
+        <!-- Arms -->
+        <g fill="#0C3547">
+          <rect x="84" y="56" width="2" height="2"/>
+          <rect x="84" y="58" width="2" height="2"/>
+          <rect x="82" y="60" width="2" height="2"/>
+          <rect x="110" y="56" width="2" height="2"/>
+          <rect x="110" y="58" width="2" height="2"/>
+          <rect x="112" y="60" width="2" height="2"/>
+        </g>
+        <!-- Pants - forest green -->
+        <g fill="#1A5C35">
+          <rect x="90" y="62" width="2" height="2"/>
+          <rect x="92" y="62" width="2" height="2"/>
+          <rect x="94" y="62" width="2" height="2"/>
+          <rect x="96" y="62" width="2" height="2"/>
+          <rect x="98" y="62" width="2" height="2"/>
+          <rect x="100" y="62" width="2" height="2"/>
+          <rect x="102" y="62" width="2" height="2"/>
+          <rect x="104" y="62" width="2" height="2"/>
+          <rect x="90" y="64" width="2" height="2"/>
+          <rect x="92" y="64" width="2" height="2"/>
+          <rect x="94" y="64" width="2" height="2"/>
+          <rect x="100" y="64" width="2" height="2"/>
+          <rect x="102" y="64" width="2" height="2"/>
+          <rect x="104" y="64" width="2" height="2"/>
+          <rect x="90" y="66" width="2" height="2"/>
+          <rect x="92" y="66" width="2" height="2"/>
+          <rect x="102" y="66" width="2" height="2"/>
+          <rect x="104" y="66" width="2" height="2"/>
+        </g>
+        <!-- Feet -->
+        <g fill="#000">
+          <rect x="88" y="68" width="2" height="2"/>
+          <rect x="90" y="68" width="2" height="2"/>
+          <rect x="92" y="68" width="2" height="2"/>
+          <rect x="94" y="68" width="2" height="2"/>
+          <rect x="100" y="68" width="2" height="2"/>
+          <rect x="102" y="68" width="2" height="2"/>
+          <rect x="104" y="68" width="2" height="2"/>
+          <rect x="106" y="68" width="2" height="2"/>
+        </g>
+        <!-- ORBITING NODES — pixel sprites of TETRA logo colors -->
+        <!-- Node 1 - glow blue top -->
+        <g fill="#6EC5E9">
+          <rect x="96" y="20" width="2" height="2"/>
+          <rect x="98" y="20" width="2" height="2"/>
+          <rect x="94" y="22" width="2" height="2"/>
+          <rect x="96" y="22" width="2" height="2"/>
+          <rect x="98" y="22" width="2" height="2"/>
+          <rect x="100" y="22" width="2" height="2"/>
+          <rect x="96" y="24" width="2" height="2"/>
+          <rect x="98" y="24" width="2" height="2"/>
+          <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
+        </g>
+        <!-- Node 2 - morpho blue left -->
+        <g fill="#1B7EB0">
+          <rect x="40" y="56" width="2" height="2"/>
+          <rect x="42" y="56" width="2" height="2"/>
+          <rect x="38" y="58" width="2" height="2"/>
+          <rect x="40" y="58" width="2" height="2"/>
+          <rect x="42" y="58" width="2" height="2"/>
+          <rect x="44" y="58" width="2" height="2"/>
+          <rect x="40" y="60" width="2" height="2"/>
+          <rect x="42" y="60" width="2" height="2"/>
+          <animate attributeName="opacity" values="0.5;1;0.5" dur="2.5s" repeatCount="indefinite"/>
+        </g>
+        <!-- Node 3 - dart red right -->
+        <g fill="#E23D28">
+          <rect x="154" y="56" width="2" height="2"/>
+          <rect x="156" y="56" width="2" height="2"/>
+          <rect x="152" y="58" width="2" height="2"/>
+          <rect x="154" y="58" width="2" height="2"/>
+          <rect x="156" y="58" width="2" height="2"/>
+          <rect x="158" y="58" width="2" height="2"/>
+          <rect x="154" y="60" width="2" height="2"/>
+          <rect x="156" y="60" width="2" height="2"/>
+          <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
+        </g>
+        <!-- Node 4 - orange bottom right -->
+        <g fill="#E85A48">
+          <rect x="146" y="92" width="2" height="2"/>
+          <rect x="148" y="92" width="2" height="2"/>
+          <rect x="144" y="94" width="2" height="2"/>
+          <rect x="146" y="94" width="2" height="2"/>
+          <rect x="148" y="94" width="2" height="2"/>
+          <rect x="150" y="94" width="2" height="2"/>
+          <rect x="146" y="96" width="2" height="2"/>
+          <rect x="148" y="96" width="2" height="2"/>
+          <animate attributeName="opacity" values="0.5;1;0.5" dur="3.5s" repeatCount="indefinite"/>
+        </g>
+        <!-- Node 5 - bottom left forest green -->
+        <g fill="#4A8F63">
+          <rect x="48" y="92" width="2" height="2"/>
+          <rect x="50" y="92" width="2" height="2"/>
+          <rect x="46" y="94" width="2" height="2"/>
+          <rect x="48" y="94" width="2" height="2"/>
+          <rect x="50" y="94" width="2" height="2"/>
+          <rect x="52" y="94" width="2" height="2"/>
+          <rect x="48" y="96" width="2" height="2"/>
+          <rect x="50" y="96" width="2" height="2"/>
+          <animate attributeName="opacity" values="0.5;1;0.5" dur="2.8s" repeatCount="indefinite"/>
+        </g>
+        <!-- Edges connecting to nodes - dashed pixel lines -->
+        <g fill="#1B7EB0" opacity="0.35">
+          <rect x="80" y="46" width="2" height="2"/>
+          <rect x="74" y="48" width="2" height="2"/>
+          <rect x="66" y="50" width="2" height="2"/>
+          <rect x="58" y="52" width="2" height="2"/>
+          <rect x="50" y="54" width="2" height="2"/>
+        </g>
+        <g fill="#E23D28" opacity="0.35">
+          <rect x="114" y="46" width="2" height="2"/>
+          <rect x="122" y="48" width="2" height="2"/>
+          <rect x="130" y="50" width="2" height="2"/>
+          <rect x="138" y="52" width="2" height="2"/>
+          <rect x="146" y="54" width="2" height="2"/>
+        </g>
+        <!-- Label -->
+        <text x="100" y="115" text-anchor="middle" font-family="'Share Tech Mono'" font-size="6" fill="#6EC5E9" letter-spacing="2">THE ARCHITECT</text>
+      </svg>
+    </div>
+
+  </div>
+</div>
+
+<!-- ARCHITECT BACKSTORY -->
+<div class="section">
+  <div class="section-label blue">Origin · Who They Are</div>
+  <div class="dual-col">
+    <div class="char-col arch">
+      <div class="col-label">The Story</div>
+      <div class="col-body">
+        The Architect has been inside the grid longer than anyone. Not because they were assigned there — because they <strong>built it</strong>, layer by layer, proof by proof. They discovered that the pointer-and-index paradigm was a wrong turn taken 50 years ago, and instead of complaining about it, they <strong>went back to the math</strong> and started over.<br><br>
+        They are the embodiment of Mickey's origin story: the question <em>"where do LLMs hide their data?"</em> led somewhere nobody expected. The Architect followed that thread until they found the answer. Then they built a database around it.
+      </div>
+    </div>
+    <div class="char-col arch">
+      <div class="col-label">The Philosophy</div>
+      <div class="col-body">
+        <strong>Simplicity is not the absence of complexity.</strong> It is the result of understanding it completely. The Architect doesn't simplify by removing — they simplify by going deeper until only the essential remains.<br><br>
+        They believe the graph is the natural state of all data. Tables are a compression artifact — a lossy encoding of something richer. Every JOIN in the codebase is a monument to a decision that shouldn't have been made.<br><br>
+        <strong>They are not cynical about this.</strong> They are hopeful. The math was always there. It just needed someone to find it.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ARCHITECT ATTRIBUTES -->
+<div class="section">
+  <div class="section-label blue">Character Attributes</div>
+  <div class="attr-grid">
+    <div class="attr-card blue">
+      <div class="attr-name">Archetype</div>
+      <div class="attr-val">The Master Craftsman who lives inside the machine. Builds because the building is worth doing.</div>
+    </div>
+    <div class="attr-card blue">
+      <div class="attr-name">Voice Register</div>
+      <div class="attr-val">Feynman primary — playful clarity, makes complexity feel inevitable. Picard underneath — calm authority, never rattled.</div>
+    </div>
+    <div class="attr-card blue">
+      <div class="attr-name">Energy</div>
+      <div class="attr-val">Still. Controlled. The kind of still that comes from certainty, not emptiness. Moves when there's a reason to move.</div>
+    </div>
+    <div class="attr-card blue">
+      <div class="attr-name">Light</div>
+      <div class="attr-val">Morpho Blue ambient. Cold-to-warm depending on engagement. Dart Red appears only when the old paradigm is being named.</div>
+    </div>
+    <div class="attr-card blue">
+      <div class="attr-name">Setting</div>
+      <div class="attr-val">Inside the grid. At the arcade cabinet screen. Where the math meets the interface. The threshold between worlds.</div>
+    </div>
+    <div class="attr-card blue">
+      <div class="attr-name">Relationship to TETRA</div>
+      <div class="attr-val">They didn't build TETRA as a product. They built it as the answer to a question the industry was afraid to ask.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ARCHITECT VISUAL SPEC -->
+<div class="section">
+  <div class="section-label blue">Visual Specification</div>
+  <div class="visual-grid">
+    <div class="visual-card blue">
+      <div class="visual-card-title">PHYSICAL DESIGN</div>
+      <div class="spec-row"><span class="spec-key">Silhouette</span><span class="spec-val">Clean, geometric. Nothing extraneous. A canvas work jacket or technician's vest — worn, not styled.</span></div>
+      <div class="spec-row"><span class="spec-key">Details</span><span class="spec-val">Graph node patches on the jacket. A single morpho blue LED indicator visible at the collar. Practical tools, not weapons.</span></div>
+      <div class="spec-row"><span class="spec-key">Expression</span><span class="spec-val">Thoughtful, not smiling. The face of someone solving something. Engaged, not performing.</span></div>
+      <div class="spec-row"><span class="spec-key">Hands</span><span class="spec-val">Always visible. The hands of someone who builds. Graph edges trace from fingertips when in motion.</span></div>
+    </div>
+    <div class="visual-card blue">
+      <div class="visual-card-title">LIGHTING & COLOR</div>
+      <div class="spec-row"><span class="spec-key">Primary</span><span class="spec-val">Morpho Blue #1B7EB0 — fills the ambient space around them</span></div>
+      <div class="spec-row"><span class="spec-key">Accent</span><span class="spec-val">Morpho Glow #6EC5E9 — edges, nodes, the moment of insight</span></div>
+      <div class="spec-row"><span class="spec-key">Tension</span><span class="spec-val">Dart Red #E23D28 — appears only when naming what's wrong with the old world</span></div>
+      <div class="spec-row"><span class="spec-key">Ground</span><span class="spec-val">Forest 900 #06150D — void that is alive, not dead</span></div>
+      <div class="spec-row"><span class="spec-key">Never</span><span class="spec-val">Purple. White costume. Heroic pose. Cape. Grin.</span></div>
+    </div>
+  </div>
+
+  <!-- Color swatches -->
+  <div class="swatch-row">
+    <div class="swatch-item"><div class="swatch-chip" style="background:#06150D;"></div><div class="swatch-hex">#06150D</div></div>
+    <div class="swatch-item"><div class="swatch-chip" style="background:#0C3547;"></div><div class="swatch-hex">#0C3547</div></div>
+    <div class="swatch-item"><div class="swatch-chip" style="background:#1B7EB0;"></div><div class="swatch-hex">#1B7EB0</div></div>
+    <div class="swatch-item"><div class="swatch-chip" style="background:#6EC5E9;"></div><div class="swatch-hex">#6EC5E9</div></div>
+    <div class="swatch-item"><div class="swatch-chip" style="background:#E23D28;border-color:rgba(226,61,40,0.4);"></div><div class="swatch-hex">#E23D28</div></div>
+    <div class="swatch-item"><div class="swatch-chip" style="background:#4A8F63;"></div><div class="swatch-hex">#4A8F63</div></div>
+    <div class="swatch-item"><div class="swatch-chip" style="background:#FAF7F0;"></div><div class="swatch-hex">#FAF7F0</div></div>
+  </div>
+</div>
+
+<!-- ARCHITECT VOICE -->
+<div class="section">
+  <div class="section-label blue">Voice System</div>
+  <div class="quote blue">
+    <div class="quote-text">"The JOIN was always a confession. It said: I modeled this wrong, and now I'm paying the tax every query."</div>
+    <div class="quote-attr">The Architect · On the relational paradigm</div>
+  </div>
+  <div class="quote blue">
+    <div class="quote-text">"Backup is cp. Restore is cp. Replicate is rsync. I'm not being clever. That's just what happens when the math is right."</div>
+    <div class="quote-attr">The Architect · On operational simplicity</div>
+  </div>
+  <div class="quote blue">
+    <div class="quote-text">"We published the 19 queries where Neo4j wins. Go look. We're not hiding the math."</div>
+    <div class="quote-attr">The Architect · On radical transparency</div>
+  </div>
+
+  <div class="voice-table" style="margin-top:20px;">
+    <div class="voice-row">
+      <div class="voice-cell kill"><div class="voice-label">Never says</div><div class="voice-line">"Revolutionary technology for the modern data stack."</div></div>
+      <div class="voice-cell use blue"><div class="voice-label">Says instead</div><div class="voice-line">"66 megabytes. Neo4j needs 710. Same queries. Same data."</div></div>
+    </div>
+    <div class="voice-row">
+      <div class="voice-cell kill"><div class="voice-label">Never says</div><div class="voice-line">"We're excited to disrupt the graph database market."</div></div>
+      <div class="voice-cell use blue"><div class="voice-label">Says instead</div><div class="voice-line">"The math was always there. We just followed it."</div></div>
+    </div>
+    <div class="voice-row">
+      <div class="voice-cell kill"><div class="voice-label">Never says</div><div class="voice-line">"Let me explain our innovative linear algebraic paradigm."</div></div>
+      <div class="voice-cell use blue"><div class="voice-label">Says instead</div><div class="voice-line">"Your data is already connected. We stopped pretending it wasn't."</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ARCHITECT MIDJOURNEY -->
+<div class="section">
+  <div class="section-label blue">Midjourney Prompt Suite</div>
+
+  <div class="mj-block">
+    <div class="mj-tag blue">Portrait · Hero Shot</div>
+    <div class="mj-text"><em class="b">solitary figure standing inside infinite morpho blue grid world</em>, geometric silhouette, canvas work jacket with graph node patches, <em class="b">graph nodes orbiting slowly — morpho blue (#1B7EB0), glow blue (#6EC5E9), dart red (#E23D28), orange (#E85A48) — matching the TETRA tetrahedron logo exactly</em>, edges tracing from fingertips, morpho blue ambient light on face, calm authoritative expression not smiling, deep forest-green-black void, bioluminescent atmosphere, cinematic portrait, photorealistic, no cape no heroics, the person who built the thing</div>
+    <div class="mj-params">--ar 2:3 --style raw --v 6.1 --chaos 8</div>
+  </div>
+
+  <div class="mj-block">
+    <div class="mj-tag blue">Working · At the Arcade Cabinet</div>
+    <div class="mj-text">figure standing before <em class="b">vintage arcade cabinet screen</em>, back to camera, morpho blue light from screen illuminating shoulders and hands, <em class="b">graph network visible on the screen behind them</em>, the screen is a window into the grid world they built, technician aesthetic, dark room, retro-futurist atmosphere, photorealistic, cinematic, no text</div>
+    <div class="mj-params">--ar 16:9 --style raw --v 6.1 --chaos 10</div>
+  </div>
+
+  <div class="mj-block">
+    <div class="mj-tag blue">Detail · The Hands</div>
+    <div class="mj-text">close-up of <em class="b">hands reaching toward floating graph nodes</em>, edges tracing between fingertips and nodes in morpho blue and dart red, bioluminescent connections, forest-green-black void background, slightly worn working hands not manicured, the gesture of someone building not performing, volumetric light, photorealistic macro</div>
+    <div class="mj-params">--ar 4:3 --style raw --v 6.1 --chaos 12</div>
+  </div>
+</div>
+
+<!-- DIVIDER -->
+<hr class="divider" data-label="Character 02">
+
+<!-- ════════════════════════════════════════
+     CHARACTER 02: THE CARTOGRAPHER
+════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="char-header">
+
+    <div class="char-avatar cartographer">
+      <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" style="height:200px;image-rendering:pixelated;image-rendering:crisp-edges;" shape-rendering="crispEdges">
+        <rect width="200" height="150" fill="#110800"/>
+        <!-- Scanlines -->
+        <g opacity="0.18">
+          <rect x="0" y="0" width="200" height="2" fill="#000"/>
+          <rect x="0" y="4" width="200" height="2" fill="#000"/>
+          <rect x="0" y="8" width="200" height="2" fill="#000"/>
+          <rect x="0" y="12" width="200" height="2" fill="#000"/>
+          <rect x="0" y="16" width="200" height="2" fill="#000"/>
+          <rect x="0" y="20" width="200" height="2" fill="#000"/>
+          <rect x="0" y="24" width="200" height="2" fill="#000"/>
+          <rect x="0" y="28" width="200" height="2" fill="#000"/>
+          <rect x="0" y="32" width="200" height="2" fill="#000"/>
+          <rect x="0" y="36" width="200" height="2" fill="#000"/>
+          <rect x="0" y="40" width="200" height="2" fill="#000"/>
+          <rect x="0" y="44" width="200" height="2" fill="#000"/>
+          <rect x="0" y="48" width="200" height="2" fill="#000"/>
+          <rect x="0" y="52" width="200" height="2" fill="#000"/>
+          <rect x="0" y="56" width="200" height="2" fill="#000"/>
+          <rect x="0" y="60" width="200" height="2" fill="#000"/>
+          <rect x="0" y="64" width="200" height="2" fill="#000"/>
+          <rect x="0" y="68" width="200" height="2" fill="#000"/>
+          <rect x="0" y="72" width="200" height="2" fill="#000"/>
+          <rect x="0" y="76" width="200" height="2" fill="#000"/>
+          <rect x="0" y="80" width="200" height="2" fill="#000"/>
+          <rect x="0" y="84" width="200" height="2" fill="#000"/>
+          <rect x="0" y="88" width="200" height="2" fill="#000"/>
+          <rect x="0" y="92" width="200" height="2" fill="#000"/>
+          <rect x="0" y="96" width="200" height="2" fill="#000"/>
+          <rect x="0" y="100" width="200" height="2" fill="#000"/>
+          <rect x="0" y="104" width="200" height="2" fill="#000"/>
+          <rect x="0" y="108" width="200" height="2" fill="#000"/>
+          <rect x="0" y="112" width="200" height="2" fill="#000"/>
+          <rect x="0" y="116" width="200" height="2" fill="#000"/>
+          <rect x="0" y="120" width="200" height="2" fill="#000"/>
+          <rect x="0" y="124" width="200" height="2" fill="#000"/>
+          <rect x="0" y="128" width="200" height="2" fill="#000"/>
+          <rect x="0" y="132" width="200" height="2" fill="#000"/>
+          <rect x="0" y="136" width="200" height="2" fill="#000"/>
+          <rect x="0" y="140" width="200" height="2" fill="#000"/>
+          <rect x="0" y="144" width="200" height="2" fill="#000"/>
+        </g>
+        <!-- CIVILIZATION GRAPH NODES (background) — amber clusters fading to morpho blue at edges -->
+        <!-- Ancient amber cluster (center-back) -->
+        <g fill="#FFB347">
+          <rect x="120" y="50" width="2" height="2"/>
+          <rect x="122" y="50" width="2" height="2"/>
+          <rect x="118" y="52" width="2" height="2"/>
+          <rect x="120" y="52" width="2" height="2"/>
+          <rect x="122" y="52" width="2" height="2"/>
+          <rect x="124" y="52" width="2" height="2"/>
+          <rect x="120" y="54" width="2" height="2"/>
+          <rect x="122" y="54" width="2" height="2"/>
+        </g>
+        <g fill="#C87820">
+          <rect x="100" y="40" width="2" height="2"/>
+          <rect x="102" y="40" width="2" height="2"/>
+          <rect x="140" y="40" width="2" height="2"/>
+          <rect x="142" y="40" width="2" height="2"/>
+          <rect x="90" y="60" width="2" height="2"/>
+          <rect x="92" y="60" width="2" height="2"/>
+          <rect x="150" y="58" width="2" height="2"/>
+          <rect x="152" y="58" width="2" height="2"/>
+          <rect x="110" y="70" width="2" height="2"/>
+          <rect x="112" y="70" width="2" height="2"/>
+          <rect x="130" y="68" width="2" height="2"/>
+          <rect x="132" y="68" width="2" height="2"/>
+        </g>
+        <!-- Modern morpho blue nodes (outer edges) -->
+        <g fill="#1B7EB0">
+          <rect x="170" y="30" width="2" height="2"/>
+          <rect x="172" y="30" width="2" height="2"/>
+          <rect x="180" y="50" width="2" height="2"/>
+          <rect x="182" y="50" width="2" height="2"/>
+          <rect x="178" y="70" width="2" height="2"/>
+          <rect x="180" y="70" width="2" height="2"/>
+          <rect x="170" y="84" width="2" height="2"/>
+          <rect x="172" y="84" width="2" height="2"/>
+        </g>
+        <!-- Edges - amber dashed lines -->
+        <g fill="#C87820" opacity="0.4">
+          <rect x="100" y="44" width="2" height="2"/>
+          <rect x="108" y="46" width="2" height="2"/>
+          <rect x="116" y="48" width="2" height="2"/>
+          <rect x="128" y="48" width="2" height="2"/>
+          <rect x="136" y="46" width="2" height="2"/>
+          <rect x="144" y="44" width="2" height="2"/>
+          <rect x="92" y="64" width="2" height="2"/>
+          <rect x="104" y="66" width="2" height="2"/>
+          <rect x="116" y="60" width="2" height="2"/>
+          <rect x="130" y="60" width="2" height="2"/>
+          <rect x="142" y="64" width="2" height="2"/>
+        </g>
+        <!-- CARTOGRAPHER SPRITE — left side, looking outward -->
+        <!-- Head (with hood) -->
+        <g fill="#C87820">
+          <rect x="40" y="40" width="2" height="2"/>
+          <rect x="42" y="40" width="2" height="2"/>
+          <rect x="44" y="40" width="2" height="2"/>
+          <rect x="46" y="40" width="2" height="2"/>
+          <rect x="48" y="40" width="2" height="2"/>
+          <rect x="50" y="40" width="2" height="2"/>
+          <rect x="38" y="42" width="2" height="2"/>
+          <rect x="40" y="42" width="2" height="2"/>
+          <rect x="42" y="42" width="2" height="2"/>
+          <rect x="44" y="42" width="2" height="2"/>
+          <rect x="46" y="42" width="2" height="2"/>
+          <rect x="48" y="42" width="2" height="2"/>
+          <rect x="50" y="42" width="2" height="2"/>
+          <rect x="52" y="42" width="2" height="2"/>
+        </g>
+        <!-- Face -->
+        <g fill="#FAF7F0">
+          <rect x="40" y="44" width="2" height="2"/>
+          <rect x="42" y="44" width="2" height="2"/>
+          <rect x="44" y="44" width="2" height="2"/>
+          <rect x="46" y="44" width="2" height="2"/>
+          <rect x="48" y="44" width="2" height="2"/>
+          <rect x="50" y="44" width="2" height="2"/>
+        </g>
+        <!-- Eyes - cream with amber highlight -->
+        <g fill="#FFB347">
+          <rect x="42" y="46" width="2" height="2"/>
+          <rect x="48" y="46" width="2" height="2"/>
+        </g>
+        <g fill="#FAF7F0">
+          <rect x="40" y="46" width="2" height="2"/>
+          <rect x="44" y="46" width="2" height="2"/>
+          <rect x="46" y="46" width="2" height="2"/>
+          <rect x="50" y="46" width="2" height="2"/>
+        </g>
+        <!-- Body / amber cloak -->
+        <g fill="#FFB347">
+          <rect x="38" y="50" width="2" height="2"/>
+          <rect x="40" y="50" width="2" height="2"/>
+          <rect x="42" y="50" width="2" height="2"/>
+          <rect x="44" y="50" width="2" height="2"/>
+          <rect x="46" y="50" width="2" height="2"/>
+          <rect x="48" y="50" width="2" height="2"/>
+          <rect x="50" y="50" width="2" height="2"/>
+          <rect x="52" y="50" width="2" height="2"/>
+          <rect x="36" y="52" width="2" height="2"/>
+          <rect x="38" y="52" width="2" height="2"/>
+          <rect x="40" y="52" width="2" height="2"/>
+          <rect x="42" y="52" width="2" height="2"/>
+          <rect x="44" y="52" width="2" height="2"/>
+          <rect x="46" y="52" width="2" height="2"/>
+          <rect x="48" y="52" width="2" height="2"/>
+          <rect x="50" y="52" width="2" height="2"/>
+          <rect x="52" y="52" width="2" height="2"/>
+          <rect x="54" y="52" width="2" height="2"/>
+          <rect x="36" y="54" width="2" height="2"/>
+          <rect x="38" y="54" width="2" height="2"/>
+          <rect x="40" y="54" width="2" height="2"/>
+          <rect x="42" y="54" width="2" height="2"/>
+          <rect x="44" y="54" width="2" height="2"/>
+          <rect x="46" y="54" width="2" height="2"/>
+          <rect x="48" y="54" width="2" height="2"/>
+          <rect x="50" y="54" width="2" height="2"/>
+          <rect x="52" y="54" width="2" height="2"/>
+          <rect x="54" y="54" width="2" height="2"/>
+          <rect x="36" y="56" width="2" height="2"/>
+          <rect x="38" y="56" width="2" height="2"/>
+          <rect x="40" y="56" width="2" height="2"/>
+          <rect x="42" y="56" width="2" height="2"/>
+          <rect x="44" y="56" width="2" height="2"/>
+          <rect x="46" y="56" width="2" height="2"/>
+          <rect x="48" y="56" width="2" height="2"/>
+          <rect x="50" y="56" width="2" height="2"/>
+          <rect x="52" y="56" width="2" height="2"/>
+          <rect x="54" y="56" width="2" height="2"/>
+        </g>
+        <!-- Arm extended forward (right) holding instrument -->
+        <g fill="#C87820">
+          <rect x="56" y="54" width="2" height="2"/>
+          <rect x="58" y="54" width="2" height="2"/>
+          <rect x="60" y="54" width="2" height="2"/>
+          <rect x="62" y="54" width="2" height="2"/>
+          <rect x="64" y="54" width="2" height="2"/>
+        </g>
+        <!-- Instrument - sextant-like rectangle with amber glow -->
+        <g fill="#8B6F5E">
+          <rect x="66" y="50" width="2" height="2"/>
+          <rect x="68" y="50" width="2" height="2"/>
+          <rect x="70" y="50" width="2" height="2"/>
+          <rect x="66" y="52" width="2" height="2"/>
+          <rect x="70" y="52" width="2" height="2"/>
+          <rect x="66" y="54" width="2" height="2"/>
+          <rect x="68" y="54" width="2" height="2"/>
+          <rect x="70" y="54" width="2" height="2"/>
+        </g>
+        <!-- Instrument glow -->
+        <g fill="#FFB347">
+          <rect x="68" y="52" width="2" height="2"/>
+          <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite"/>
+        </g>
+        <!-- Light emitting from instrument -->
+        <g fill="#FFB347" opacity="0.5">
+          <rect x="74" y="52" width="2" height="2"/>
+          <rect x="78" y="52" width="2" height="2"/>
+          <rect x="82" y="52" width="2" height="2"/>
+          <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2s" repeatCount="indefinite"/>
+        </g>
+        <!-- Pants - bark brown -->
+        <g fill="#8B6F5E">
+          <rect x="40" y="58" width="2" height="2"/>
+          <rect x="42" y="58" width="2" height="2"/>
+          <rect x="44" y="58" width="2" height="2"/>
+          <rect x="46" y="58" width="2" height="2"/>
+          <rect x="48" y="58" width="2" height="2"/>
+          <rect x="50" y="58" width="2" height="2"/>
+          <rect x="40" y="60" width="2" height="2"/>
+          <rect x="42" y="60" width="2" height="2"/>
+          <rect x="48" y="60" width="2" height="2"/>
+          <rect x="50" y="60" width="2" height="2"/>
+          <rect x="40" y="62" width="2" height="2"/>
+          <rect x="42" y="62" width="2" height="2"/>
+          <rect x="48" y="62" width="2" height="2"/>
+          <rect x="50" y="62" width="2" height="2"/>
+        </g>
+        <!-- Feet -->
+        <g fill="#000">
+          <rect x="38" y="64" width="2" height="2"/>
+          <rect x="40" y="64" width="2" height="2"/>
+          <rect x="42" y="64" width="2" height="2"/>
+          <rect x="44" y="64" width="2" height="2"/>
+          <rect x="48" y="64" width="2" height="2"/>
+          <rect x="50" y="64" width="2" height="2"/>
+          <rect x="52" y="64" width="2" height="2"/>
+          <rect x="54" y="64" width="2" height="2"/>
+        </g>
+        <!-- Ground line -->
+        <g fill="#C87820" opacity="0.3">
+          <rect x="20" y="68" width="160" height="1"/>
+        </g>
+        <!-- Label -->
+        <text x="100" y="115" text-anchor="middle" font-family="'Share Tech Mono'" font-size="6" fill="#FFB347" letter-spacing="2">THE CARTOGRAPHER</text>
+      </svg>
+    </div>
+
+    <div class="char-identity cartographer">
+      <div class="char-designation">Character 02 · The Map · Secondary</div>
+      <div class="char-name">THE CARTOGRAPHER</div>
+      <div class="char-epithet">"The one who can see the shape of everything<br>from a single vantage point."</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CARTOGRAPHER BACKSTORY -->
+<div class="section">
+  <div class="section-label amber">Origin · Who They Are</div>
+  <div class="dual-col">
+    <div class="char-col cart">
+      <div class="col-label">The Story</div>
+      <div class="col-body">
+        The Cartographer didn't set out to map human civilization. They set out to understand <strong>why certain ideas survived and others didn't</strong> — why fire enabled metallurgy, why metallurgy enabled printing, why printing enabled science. They kept tracing the edges backward until they realized:<br><br>
+        <em>Everything is already a graph. It was always a graph. We just couldn't see the shape of it until now.</em><br><br>
+        TETRA gave them the instrument they needed. With Retina's spectral layout, the eigenvectors resolve the graph into space — and the shape of human progress becomes visible for the first time.
+      </div>
+    </div>
+    <div class="char-col cart">
+      <div class="col-label">The Philosophy</div>
+      <div class="col-body">
+        <strong>Every node is connected to everything else by a path.</strong> The length of that path is the measure of how alone any idea really is.<br><br>
+        The Cartographer believes that the most important discoveries in history were not isolated breakthroughs — they were <strong>inevitable convergences</strong>, the moment when enough connected nodes finally reached a new vertex.<br><br>
+        They see TETRA the same way: not as a product launch, but as <strong>the newest node on the graph of everything that got us here.</strong> It was always going to exist. Someone just had to follow the math far enough to find it.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CARTOGRAPHER ATTRIBUTES -->
+<div class="section">
+  <div class="section-label amber">Character Attributes</div>
+  <div class="attr-grid">
+    <div class="attr-card amber">
+      <div class="attr-name">Archetype</div>
+      <div class="attr-val">The Explorer who maps what exists rather than charting what's unknown. Pattern-seeker. Civilizational-scale thinker.</div>
+    </div>
+    <div class="attr-card amber">
+      <div class="attr-name">Voice Register</div>
+      <div class="attr-val">Sagan primary — cosmic wonder, the long arc. Feynman occasionally — when something clicks and must be shared immediately.</div>
+    </div>
+    <div class="attr-card amber">
+      <div class="attr-name">Energy</div>
+      <div class="attr-val">Expansive. Always looking further out. The kind of excitement that is quiet because the thing itself is so big words feel inadequate.</div>
+    </div>
+    <div class="attr-card amber">
+      <div class="attr-name">Light</div>
+      <div class="attr-val">Amber warm — the color of ancient firelight, of the Enlightenment, of something that has been burning for a long time. Morpho Blue at the edges where the new world begins.</div>
+    </div>
+    <div class="attr-card amber">
+      <div class="attr-name">Setting</div>
+      <div class="attr-val">At the edge of the graph where it opens into the unknown. The place where the spectral layout reveals its shape. Where TETRA is the newest node.</div>
+    </div>
+    <div class="attr-card amber">
+      <div class="attr-name">Relationship to TETRA</div>
+      <div class="attr-val">TETRA is the instrument. Retina is the lens. The Cartographer is what happens when someone uses the tool to see what was always true.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CARTOGRAPHER VISUAL SPEC -->
+<div class="section">
+  <div class="section-label amber">Visual Specification</div>
+  <div class="visual-grid">
+    <div class="visual-card amber">
+      <div class="visual-card-title">PHYSICAL DESIGN</div>
+      <div class="spec-row"><span class="spec-key">Silhouette</span><span class="spec-val">Slightly more open than The Architect — reaching outward, looking upward, toward the horizon of the graph.</span></div>
+      <div class="spec-row"><span class="spec-key">Details</span><span class="spec-val">An antique-style instrument that resolves graph topology instead of star positions. Maps and connection diagrams visible. Something that suggests both the past and the deep future.</span></div>
+      <div class="spec-row"><span class="spec-key">Expression</span><span class="spec-val">The face of someone who just understood something vast. Not shock — recognition. As if they always suspected this was the shape of things.</span></div>
+      <div class="spec-row"><span class="spec-key">Eyes</span><span class="spec-val">Looking at a distance that isn't physically in the frame. Amber light catches them.</span></div>
+    </div>
+    <div class="visual-card amber">
+      <div class="visual-card-title">LIGHTING & COLOR</div>
+      <div class="spec-row"><span class="spec-key">Primary</span><span class="spec-val">Amber #FFB347 — ancient firelight, the Enlightenment, long-burning knowledge</span></div>
+      <div class="spec-row"><span class="spec-key">Deep</span><span class="spec-val">Amber Dark #C87820 — the warm ground beneath the light</span></div>
+      <div class="spec-row"><span class="spec-key">Edge</span><span class="spec-val">Morpho Blue #1B7EB0 — at the boundary where their map meets the new world</span></div>
+      <div class="spec-row"><span class="spec-key">Bark</span><span class="spec-val">#8B6F5E — the warm organic layer, the human in the data</span></div>
+      <div class="spec-row"><span class="spec-key">Never</span><span class="spec-val">Cold blue only. White costume. Floating in space like a stock AI illustration.</span></div>
+    </div>
+  </div>
+
+  <div class="swatch-row">
+    <div class="swatch-item"><div class="swatch-chip" style="background:#110800;"></div><div class="swatch-hex">#110800</div></div>
+    <div class="swatch-item"><div class="swatch-chip" style="background:#1A0C05;"></div><div class="swatch-hex">#1A0C05</div></div>
+    <div class="swatch-item"><div class="swatch-chip" style="background:#C87820;"></div><div class="swatch-hex">#C87820</div></div>
+    <div class="swatch-item"><div class="swatch-chip" style="background:#FFB347;"></div><div class="swatch-hex">#FFB347</div></div>
+    <div class="swatch-item"><div class="swatch-chip" style="background:#8B6F5E;"></div><div class="swatch-hex">#8B6F5E</div></div>
+    <div class="swatch-item"><div class="swatch-chip" style="background:#1B7EB0;"></div><div class="swatch-hex">#1B7EB0</div></div>
+    <div class="swatch-item"><div class="swatch-chip" style="background:#FAF7F0;"></div><div class="swatch-hex">#FAF7F0</div></div>
+  </div>
+</div>
+
+<!-- CARTOGRAPHER VOICE -->
+<div class="section">
+  <div class="section-label amber">Voice System</div>
+  <div class="quote amber">
+    <div class="quote-text">"What had to exist for the iPhone to be possible? Click the node. The graph lights up ten thousand years of prerequisites. That's not a demo. That's the shape of how we got here."</div>
+    <div class="quote-attr">The Cartographer · On the civilization demo</div>
+  </div>
+  <div class="quote amber">
+    <div class="quote-text">"The Enlightenment isn't a period in the history books. In the graph, it's a hub. The most densely connected set of nodes before the Industrial Revolution. You can see it. It has a shape."</div>
+    <div class="quote-attr">The Cartographer · On what Retina reveals</div>
+  </div>
+  <div class="quote amber">
+    <div class="quote-text">"TETRA is the newest node on the graph. Not announced. Just true. It was always going to be here. Someone just had to follow the math far enough."</div>
+    <div class="quote-attr">The Cartographer · On TETRA's place in history</div>
+  </div>
+
+  <div class="voice-table" style="margin-top:20px;">
+    <div class="voice-row">
+      <div class="voice-cell kill"><div class="voice-label">Never says</div><div class="voice-line">"TETRA is the future of data infrastructure."</div></div>
+      <div class="voice-cell use amber"><div class="voice-label">Says instead</div><div class="voice-line">"Every major shift in how we store knowledge has changed what we can know. This is one of those shifts."</div></div>
+    </div>
+    <div class="voice-row">
+      <div class="voice-cell kill"><div class="voice-label">Never says</div><div class="voice-line">"We're disrupting the database market with AI-native technology."</div></div>
+      <div class="voice-cell use amber"><div class="voice-label">Says instead</div><div class="voice-line">"The same math that makes language models work — we reversed it and built a database. The connection was always there."</div></div>
+    </div>
+    <div class="voice-row">
+      <div class="voice-cell kill"><div class="voice-label">Never says</div><div class="voice-line">"Our innovative approach to graph visualization enables insights."</div></div>
+      <div class="voice-cell use amber"><div class="voice-label">Says instead</div><div class="voice-line">"When the eigenvectors resolve, you see the shape of civilization's progress emerge from pure math. That's what the demo shows you."</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CARTOGRAPHER MIDJOURNEY -->
+<div class="section">
+  <div class="section-label amber">Midjourney Prompt Suite</div>
+
+  <div class="mj-block amber-border">
+    <div class="mj-tag amber">Portrait · The Vantage Point</div>
+    <div class="mj-text">figure standing at <em class="a">the edge of a vast graph network stretching to the horizon</em>, looking outward not at camera, amber warm light from below illuminating their face from beneath, holding an antique-style navigation instrument that shows graph topology instead of stars, <em class="a">the graph behind them resolves from dense ancient clusters to fractal modern complexity</em>, forest-green-black void, bioluminescent amber and morpho blue nodes, Sagan cosmic scale, cinematic, photorealistic</div>
+    <div class="mj-params">--ar 2:3 --style raw --v 6.1 --chaos 10</div>
+  </div>
+
+  <div class="mj-block amber-border">
+    <div class="mj-tag amber">The Civilization Graph · Demo Scene</div>
+    <div class="mj-text">figure standing before <em class="a">the spectral layout of human civilization's entire knowledge graph</em>, 250000 nodes glowing amber at the ancient center, morpho blue at the modern edge, bridges of light across dark ages, <em class="a">the Industrial Revolution as a blazing hub</em>, TETRA as the newest brightest node at the outer edge, the Cartographer's silhouette small against the vast scale, Sagan aesthetic, photorealistic, cinematic wide shot</div>
+    <div class="mj-params">--ar 16:9 --style raw --v 6.1 --chaos 15</div>
+  </div>
+
+  <div class="mj-block amber-border">
+    <div class="mj-tag amber">The Instrument · Detail Shot</div>
+    <div class="mj-text">close-up of an <em class="a">antique brass navigation instrument reimagined as a graph topology resolver</em>, internal graph network visible through the lens, amber and morpho blue light, worn patina on the brass, graph node coordinates visible on the dial, <em class="a">where a sextant would show stars this shows connections</em>, warm dramatic lighting, macro photorealistic, no text</div>
+    <div class="mj-params">--ar 4:3 --style raw --v 6.1 --chaos 8</div>
+  </div>
+</div>
+
+<!-- DIVIDER -->
+<hr class="divider" data-label="Interaction">
+
+<!-- RELATIONSHIP AND WORLD INTEGRATION -->
+<div class="section">
+  <div class="section-label blue">How They Work Together</div>
+
+  <div class="relationship">
+    <div class="rel-nodes">
+      <div class="rel-node arch">
+        <div class="rel-node-circle arch">ARCH<br>ITECT</div>
+        <div class="rel-node-name">The Architect</div>
+      </div>
+      <div class="rel-edge"></div>
+      <div class="rel-node tetra" style="flex-shrink:0;">
+        <div class="rel-node-circle tetra" style="font-size:8px;">TETRA</div>
+        <div class="rel-node-name" style="color:var(--cd);">The Product</div>
+      </div>
+      <div class="rel-edge" style="background:linear-gradient(90deg,var(--ag),var(--mb));"></div>
+      <div class="rel-node cart">
+        <div class="rel-node-circle cart">CARTO<br>GRAPH</div>
+        <div class="rel-node-name">The Cartographer</div>
+      </div>
+    </div>
+    <div class="rel-body">
+      The Architect answers <strong>how</strong>. The Cartographer answers <strong>why it matters</strong>. Together they address both audiences: the developer who wants the benchmark numbers, and the visionary who wants to understand what kind of world TETRA makes possible. They never appear together — they exist in different registers of the same world.
+    </div>
+  </div>
+
+  <div class="interaction-block">
+    <div class="interaction-title">THE ARCADE CABINET AS SHARED STAGE</div>
+    <div class="interaction-body">
+      The arcade cabinet is the threshold between their worlds. <em class="b">The Architect</em> lives inside the screen — they built the grid, the graph, the math. When you insert a coin and the demo begins, you're entering their domain. They are already there, calm, waiting, not performing.<br><br>
+      <em class="a">The Cartographer</em> stands outside, at the edge of the cabinet, looking at what the screen reveals. They see the civilization graph materialize and they name what it means — not technically, but historically. Cosmically. They are the person in the arcade who leans over your shoulder and says <em>"do you realize what you're looking at?"</em><br><br>
+      The player — the user, the developer, the prospect — is always in between. The Architect shows them the engine. The Cartographer shows them the stakes. <strong>TETRA is what makes both visions real.</strong>
+    </div>
+  </div>
+</div>
+
+<!-- WHERE THEY APPEAR -->
+<div class="section">
+  <div class="section-label blue">Where Each Character Lives</div>
+  <div class="dual-col">
+    <div class="char-col arch">
+      <div class="col-label">The Architect appears in</div>
+      <div class="col-body">
+        <strong>Technical content</strong> — benchmark explanations, architecture deep dives, the "how does it work" layer<br><br>
+        <strong>Video Act 03–04</strong> — complexity and TETRA reveal sequences<br><br>
+        <strong>Developer marketing</strong> — the person who talks to engineers as a peer<br><br>
+        <strong>The arcade screen</strong> — they exist inside the grid world. Looking out at the player.<br><br>
+        <strong>Brand voice for:</strong> pricing, benchmarks, migration guides, technical docs
+      </div>
+    </div>
+    <div class="char-col cart">
+      <div class="col-label">The Cartographer appears in</div>
+      <div class="col-body">
+        <strong>The demo experience</strong> — narrating what Retina's spectral layout reveals<br><br>
+        <strong>Video Act 06</strong> — world entry, the civilization graph, the big reveal<br><br>
+        <strong>Executive and visionary marketing</strong> — CTOs, founders, the "why does this matter" conversation<br><br>
+        <strong>Outside the arcade cabinet</strong> — they observe and name what the screen shows<br><br>
+        <strong>Brand voice for:</strong> the origin story, the roadmap, the "new era of data" narrative
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-brand">QI <span>STUDIOS</span> · TETRA CHARACTER BIBLES · V1.0</div>
+  <div style="font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--cd);">Internal Development · 2026</div>
+  <div class="footer-win">WIN WITH TETRA.</div>
+</footer>
+
+</div>
+</body>
+</html>

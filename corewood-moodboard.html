@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TETRA — World Design System</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* ── TETRA OFFICIAL PALETTE ── */
+    --forest-900: #06150D;       /* background ground state */
+    --forest-800: #0B1F14;       /* card surfaces */
+    --forest-700: #122B1C;       /* elevated panels */
+
+    --morpho-core: #1B7EB0;      /* primary signal */
+    --morpho-glow: #6EC5E9;      /* bright / hover */
+    --morpho-deep: #0C3547;      /* dark morpho */
+    --morpho-mid:  #0F4C6B;      /* mid morpho */
+
+    --dart-core: #E23D28;        /* secondary / tension */
+    --dart-glow: #F2A093;        /* dart highlight */
+    --dart-deep: #5C1410;        /* dark dart */
+
+    --forest-green: #1A5C35;     /* accent green */
+    --forest-bright: #4A8F63;    /* green glow */
+    --forest-deep: #06150D;      /* deepest green */
+
+    --bark-dark: #1A120C;        /* warm dark */
+    --bark-mid: #8B6F5E;         /* warm mid */
+
+    --cream: #FAF7F0;            /* primary text */
+    --cream-mid: #C8C4BA;        /* secondary text */
+    --cream-dark: #8A8370;       /* muted text */
+
+    /* logo tetrahedron colors */
+    --logo-cyan: #6EC5E9;
+    --logo-blue: #0F4C6B;
+    --logo-red: #E23D28;
+    --logo-orange: #E85A48;
+
+    --font-display: 'Orbitron', monospace;
+    --font-mono: 'Share Tech Mono', monospace;
+    --font-body: 'DM Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--forest-900);
+    color: var(--cream);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* GRID — forest-tinted */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(27,126,176,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(27,126,176,0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* SCANLINES */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.07) 2px,
+      rgba(0,0,0,0.07) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px 100px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    padding: 60px 0 80px;
+    border-bottom: 1px solid rgba(27,126,176,0.2);
+    position: relative;
+  }
+
+  .header-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--morpho-glow);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .header-label::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--morpho-core);
+    box-shadow: 0 0 8px var(--morpho-core);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    color: var(--cream);
+    text-shadow: 0 0 40px rgba(27,126,176,0.4);
+  }
+
+  h1 span.blue { color: var(--morpho-glow); text-shadow: 0 0 30px var(--morpho-core), 0 0 60px rgba(27,126,176,0.4); }
+  h1 span.red  { color: var(--dart-core);   text-shadow: 0 0 30px var(--dart-core), 0 0 60px rgba(226,61,40,0.3); }
+
+  .header-sub {
+    margin-top: 16px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--cream-dark);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── SECTIONS ── */
+  .section { margin-top: 80px; }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--morpho-glow);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(27,126,176,0.3), transparent);
+  }
+
+  /* ── PALETTE ── */
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 2px;
+  }
+
+  .swatch {
+    aspect-ratio: 1;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+    transition: transform 0.2s;
+  }
+  .swatch:hover { transform: scale(1.02); z-index: 2; }
+
+  .swatch-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 16px;
+  }
+
+  .swatch-name { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 4px; }
+  .swatch-hex  { font-family: var(--font-mono); font-size: 12px; opacity: 0.6; }
+  .swatch-role { font-family: var(--font-body); font-size: 10px; opacity: 0.5; margin-top: 2px; font-style: italic; }
+
+  /* ── TYPOGRAPHY ── */
+  .type-specimens { display: flex; flex-direction: column; gap: 40px; }
+
+  .type-specimen {
+    border: 1px solid rgba(27,126,176,0.12);
+    padding: 40px;
+    background: rgba(27,126,176,0.03);
+    position: relative;
+  }
+
+  .type-specimen::before {
+    content: attr(data-label);
+    position: absolute;
+    top: -1px; left: 0;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--forest-900);
+    background: var(--morpho-core);
+    padding: 3px 10px;
+    text-transform: uppercase;
+  }
+
+  .type-meta { font-family: var(--font-mono); font-size: 10px; color: var(--cream-dark); letter-spacing: 0.15em; margin-top: 12px; }
+
+  /* ── VOICE ── */
+  .voice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  @media (max-width: 700px) { .voice-grid { grid-template-columns: 1fr; } }
+
+  .voice-card {
+    padding: 32px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(27,126,176,0.08);
+  }
+  .voice-card.kill { border-color: rgba(226,61,40,0.2); background: rgba(226,61,40,0.03); }
+
+  .voice-tag { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 16px; }
+  .voice-tag.use  { color: var(--forest-bright); }
+  .voice-tag.kill { color: var(--dart-core); }
+
+  .voice-card p { font-family: var(--font-body); font-size: 13px; line-height: 1.7; color: var(--cream-mid); }
+
+  /* ── BRAND VOICE PILLARS ── */
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  @media (max-width: 700px) { .pillars { grid-template-columns: 1fr; } }
+
+  .pillar {
+    padding: 32px 24px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(27,126,176,0.08);
+    position: relative;
+  }
+
+  .pillar::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+  }
+  .pillar.sagan::before  { background: linear-gradient(90deg, var(--morpho-core), var(--morpho-glow)); }
+  .pillar.feynman::before { background: linear-gradient(90deg, var(--forest-green), var(--forest-bright)); }
+  .pillar.picard::before  { background: linear-gradient(90deg, var(--dart-deep), var(--dart-core)); }
+
+  .pillar-name { font-family: var(--font-display); font-size: 14px; letter-spacing: 0.15em; margin-bottom: 8px; }
+  .pillar.sagan  .pillar-name { color: var(--morpho-glow); }
+  .pillar.feynman .pillar-name { color: var(--forest-bright); }
+  .pillar.picard  .pillar-name { color: var(--dart-glow); }
+
+  .pillar-role { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.2em; color: var(--cream-dark); text-transform: uppercase; margin-bottom: 16px; }
+  .pillar-desc { font-family: var(--font-body); font-size: 12px; color: var(--cream-mid); line-height: 1.7; font-style: italic; }
+
+  /* ── MIDJOURNEY ── */
+  .mj-block {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(27,126,176,0.15);
+    padding: 32px;
+    margin-bottom: 2px;
+    position: relative;
+  }
+  .mj-block::before {
+    content: 'PROMPT';
+    position: absolute;
+    top: -1px; right: 0;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--forest-900);
+    background: rgba(27,126,176,0.7);
+    padding: 3px 10px;
+    text-transform: uppercase;
+  }
+  .mj-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em; color: var(--morpho-glow); text-transform: uppercase; margin-bottom: 12px; }
+  .mj-text  { font-family: var(--font-mono); font-size: 12px; line-height: 1.8; color: var(--cream-mid); }
+  .mj-text em { color: var(--dart-glow); font-style: normal; }
+  .mj-params { margin-top: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--morpho-core); opacity: 0.8; }
+
+  /* ── MOTION ── */
+  .motion-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  @media (max-width: 700px) { .motion-grid { grid-template-columns: 1fr; } }
+
+  .motion-card {
+    padding: 32px 24px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(27,126,176,0.08);
+    display: flex; flex-direction: column; gap: 16px;
+  }
+
+  .motion-demo { height: 60px; display: flex; align-items: center; justify-content: center; }
+
+  /* Morpho pulse node */
+  .node {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--morpho-core);
+    box-shadow: 0 0 8px var(--morpho-core);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 0 8px var(--morpho-core), 0 0 0 0 rgba(27,126,176,0.4); }
+    50%      { box-shadow: 0 0 20px var(--morpho-glow), 0 0 24px rgba(27,126,176,0.15); }
+  }
+
+  /* Edge trace */
+  .edge-demo { width: 100%; height: 2px; background: rgba(27,126,176,0.1); position: relative; overflow: hidden; }
+  .edge-demo::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -60%; width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, var(--morpho-glow), transparent);
+    animation: trace 2s linear infinite;
+  }
+  @keyframes trace { to { left: 160%; } }
+
+  /* Glitch */
+  .glitch-demo {
+    font-family: var(--font-display);
+    font-size: 13px; letter-spacing: 0.15em;
+    color: var(--morpho-core);
+    animation: glitch 4s steps(1) infinite;
+  }
+  @keyframes glitch {
+    0%,90%,100% { clip-path:none; transform:none; color:var(--morpho-core); }
+    91% { clip-path:inset(30% 0 50% 0); transform:translateX(-4px); color:var(--dart-core); }
+    92% { clip-path:inset(60% 0 10% 0); transform:translateX(4px); color:var(--morpho-glow); }
+    93% { clip-path:none; transform:none; color:var(--morpho-core); }
+  }
+
+  .motion-name { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em; color: var(--morpho-glow); text-transform: uppercase; }
+  .motion-desc { font-family: var(--font-body); font-size: 11px; color: var(--cream-dark); line-height: 1.6; font-style: italic; }
+
+  /* ── UI ELEMENTS ── */
+  .ui-row { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+
+  .btn-primary {
+    font-family: var(--font-display); font-size: 11px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--forest-900);
+    background: var(--morpho-core); border: none;
+    padding: 14px 32px; cursor: pointer;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--morpho-glow); box-shadow: 0 0 30px rgba(27,126,176,0.5); }
+
+  .btn-secondary {
+    font-family: var(--font-display); font-size: 11px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--morpho-core);
+    background: transparent; border: 1px solid var(--morpho-core);
+    padding: 13px 32px; cursor: pointer;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { background: rgba(27,126,176,0.08); box-shadow: 0 0 20px rgba(27,126,176,0.2); }
+
+  .btn-danger {
+    font-family: var(--font-display); font-size: 11px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--cream);
+    background: var(--dart-core); border: none;
+    padding: 14px 32px; cursor: pointer;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    transition: all 0.2s;
+  }
+  .btn-danger:hover { background: var(--dart-glow); color: var(--forest-900); }
+
+  .tag {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em;
+    color: var(--morpho-glow); background: rgba(27,126,176,0.08);
+    border: 1px solid rgba(27,126,176,0.2);
+    padding: 4px 12px; text-transform: uppercase;
+  }
+
+  .tag.red {
+    color: var(--dart-glow); background: rgba(226,61,40,0.08);
+    border-color: rgba(226,61,40,0.2);
+  }
+
+  .stat-block {
+    border: 1px solid rgba(27,126,176,0.15);
+    padding: 24px 32px; min-width: 180px;
+    position: relative; background: rgba(27,126,176,0.02);
+  }
+  .stat-block::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--morpho-core);
+    box-shadow: 0 0 12px var(--morpho-core);
+  }
+  .stat-block.red { border-color: rgba(226,61,40,0.15); background: rgba(226,61,40,0.02); }
+  .stat-block.red::before { background: var(--dart-core); box-shadow: 0 0 12px var(--dart-core); }
+  .stat-block.green { border-color: rgba(26,92,53,0.3); background: rgba(26,92,53,0.05); }
+  .stat-block.green::before { background: var(--forest-bright); box-shadow: 0 0 12px var(--forest-bright); }
+
+  .stat-num {
+    font-family: var(--font-display); font-size: 32px; font-weight: 900;
+    color: var(--morpho-glow);
+    text-shadow: 0 0 20px rgba(27,126,176,0.5);
+    line-height: 1;
+  }
+  .stat-num.red   { color: var(--dart-glow);    text-shadow: 0 0 20px rgba(226,61,40,0.4); }
+  .stat-num.green { color: var(--forest-bright); text-shadow: 0 0 20px rgba(74,143,99,0.4); }
+
+  .stat-label {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.2em; color: var(--cream-dark);
+    text-transform: uppercase; margin-top: 6px;
+  }
+
+  /* ── PRICING TIERS ── */
+  .tiers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+  @media (max-width: 900px) { .tiers { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 500px) { .tiers { grid-template-columns: 1fr; } }
+
+  .tier {
+    padding: 32px 24px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(27,126,176,0.1);
+    position: relative;
+  }
+  .tier.featured { border-color: var(--morpho-core); background: rgba(27,126,176,0.06); }
+  .tier.featured::before {
+    content: '★ HIGH SCORE';
+    position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+    font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.2em;
+    color: var(--forest-900); background: var(--morpho-core);
+    padding: 3px 12px; white-space: nowrap;
+  }
+
+  .tier-name {
+    font-family: var(--font-display); font-size: 12px; letter-spacing: 0.15em;
+    color: var(--morpho-glow); text-transform: uppercase; margin-bottom: 8px;
+  }
+  .tier.featured .tier-name { color: var(--cream); }
+
+  .tier-credits {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em;
+    color: var(--cream-dark); margin-bottom: 20px;
+  }
+
+  .tier-price {
+    font-family: var(--font-display); font-size: 28px; font-weight: 900;
+    color: var(--cream); line-height: 1; margin-bottom: 4px;
+  }
+  .tier-period { font-family: var(--font-mono); font-size: 9px; color: var(--cream-dark); letter-spacing: 0.15em; }
+
+  /* ── GRAPH VIZ ── */
+  .graph-demo {
+    background: var(--forest-800);
+    border: 1px solid rgba(27,126,176,0.12);
+    padding: 40px; display: flex; align-items: center; justify-content: center;
+    min-height: 280px; position: relative; overflow: hidden;
+  }
+
+  /* Node animations */
+  .graph-node { animation: nodeGlow 3s ease-in-out infinite; }
+  .graph-node:nth-child(odd)  { animation-delay: 0.5s; }
+  .graph-node:nth-child(even) { animation-delay: 1.2s; }
+  @keyframes nodeGlow { 0%,100% { opacity:0.7; } 50% { opacity:1; } }
+
+  .graph-edge { animation: edgePulse 3s ease-in-out infinite; }
+  @keyframes edgePulse { 0%,100% { opacity:0.12; } 50% { opacity:0.35; } }
+
+  /* ── ANTI-PATTERNS ── */
+  .anti-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  @media (max-width: 700px) { .anti-row { grid-template-columns: 1fr; } }
+
+  .anti-card { padding: 32px; border: 1px solid; }
+  .anti-card.no  { border-color: rgba(226,61,40,0.25); background: rgba(226,61,40,0.04); }
+  .anti-card.yes { border-color: rgba(74,143,99,0.2);  background: rgba(26,92,53,0.06); }
+
+  .anti-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.25em; margin-bottom: 16px; text-transform: uppercase; }
+  .anti-label.no  { color: var(--dart-core); }
+  .anti-label.yes { color: var(--forest-bright); }
+
+  .anti-items { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .anti-items li {
+    font-family: var(--font-body); font-size: 12px; color: var(--cream-mid);
+    line-height: 1.5; padding-left: 16px; position: relative;
+  }
+  .anti-items li::before { position: absolute; left: 0; font-size: 10px; }
+  .anti-card.no  .anti-items li::before { content: '✕'; color: var(--dart-core); }
+  .anti-card.yes .anti-items li::before { content: '→'; color: var(--forest-bright); }
+
+  /* ── WORLD CONCEPT ── */
+  .concept-block {
+    border: 1px solid rgba(27,126,176,0.2);
+    padding: 60px; text-align: center;
+    position: relative; background: rgba(27,126,176,0.02); overflow: hidden;
+  }
+  .concept-block::before, .concept-block::after {
+    content: ''; position: absolute; width: 200px; height: 200px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(27,126,176,0.08) 0%, transparent 70%);
+  }
+  .concept-block::before { top: -100px; left: -100px; }
+  .concept-block::after  { bottom: -100px; right: -100px; }
+
+  .concept-quote {
+    font-family: var(--font-display); font-size: clamp(16px, 2.8vw, 26px);
+    font-weight: 700; letter-spacing: 0.06em; color: var(--cream); line-height: 1.4;
+    position: relative; z-index: 1;
+  }
+  .concept-quote em.blue { color: var(--morpho-glow); font-style: normal; text-shadow: 0 0 20px rgba(27,126,176,0.4); }
+  .concept-quote em.red  { color: var(--dart-glow);   font-style: normal; text-shadow: 0 0 20px rgba(226,61,40,0.3); }
+
+  .concept-sub {
+    margin-top: 20px; font-family: var(--font-mono); font-size: 11px;
+    color: var(--cream-dark); letter-spacing: 0.15em; position: relative; z-index: 1;
+  }
+
+  /* ── FOOTER ── */
+  .foot {
+    margin-top: 100px; padding-top: 32px;
+    border-top: 1px solid rgba(27,126,176,0.1);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+  }
+  .foot-brand { font-family: var(--font-display); font-size: 11px; letter-spacing: 0.2em; color: var(--cream-dark); }
+  .foot-brand span { color: var(--morpho-glow); }
+  .foot-meta { font-family: var(--font-mono); font-size: 10px; color: rgba(250,247,240,0.2); letter-spacing: 0.15em; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .section { animation: fadeUp 0.6s ease both; }
+  .section:nth-child(2) { animation-delay: 0.1s; }
+  .section:nth-child(3) { animation-delay: 0.15s; }
+  .section:nth-child(4) { animation-delay: 0.2s; }
+  .section:nth-child(5) { animation-delay: 0.25s; }
+  .section:nth-child(6) { animation-delay: 0.3s; }
+  .section:nth-child(7) { animation-delay: 0.35s; }
+  .section:nth-child(8) { animation-delay: 0.4s; }
+  .section:nth-child(9) { animation-delay: 0.45s; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-label">QI Studios · World Design System · TETRA by Corewood</div>
+    <h1><span class="blue">TET</span><span class="red">RA</span></h1>
+    <p class="header-sub">Visual Language · v2.0 · The Grid Doctrine · Updated with Official Brand System</p>
+  </header>
+
+  <!-- WORLD CONCEPT -->
+  <section class="section">
+    <div class="section-label">World Concept</div>
+    <div class="concept-block">
+      <div class="concept-quote">
+        We took <em class="blue">machine learning</em>,<br>
+        reversed it, and now it serves you<br>
+        better than any other <em class="red">data system</em>.
+      </div>
+      <p class="concept-sub">Everything is a graph. All graphs can be represented in a matrix form. The math is old. The application is new.</p>
+    </div>
+  </section>
+
+  <!-- COLOR PALETTE -->
+  <section class="section">
+    <div class="section-label">Official Color System · TETRA Brand</div>
+    <div class="palette-grid">
+
+      <div class="swatch" style="background:#06150D;">
+        <div class="swatch-inner">
+          <div class="swatch-name" style="color:rgba(250,247,240,0.6);">Forest 900</div>
+          <div class="swatch-hex" style="color:rgba(250,247,240,0.4);">#06150D</div>
+          <div class="swatch-role" style="color:rgba(250,247,240,0.3);">Ground state. Page bg.</div>
+        </div>
+      </div>
+
+      <div class="swatch" style="background:#1B7EB0;">
+        <div class="swatch-inner">
+          <div class="swatch-name" style="color:#06150D;">Morpho Blue</div>
+          <div class="swatch-hex" style="color:rgba(6,21,13,0.6);">#1B7EB0</div>
+          <div class="swatch-role" style="color:rgba(6,21,13,0.5);">Primary signal. Core brand.</div>
+        </div>
+      </div>
+
+      <div class="swatch" style="background:#6EC5E9;">
+        <div class="swatch-inner">
+          <div class="swatch-name" style="color:#06150D;">Morpho Glow</div>
+          <div class="swatch-hex" style="color:rgba(6,21,13,0.6);">#6EC5E9</div>
+          <div class="swatch-role" style="color:rgba(6,21,13,0.5);">Hover. Highlight. Peak light.</div>
+        </div>
+      </div>
+
+      <div class="swatch" style="background:#0C3547;">
+        <div class="swatch-inner">
+          <div class="swatch-name" style="color:rgba(250,247,240,0.7);">Morpho Deep</div>
+          <div class="swatch-hex" style="color:rgba(250,247,240,0.4);">#0C3547</div>
+          <div class="swatch-role" style="color:rgba(250,247,240,0.3);">Deep card bg. Dark panels.</div>
+        </div>
+      </div>
+
+      <div class="swatch" style="background:#E23D28;">
+        <div class="swatch-inner">
+          <div class="swatch-name" style="color:#FAF7F0;">Dart Red</div>
+          <div class="swatch-hex" style="color:rgba(250,247,240,0.6);">#E23D28</div>
+          <div class="swatch-role" style="color:rgba(250,247,240,0.4);">Secondary. Tension. Neo4j failure.</div>
+        </div>
+      </div>
+
+      <div class="swatch" style="background:#F2A093;">
+        <div class="swatch-inner">
+          <div class="swatch-name" style="color:#5C1410;">Dart Glow</div>
+          <div class="swatch-hex" style="color:rgba(92,20,16,0.6);">#F2A093</div>
+          <div class="swatch-role" style="color:rgba(92,20,16,0.5);">Dart highlight. Warm alert.</div>
+        </div>
+      </div>
+
+      <div class="swatch" style="background:#1A5C35;">
+        <div class="swatch-inner">
+          <div class="swatch-name" style="color:rgba(250,247,240,0.8);">Forest Green</div>
+          <div class="swatch-hex" style="color:rgba(250,247,240,0.5);">#1A5C35</div>
+          <div class="swatch-role" style="color:rgba(250,247,240,0.3);">Win state. Positive proof.</div>
+        </div>
+      </div>
+
+      <div class="swatch" style="background:#4A8F63;">
+        <div class="swatch-inner">
+          <div class="swatch-name" style="color:#06150D;">Forest Bright</div>
+          <div class="swatch-hex" style="color:rgba(6,21,13,0.6);">#4A8F63</div>
+          <div class="swatch-role" style="color:rgba(6,21,13,0.4);">Growth. Progress. Go signal.</div>
+        </div>
+      </div>
+
+      <div class="swatch" style="background:#FAF7F0;">
+        <div class="swatch-inner">
+          <div class="swatch-name" style="color:#06150D;">Cream</div>
+          <div class="swatch-hex" style="color:rgba(6,21,13,0.5);">#FAF7F0</div>
+          <div class="swatch-role" style="color:rgba(6,21,13,0.4);">Primary text. Human layer.</div>
+        </div>
+      </div>
+
+      <div class="swatch" style="background:#8B6F5E;">
+        <div class="swatch-inner">
+          <div class="swatch-name" style="color:#FAF7F0;">Bark</div>
+          <div class="swatch-hex" style="color:rgba(250,247,240,0.6);">#8B6F5E</div>
+          <div class="swatch-role" style="color:rgba(250,247,240,0.4);">Warm accent. Analog warmth.</div>
+        </div>
+      </div>
+
+      <!-- Logo colors -->
+      <div class="swatch" style="background:#E85A48;">
+        <div class="swatch-inner">
+          <div class="swatch-name" style="color:#FAF7F0;">Logo Orange</div>
+          <div class="swatch-hex" style="color:rgba(250,247,240,0.6);">#E85A48</div>
+          <div class="swatch-role" style="color:rgba(250,247,240,0.4);">Tetrahedron face. Logo only.</div>
+        </div>
+      </div>
+
+      <div class="swatch" style="background:#0F4C6B;">
+        <div class="swatch-inner">
+          <div class="swatch-name" style="color:rgba(250,247,240,0.7);">Logo Blue Dark</div>
+          <div class="swatch-hex" style="color:rgba(250,247,240,0.4);">#0F4C6B</div>
+          <div class="swatch-role" style="color:rgba(250,247,240,0.3);">Tetrahedron face. Logo only.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BRAND VOICE PILLARS -->
+  <section class="section">
+    <div class="section-label">Brand Voice · Sagan + Feynman + Picard</div>
+    <div class="pillars">
+
+      <div class="pillar sagan">
+        <div class="pillar-name">SAGAN</div>
+        <div class="pillar-role">Cosmic Wonder · Discovery</div>
+        <div class="pillar-desc">"The graph of everything that got us here." Makes the technical feel universal and awe-inspiring. Connects TETRA to the long arc of human progress. The demo dataset isn't a gimmick — it's a thesis about how knowledge compounds.</div>
+      </div>
+
+      <div class="pillar feynman">
+        <div class="pillar-name">FEYNMAN</div>
+        <div class="pillar-role">Playful Clarity · "Let me show you why this is beautiful"</div>
+        <div class="pillar-desc">"Every JOIN you write is paying a 50-year-old tax on a bad assumption." Makes complex architecture feel inevitable and even fun. Never condescending — genuinely excited about the elegance. The math is beautiful and we're going to show you why.</div>
+      </div>
+
+      <div class="pillar picard">
+        <div class="pillar-name">PICARD</div>
+        <div class="pillar-role">Calm Authority · Decisive · Principled</div>
+        <div class="pillar-desc">"We published the 19 queries we lose. Go look." Never rattled. Never oversells. States facts with the confidence of someone who has done the work and knows it holds. Not selling — guiding. Has been through the data wars. Knows what works.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section">
+    <div class="section-label">Typography System</div>
+    <div class="type-specimens">
+
+      <div class="type-specimen" data-label="Display · Roca Two (brand) / Orbitron (fallback)">
+        <div style="font-family:'Orbitron',monospace; font-size:clamp(28px,5vw,56px); font-weight:900; letter-spacing:0.08em; line-height:1; color:#FAF7F0; text-shadow: 0 0 30px rgba(27,126,176,0.35);">
+          WIN WITH<br><span style="color:#6EC5E9;">TETRA</span>
+        </div>
+        <div class="type-meta">Roca Two (primary) · Orbitron (web fallback) · Headlines, hero, product name · All caps preferred</div>
+      </div>
+
+      <div class="type-specimen" data-label="Mono · SF Mono / Cascadia Code / Fira Code">
+        <div style="font-family:'Share Tech Mono',monospace; font-size:clamp(13px,1.8vw,17px); letter-spacing:0.12em; color:#6EC5E9; line-height:1.9;">
+          25K CREDITS · PLAYER ONE · $49/MO<br>
+          1M CREDITS  · SIGNAL ★ HIGH SCORE · $299/MO<br>
+          <span style="color:rgba(250,247,240,0.4);">// backup: cp  restore: cp  replicate: rsync</span>
+        </div>
+        <div class="type-meta">SF Mono / Cascadia Code / Fira Code · Stats, code, labels, pricing, tags, nav</div>
+      </div>
+
+      <div class="type-specimen" data-label="Body · HK Grotesk Pro">
+        <div style="font-family:'DM Mono',monospace; font-size:14px; line-height:1.9; color:rgba(250,247,240,0.6); max-width:640px; font-style:italic;">
+          "Simple does not mean easy or primitive. The simple solution is like a magic eye in the noise — it takes more care and planning than complex noise ever could. The math is old. The application is new."
+        </div>
+        <div class="type-meta">HK Grotesk Pro · Body copy, long-form, FAQ, about · Max-width 640px · Not mono for body</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GRAPH / TETRA LOGO AESTHETIC -->
+  <section class="section">
+    <div class="section-label">Graph Aesthetic · TETRA Visual Metaphor</div>
+    <div class="graph-demo">
+      <svg viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:640px;height:auto;">
+        <defs>
+          <filter id="glow-b">
+            <feGaussianBlur stdDeviation="4" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="glow-r">
+            <feGaussianBlur stdDeviation="4" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="glow-strong">
+            <feGaussianBlur stdDeviation="7" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- Edges — morpho blue -->
+        <line class="graph-edge" x1="300" y1="130" x2="155" y2="65"  stroke="#1B7EB0" stroke-width="1.2"/>
+        <line class="graph-edge" x1="300" y1="130" x2="445" y2="65"  stroke="#1B7EB0" stroke-width="1.2" style="animation-delay:0.4s"/>
+        <line class="graph-edge" x1="300" y1="130" x2="155" y2="200" stroke="#1B7EB0" stroke-width="1.2" style="animation-delay:0.8s"/>
+        <line class="graph-edge" x1="300" y1="130" x2="445" y2="200" stroke="#1B7EB0" stroke-width="1.2" style="animation-delay:1.2s"/>
+        <line class="graph-edge" x1="155" y1="65"  x2="55"  y2="130" stroke="#1B7EB0" stroke-width="0.8" style="animation-delay:1.6s"/>
+        <line class="graph-edge" x1="445" y1="65"  x2="545" y2="130" stroke="#1B7EB0" stroke-width="0.8" style="animation-delay:2.0s"/>
+        <line class="graph-edge" x1="155" y1="200" x2="55"  y2="130" stroke="#1B7EB0" stroke-width="0.8" style="animation-delay:0.6s"/>
+        <line class="graph-edge" x1="445" y1="200" x2="545" y2="130" stroke="#1B7EB0" stroke-width="0.8" style="animation-delay:1.0s"/>
+        <!-- Dart red accent edges -->
+        <line class="graph-edge" x1="155" y1="65"  x2="445" y2="65"  stroke="#E23D28" stroke-width="0.6" stroke-dasharray="4 8" style="animation-delay:0.3s"/>
+        <line class="graph-edge" x1="155" y1="200" x2="445" y2="200" stroke="#E23D28" stroke-width="0.6" stroke-dasharray="4 8" style="animation-delay:0.9s"/>
+
+        <!-- Central TETRA node — morpho glow -->
+        <circle class="graph-node" cx="300" cy="130" r="14" fill="#1B7EB0" filter="url(#glow-strong)" style="animation-delay:0s"/>
+        <circle cx="300" cy="130" r="5" fill="#6EC5E9"/>
+
+        <!-- Secondary nodes — alternating morpho/dart -->
+        <circle class="graph-node" cx="155" cy="65"  r="7" fill="#6EC5E9" filter="url(#glow-b)" style="animation-delay:0.5s"/>
+        <circle class="graph-node" cx="445" cy="65"  r="7" fill="#E23D28" filter="url(#glow-r)" style="animation-delay:1.0s"/>
+        <circle class="graph-node" cx="155" cy="200" r="7" fill="#E23D28" filter="url(#glow-r)" style="animation-delay:1.5s"/>
+        <circle class="graph-node" cx="445" cy="200" r="7" fill="#6EC5E9" filter="url(#glow-b)" style="animation-delay:2.0s"/>
+        <circle class="graph-node" cx="55"  cy="130" r="5" fill="#4A8F63" filter="url(#glow-b)" style="animation-delay:0.8s"/>
+        <circle class="graph-node" cx="545" cy="130" r="5" fill="#4A8F63" filter="url(#glow-b)" style="animation-delay:1.3s"/>
+
+        <!-- Labels -->
+        <text x="300" y="155" text-anchor="middle" font-family="'Share Tech Mono'" font-size="9" fill="rgba(110,197,233,0.7)" letter-spacing="3">TETRA</text>
+        <text x="155" y="84"  text-anchor="middle" font-family="'Share Tech Mono'" font-size="7" fill="rgba(110,197,233,0.4)" letter-spacing="1">NODE</text>
+        <text x="445" y="84"  text-anchor="middle" font-family="'Share Tech Mono'" font-size="7" fill="rgba(242,160,147,0.4)" letter-spacing="1">NODE</text>
+      </svg>
+    </div>
+    <p style="font-family:'Share Tech Mono',monospace; font-size:11px; color:rgba(250,247,240,0.3); margin-top:12px; text-align:center; letter-spacing:0.1em; font-style:italic;">
+      Morpho Blue = connections · Dart Red = tension/competition · Forest Green = growth/win states · The tetrahedron IS the data model.
+    </p>
+  </section>
+
+  <!-- UI ELEMENTS -->
+  <section class="section">
+    <div class="section-label">UI Components · Arcade-Meets-Precision</div>
+    <div class="ui-row" style="margin-bottom:32px;">
+      <button class="btn-primary">Get Started</button>
+      <button class="btn-secondary">Try the Demo</button>
+      <button class="btn-danger">Contact Ground Support</button>
+    </div>
+    <div class="ui-row" style="margin-bottom:32px;">
+      <span class="tag">openCypher 100%</span>
+      <span class="tag">Bolt v4.4</span>
+      <span class="tag">Post-Quantum</span>
+      <span class="tag red">Neo4j OOM</span>
+      <span class="tag">GraphRAG Ready</span>
+    </div>
+    <div class="ui-row">
+      <div class="stat-block">
+        <div class="stat-num">10×</div>
+        <div class="stat-label">Less RAM than Neo4j</div>
+      </div>
+      <div class="stat-block green">
+        <div class="stat-num green">14/14</div>
+        <div class="stat-label">LDBC IC Queries</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-num">38%</div>
+        <div class="stat-label">File size · Formally proven</div>
+      </div>
+      <div class="stat-block red">
+        <div class="stat-num red">OOM</div>
+        <div class="stat-label">Neo4j on concurrent writes</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING TIERS — arcade branding -->
+  <section class="section">
+    <div class="section-label">Pricing System · CREDITS · Arcade Branding</div>
+    <div class="tiers">
+      <div class="tier">
+        <div class="tier-name">Demo Mode</div>
+        <div class="tier-credits">1,000 BONUS CREDITS</div>
+        <div class="tier-price">Free</div>
+        <div class="tier-period">Insert coin to continue</div>
+      </div>
+      <div class="tier">
+        <div class="tier-name">Player One</div>
+        <div class="tier-credits">25,000 CREDITS</div>
+        <div class="tier-price">$49</div>
+        <div class="tier-period">/ month · $499/yr</div>
+      </div>
+      <div class="tier featured">
+        <div class="tier-name">Signal</div>
+        <div class="tier-credits">1,000,000 CREDITS</div>
+        <div class="tier-price">$299</div>
+        <div class="tier-period">/ month · $3,050/yr</div>
+      </div>
+      <div class="tier">
+        <div class="tier-name">Command</div>
+        <div class="tier-credits">50,000,000 CREDITS</div>
+        <div class="tier-price">$1,500</div>
+        <div class="tier-period">/ month · $15,300/yr</div>
+      </div>
+    </div>
+    <p style="font-family:'Share Tech Mono',monospace; font-size:10px; color:rgba(250,247,240,0.3); margin-top:12px; letter-spacing:0.12em; font-style:italic; text-align:center;">
+      CREDITS = records (nodes + edges). You can count your records. You know your bill. No infrastructure voodoo.
+    </p>
+  </section>
+
+  <!-- MOTION LANGUAGE -->
+  <section class="section">
+    <div class="section-label">Motion Language</div>
+    <div class="motion-grid">
+      <div class="motion-card">
+        <div class="motion-demo"><div class="node"></div></div>
+        <div class="motion-name">Morpho Pulse</div>
+        <div class="motion-desc">Resting state. The database alive and waiting. Blue breathing in the dark.</div>
+      </div>
+      <div class="motion-card">
+        <div class="motion-demo"><div class="edge-demo"></div></div>
+        <div class="motion-name">Edge Traverse</div>
+        <div class="motion-desc">A query moving through the graph. One sequential scan — the fastest thing a CPU can do.</div>
+      </div>
+      <div class="motion-card">
+        <div class="motion-demo"><div class="glitch-demo">TETRA</div></div>
+        <div class="motion-name">Signal Glitch</div>
+        <div class="motion-desc">Rare. The moment between Dart Red (old world) and Morpho Blue (new world). Earned, not decorative.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MIDJOURNEY PROMPTS — updated palette -->
+  <section class="section">
+    <div class="section-label">Midjourney Prompts · Updated Palette</div>
+
+    <div class="mj-block">
+      <div class="mj-label">Hero · The Grid of Everything</div>
+      <div class="mj-text">
+        <em>vast graph network floating in deep forest-green void</em>, nodes glowing morpho blue and dart red, 
+        edges as light filaments, <em>tetrahedron geometry visible in node clusters</em>,
+        spectral layout — densely connected ancient nodes clustered at center, 
+        fractal specialization blooming outward, cinematic depth of field, 
+        bioluminescent, photorealistic, no text, wide shot, 
+        <em>feeling of awe and discovery — Sagan-esque scale</em>
+      </div>
+      <div class="mj-params">--ar 16:9 --style raw --v 6.1 --chaos 12</div>
+    </div>
+
+    <div class="mj-block">
+      <div class="mj-label">Grid Birth · Forest-Tinted</div>
+      <div class="mj-text">
+        infinite dark grid receding to horizon, <em>morpho blue glowing grid lines on deep forest-green-black ground</em>, 
+        dart red accent lines at edges, warm light source from below casting upward glow,
+        subtle fog at distance with faint blue luminescence, geometric precision,
+        <em>Tron Legacy aesthetic through a forest lens</em> — not cold blue but deep natural dark,
+        no figures, cinematic, photorealistic
+      </div>
+      <div class="mj-params">--ar 16:9 --style raw --v 6.1 --chaos 8 --q 2</div>
+    </div>
+
+    <div class="mj-block">
+      <div class="mj-label">The Demo · Technology Tree of Civilization</div>
+      <div class="mj-text">
+        <em>spectral graph layout of human civilization's technology tree</em>, 
+        ancient inventions clustered densely at center glowing warm amber, 
+        Industrial Revolution as massive bright hub, 
+        20th century branching into fractal specialization in morpho blue and dart red,
+        <em>TETRA as the newest brightest node at the edge</em>, 
+        deep forest-green-black void, bioluminescent nodes, cinematic, photorealistic,
+        Sagan cosmos aesthetic but made of human knowledge not stars
+      </div>
+      <div class="mj-params">--ar 16:9 --style raw --v 6.1 --chaos 18</div>
+    </div>
+
+    <div class="mj-block">
+      <div class="mj-label">Retro / AV Kid · CRT Warmth</div>
+      <div class="mj-text">
+        <em>TETRA graph database visualized on vintage CRT monitor</em>, 
+        morpho blue phosphor glow, scanlines texture, nodes and edges as glowing points,
+        <em>1987 LAN party energy — cables, dark room, the machine as magic</em>,
+        warm darkness, retro computing aesthetic meets modern precision,
+        tetrahedron geometry visible in node clusters, no text, photorealistic screen texture
+      </div>
+      <div class="mj-params">--ar 4:5 --style raw --v 6.1 --chaos 20</div>
+    </div>
+
+  </section>
+
+  <!-- VOICE SAMPLES -->
+  <section class="section">
+    <div class="section-label">Voice System · Sagan Meets Feynman Meets Picard</div>
+    <div class="voice-grid">
+
+      <div class="voice-card kill">
+        <div class="voice-tag kill">✕ The Tangent Traps · Kill These</div>
+        <ul class="anti-items" style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li style="font-family:'DM Mono',monospace;font-size:12px;color:rgba(250,247,240,0.45);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:#E23D28;">✕</span> "We reverse-engineered the mathematical foundations..."</li>
+          <li style="font-family:'DM Mono',monospace;font-size:12px;color:rgba(250,247,240,0.45);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:#E23D28;">✕</span> "Semiring-parameterized SpMV/SpGEMM operations..."</li>
+          <li style="font-family:'DM Mono',monospace;font-size:12px;color:rgba(250,247,240,0.45);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:#E23D28;">✕</span> "Paradigm shift in connected data storage and retrieval..."</li>
+          <li style="font-family:'DM Mono',monospace;font-size:12px;color:rgba(250,247,240,0.45);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:#E23D28;">✕</span> Comparing 5 competitors in one breath</li>
+          <li style="font-family:'DM Mono',monospace;font-size:12px;color:rgba(250,247,240,0.45);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:#E23D28;">✕</span> Any claim without a number behind it</li>
+        </ul>
+      </div>
+
+      <div class="voice-card">
+        <div class="voice-tag use">→ The Real Voice · Use These</div>
+        <ul class="anti-items" style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li style="font-family:'DM Mono',monospace;font-size:12px;color:rgba(250,247,240,0.5);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:#4A8F63;">→</span> "We took machine learning, reversed it." (Feynman: elegant)</li>
+          <li style="font-family:'DM Mono',monospace;font-size:12px;color:rgba(250,247,240,0.5);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:#4A8F63;">→</span> "Every JOIN is paying a 50-year-old tax." (Feynman: inevitable)</li>
+          <li style="font-family:'DM Mono',monospace;font-size:12px;color:rgba(250,247,240,0.5);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:#4A8F63;">→</span> "The graph of everything that got us here." (Sagan: wonder)</li>
+          <li style="font-family:'DM Mono',monospace;font-size:12px;color:rgba(250,247,240,0.5);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:#4A8F63;">→</span> "We published the 19 queries we lose." (Picard: authority)</li>
+          <li style="font-family:'DM Mono',monospace;font-size:12px;color:rgba(250,247,240,0.5);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:#4A8F63;">→</span> "Backup: cp. Restore: cp." (Feynman: beautifully simple)</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WHAT NOT TO DO -->
+  <section class="section">
+    <div class="section-label">Anti-Patterns · What This World Rejects</div>
+    <div class="anti-row">
+      <div class="anti-card no">
+        <div class="anti-label no">Never</div>
+        <ul class="anti-items">
+          <li>Pure cold teal — it's Morpho Blue on Forest Green, not cyan on black</li>
+          <li>Dystopia, rain, Blade Runner energy — this world is hopeful</li>
+          <li>Circuit board photography — too literal, too cheap</li>
+          <li>Matrix green rain — wrong film, wrong decade, wrong feeling</li>
+          <li>Stock photo developers at laptops in white offices</li>
+          <li>"Revolutionary" / "game-changing" / "AI-native" without receipts</li>
+          <li>Adjectives that can't be benchmarked</li>
+          <li>Dart Red in non-tension / non-competitor contexts</li>
+        </ul>
+      </div>
+      <div class="anti-card yes">
+        <div class="anti-label yes">Always</div>
+        <ul class="anti-items">
+          <li>Forest Green-Black as ground — alive, not dead</li>
+          <li>Morpho Blue as the signal of truth and connection</li>
+          <li>Dart Red only for tension, competition, old-world failure</li>
+          <li>Numbers before adjectives, every time</li>
+          <li>The tetrahedron geometry as recurring motif</li>
+          <li>Arcade / game language in pricing and UX copy</li>
+          <li>Hope as the emotional register — the horizon is somewhere worth going</li>
+          <li>Radical transparency — show what you lose, earn what you win</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="foot-brand">QI <span>STUDIOS</span> · TETRA WORLD SYSTEM · V2.0</div>
+    <div class="foot-meta">Internal Use Only · Updated with Official TETRA Brand · 2026</div>
+  </footer>
+
+</div>
+</body>
+</html>
