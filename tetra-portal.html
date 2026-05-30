@@ -20,18 +20,18 @@
   --silver:   #8A9890;
   --dim:      #2A3C30;
   /* TETRA logo palette — T · E · T · R · A */
-  --c1: #F3A2E4;
-  --c2: #C060E0;
-  --c3: #24CF9F;
-  --c4: #00D48C;
-  --c5: #6EC5E9;
+  --c1: #70E0E0;
+  --c2: #E04040;
+  --c3: #E0A040;
+  --c4: #A0E060;
+  --c5: #4080D8;
 }
 /* ── SECTION COLOR THEMING ────────────────────────── */
-.s-pink   { --sec: #F3A2E4; --sec-bdr: rgba(243,162,228,0.2); --sec-hvr: rgba(243,162,228,0.5); --sec-glow: rgba(243,162,228,0.06); }
-.s-purple { --sec: #C060E0; --sec-bdr: rgba(192,96,224,0.2);  --sec-hvr: rgba(192,96,224,0.5);  --sec-glow: rgba(192,96,224,0.06);  }
-.s-teal   { --sec: #24CF9F; --sec-bdr: rgba(36,207,159,0.2);  --sec-hvr: rgba(36,207,159,0.5);  --sec-glow: rgba(36,207,159,0.06);  }
-.s-green  { --sec: #00D48C; --sec-bdr: rgba(0,212,140,0.2);   --sec-hvr: rgba(0,212,140,0.5);   --sec-glow: rgba(0,212,140,0.06);   }
-.s-blue   { --sec: #6EC5E9; --sec-bdr: rgba(110,197,233,0.2); --sec-hvr: rgba(110,197,233,0.5); --sec-glow: rgba(110,197,233,0.06); }
+.s-pink   { --sec: #70E0E0; --sec-bdr: rgba(112,224,224,0.2); --sec-hvr: rgba(112,224,224,0.5); --sec-glow: rgba(112,224,224,0.06); }
+.s-purple { --sec: #E04040; --sec-bdr: rgba(224,64,64,0.2);   --sec-hvr: rgba(224,64,64,0.5);   --sec-glow: rgba(224,64,64,0.06);   }
+.s-teal   { --sec: #A0E060; --sec-bdr: rgba(160,224,96,0.2);  --sec-hvr: rgba(160,224,96,0.5);  --sec-glow: rgba(160,224,96,0.06);  }
+.s-green  { --sec: #4080D8; --sec-bdr: rgba(64,128,216,0.2);  --sec-hvr: rgba(64,128,216,0.5);  --sec-glow: rgba(64,128,216,0.06);  }
+.s-blue   { --sec: #E0A040; --sec-bdr: rgba(224,160,64,0.2);  --sec-hvr: rgba(224,160,64,0.5);  --sec-glow: rgba(224,160,64,0.06);  }
 section.s-pink, section.s-purple, section.s-teal, section.s-green, section.s-blue { border-top-color: var(--sec-bdr); }
 .s-pink .section-eyebrow, .s-purple .section-eyebrow, .s-teal .section-eyebrow, .s-green .section-eyebrow, .s-blue .section-eyebrow { color: var(--sec); }
 .s-pink .section-eyebrow::before, .s-purple .section-eyebrow::before, .s-teal .section-eyebrow::before, .s-green .section-eyebrow::before, .s-blue .section-eyebrow::before { background: var(--sec); }
@@ -40,11 +40,11 @@ section.s-pink, section.s-purple, section.s-teal, section.s-green, section.s-blu
 .s-pink .char-card:hover { border-color: var(--sec-hvr); }
 /* video */
 .s-purple .video-card:hover { border-color: var(--sec-hvr); }
-.s-purple .play-ring { border-color: rgba(192,96,224,0.45); background: rgba(192,96,224,0.08); }
-.s-purple .video-card:hover .play-ring { background: rgba(192,96,224,0.2); border-color: var(--sec); }
+.s-purple .play-ring { border-color: rgba(224,64,64,0.45); background: rgba(224,64,64,0.08); }
+.s-purple .video-card:hover .play-ring { background: rgba(224,64,64,0.2); border-color: var(--sec); }
 .s-purple .video-label { color: var(--sec); }
 .s-purple .video-title em { color: var(--sec); }
-.s-purple .video-card-grid { background-image: linear-gradient(rgba(192,96,224,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(192,96,224,0.05) 1px, transparent 1px); background-size: 48px 48px; }
+.s-purple .video-card-grid { background-image: linear-gradient(rgba(224,64,64,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(224,64,64,0.05) 1px, transparent 1px); background-size: 48px 48px; }
 /* docs */
 .s-teal .doc-row:hover { border-color: rgba(36,207,159,0.4); }
 .s-teal .doc-type { color: var(--sec); }
@@ -214,7 +214,7 @@ body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-se
   <div class="login-box">
     <div class="login-wordmark">QI <em>Studios</em></div>
     <div class="login-rule"></div>
-    <h1 class="login-title"><span style="color:#F3A2E4">T</span><span style="color:#C060E0">E</span><span style="color:#24CF9F">T</span><span style="color:#00D48C">R</span><span style="color:#6EC5E9">A</span></h1>
+    <h1 class="login-title"><span style="color:#70E0E0">T</span><span style="color:#E04040">E</span><span style="color:#E0A040">T</span><span style="color:#A0E060">R</span><span style="color:#4080D8">A</span></h1>
     <p class="login-sub">Client Portal — Corewood World</p>
     <form class="login-form" onsubmit="handleLogin(event)">
       <input class="login-input" id="code-input" type="text" placeholder="Access Code" autocomplete="off" spellcheck="false">
@@ -230,7 +230,7 @@ body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-se
     <div class="ph-left">
       <span class="ph-qi">QI Studios</span>
       <span class="ph-sep">·</span>
-      <span class="ph-client"><span style="color:#F3A2E4">T</span><span style="color:#C060E0">E</span><span style="color:#24CF9F">T</span><span style="color:#00D48C">R</span><span style="color:#6EC5E9">A</span></span>
+      <span class="ph-client"><span style="color:#70E0E0">T</span><span style="color:#E04040">E</span><span style="color:#E0A040">T</span><span style="color:#A0E060">R</span><span style="color:#4080D8">A</span></span>
     </div>
     <button class="ph-logout" onclick="logout()">Log Out</button>
   </header>
@@ -262,10 +262,10 @@ body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-se
           <img class="char-card-img" src="./tetra-player-1.png" alt="The Architect" loading="lazy">
           <div class="char-card-grid"></div>
           <div class="char-card-overlay">
-            <div class="char-card-tag" style="color:#F3A2E4;">Corewood · The Graph</div>
+            <div class="char-card-tag" style="color:#70E0E0;">Corewood · The Graph</div>
             <div class="char-card-name">The Architect</div>
             <div class="char-card-bio">Designs the structures that hold Corewood together. Sees relationships others can't. Never explains how.</div>
-            <span class="char-cta" style="color:#F3A2E4;">View Character Bible →</span>
+            <span class="char-cta" style="color:#70E0E0;">View Character Bible →</span>
           </div>
         </div>
 
@@ -273,10 +273,10 @@ body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-se
           <img class="char-card-img" src="./tetra-1.png" alt="The Cartographer" loading="lazy" style="object-position: center top;">
           <div class="char-card-grid" style="background-image: linear-gradient(rgba(0,212,140,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,140,0.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
           <div class="char-card-overlay">
-            <div class="char-card-tag" style="color:#00D48C;">Corewood · The Edge</div>
+            <div class="char-card-tag" style="color:#A0E060;">Corewood · The Edge</div>
             <div class="char-card-name">The Cartographer</div>
             <div class="char-card-bio">Traces paths no one else would follow. Keeps records of every route ever taken. Knows where the graph ends.</div>
-            <span class="char-cta" style="color:#00D48C;">View Character Bible →</span>
+            <span class="char-cta" style="color:#A0E060;">View Character Bible →</span>
           </div>
         </div>
 
@@ -296,7 +296,7 @@ body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-se
         <div class="video-card-inner">
           <div class="play-ring">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-              <path d="M8 5.5L17 11L8 16.5V5.5Z" fill="#C060E0"/>
+              <path d="M8 5.5L17 11L8 16.5V5.5Z" fill="#E04040"/>
             </svg>
           </div>
           <div>
