@@ -544,10 +544,26 @@
   .section:nth-child(7) { animation-delay: 0.35s; }
   .section:nth-child(8) { animation-delay: 0.4s; }
   .section:nth-child(9) { animation-delay: 0.45s; }
+.t-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; align-items: center; justify-content: space-between; padding: 14px 48px; background: rgba(6,21,13,0.97); border-bottom: 1px solid rgba(27,126,176,0.2); backdrop-filter: blur(10px); }
+.t-nav-left { display: flex; align-items: center; gap: 8px; }
+.t-nav-qi { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: #8A9890; }
+.t-nav-sep { color: rgba(27,126,176,0.3); margin: 0 6px; }
+.t-nav-name { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.1em; }
+.t-nav-back { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #6EC5E9; text-decoration: none; border: 1px solid rgba(27,126,176,0.3); padding: 7px 16px; transition: all 0.2s; }
+.t-nav-back:hover { background: rgba(27,126,176,0.08); border-color: rgba(27,126,176,0.65); }
+@media(max-width:600px) { .t-nav { padding: 12px 20px; } }
 </style>
 </head>
 <body>
-<div class="wrap">
+<nav class="t-nav">
+  <div class="t-nav-left">
+    <span class="t-nav-qi">QI Studios</span>
+    <span class="t-nav-sep">·</span>
+    <span class="t-nav-name"><span style="color:#F3A2E4">T</span><span style="color:#C060E0">E</span><span style="color:#24CF9F">T</span><span style="color:#00D48C">R</span><span style="color:#6EC5E9">A</span></span>
+  </div>
+  <a class="t-nav-back" href="./tetra-portal.html">← Back to Portal</a>
+</nav>
+<div class="wrap" style="padding-top:56px;">
 
   <!-- HEADER -->
   <header class="header">

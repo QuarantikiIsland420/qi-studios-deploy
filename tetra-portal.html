@@ -15,13 +15,42 @@
   --border:   rgba(27,126,176,0.18);
   --blue:     #1B7EB0;
   --blue-s:   #6EC5E9;
-  --amber:    #C87820;
-  --amber-s:  #E09840;
   --cream:    #FAF7F0;
   --muted:    #C8C4BA;
   --silver:   #8A9890;
   --dim:      #2A3C30;
+  /* TETRA logo palette — T · E · T · R · A */
+  --c1: #F3A2E4;
+  --c2: #C060E0;
+  --c3: #24CF9F;
+  --c4: #00D48C;
+  --c5: #6EC5E9;
 }
+/* ── SECTION COLOR THEMING ────────────────────────── */
+.s-pink   { --sec: #F3A2E4; --sec-bdr: rgba(243,162,228,0.2); --sec-hvr: rgba(243,162,228,0.5); --sec-glow: rgba(243,162,228,0.06); }
+.s-purple { --sec: #C060E0; --sec-bdr: rgba(192,96,224,0.2);  --sec-hvr: rgba(192,96,224,0.5);  --sec-glow: rgba(192,96,224,0.06);  }
+.s-teal   { --sec: #24CF9F; --sec-bdr: rgba(36,207,159,0.2);  --sec-hvr: rgba(36,207,159,0.5);  --sec-glow: rgba(36,207,159,0.06);  }
+.s-green  { --sec: #00D48C; --sec-bdr: rgba(0,212,140,0.2);   --sec-hvr: rgba(0,212,140,0.5);   --sec-glow: rgba(0,212,140,0.06);   }
+section.s-pink, section.s-purple, section.s-teal, section.s-green { border-top-color: var(--sec-bdr); }
+.s-pink .section-eyebrow, .s-purple .section-eyebrow, .s-teal .section-eyebrow, .s-green .section-eyebrow { color: var(--sec); }
+.s-pink .section-eyebrow::before, .s-purple .section-eyebrow::before, .s-teal .section-eyebrow::before, .s-green .section-eyebrow::before { background: var(--sec); }
+.s-pink .section-title em, .s-purple .section-title em, .s-teal .section-title em, .s-green .section-title em { color: var(--sec); }
+/* char cards */
+.s-pink .char-card:hover { border-color: var(--sec-hvr); }
+/* video */
+.s-purple .video-card:hover { border-color: var(--sec-hvr); }
+.s-purple .play-ring { border-color: rgba(192,96,224,0.45); background: rgba(192,96,224,0.08); }
+.s-purple .video-card:hover .play-ring { background: rgba(192,96,224,0.2); border-color: var(--sec); }
+.s-purple .video-label { color: var(--sec); }
+.s-purple .video-title em { color: var(--sec); }
+.s-purple .video-card-grid { background-image: linear-gradient(rgba(192,96,224,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(192,96,224,0.05) 1px, transparent 1px); background-size: 48px 48px; }
+/* docs */
+.s-teal .doc-row:hover { border-color: rgba(36,207,159,0.4); }
+.s-teal .doc-type { color: var(--sec); }
+.s-teal .doc-action:not(.download) { color: var(--sec); }
+/* gallery */
+.s-green .gallery-item:hover { border-color: var(--sec-hvr); }
+.s-green .gallery-caption { color: var(--sec); }
 html { scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-serif; font-size: 15px; line-height: 1.7; overflow-x: hidden; min-height: 100vh; }
 
@@ -30,14 +59,14 @@ body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-se
 .login-box { width: 100%; max-width: 440px; text-align: center; }
 .login-wordmark { font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.42em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
 .login-wordmark em { font-style: normal; color: var(--blue-s); }
-.login-rule { width: 36px; height: 1px; background: linear-gradient(to right, transparent, var(--blue), transparent); margin: 20px auto; }
-.login-title { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(52px, 12vw, 76px); color: var(--blue-s); line-height: 1.0; margin-bottom: 6px; letter-spacing: 0.08em; }
+.login-rule { width: 160px; height: 1px; background: linear-gradient(to right, transparent, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5), transparent); margin: 20px auto; }
+.login-title { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(52px, 12vw, 76px); line-height: 1.0; margin-bottom: 6px; letter-spacing: 0.08em; }
 .login-sub { font-family: 'Share Tech Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: var(--silver); margin-bottom: 52px; }
 .login-form { display: flex; flex-direction: column; gap: 12px; }
 .login-input { width: 100%; background: rgba(27,126,176,0.04); border: 1px solid var(--border); border-bottom-color: rgba(27,126,176,0.4); color: var(--cream); font-family: 'Share Tech Mono', monospace; font-size: 15px; letter-spacing: 0.32em; text-align: center; text-transform: uppercase; padding: 18px 20px; outline: none; transition: border-color 0.25s, background 0.25s; }
 .login-input::placeholder { color: var(--dim); font-size: 11px; letter-spacing: 0.2em; }
 .login-input:focus { border-color: rgba(27,126,176,0.65); background: rgba(27,126,176,0.06); }
-.login-btn { width: 100%; font-family: 'Jost', sans-serif; font-weight: 400; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #06150D; background: linear-gradient(135deg, #136090 0%, #1B7EB0 50%, #136090 100%); background-size: 200% auto; animation: shimmer 4s ease infinite; border: none; padding: 18px 28px; cursor: pointer; transition: opacity 0.2s; }
+.login-btn { width: 100%; font-family: 'Jost', sans-serif; font-weight: 400; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #06150D; background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5)); background-size: 300% auto; animation: shimmer 5s ease infinite; border: none; padding: 18px 28px; cursor: pointer; transition: opacity 0.2s; }
 .login-btn:hover { opacity: 0.88; }
 .login-error { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #e85a5a; display: none; margin-top: 4px; }
 @keyframes shimmer { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
@@ -173,7 +202,7 @@ body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-se
   <div class="login-box">
     <div class="login-wordmark">QI <em>Studios</em></div>
     <div class="login-rule"></div>
-    <h1 class="login-title">TETRA</h1>
+    <h1 class="login-title"><span style="color:#F3A2E4">T</span><span style="color:#C060E0">E</span><span style="color:#24CF9F">T</span><span style="color:#00D48C">R</span><span style="color:#6EC5E9">A</span></h1>
     <p class="login-sub">Client Portal — Corewood World</p>
     <form class="login-form" onsubmit="handleLogin(event)">
       <input class="login-input" id="code-input" type="text" placeholder="Access Code" autocomplete="off" spellcheck="false">
@@ -189,7 +218,7 @@ body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-se
     <div class="ph-left">
       <span class="ph-qi">QI Studios</span>
       <span class="ph-sep">·</span>
-      <span class="ph-client">TETRA</span>
+      <span class="ph-client"><span style="color:#F3A2E4">T</span><span style="color:#C060E0">E</span><span style="color:#24CF9F">T</span><span style="color:#00D48C">R</span><span style="color:#6EC5E9">A</span></span>
     </div>
     <button class="ph-logout" onclick="logout()">Log Out</button>
   </header>
@@ -210,7 +239,7 @@ body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-se
     </div>
 
     <!-- CHARACTERS -->
-    <section class="section">
+    <section class="section s-pink">
       <div class="section-hd">
         <div class="section-eyebrow">Section 01 — Characters</div>
         <h2 class="section-title">Two figures.<br><em>One builds. One maps.</em></h2>
@@ -221,21 +250,21 @@ body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-se
           <img class="char-card-img" src="./tetra-player-1.png" alt="The Architect" loading="lazy">
           <div class="char-card-grid"></div>
           <div class="char-card-overlay">
-            <div class="char-card-tag">Corewood · The Graph</div>
+            <div class="char-card-tag" style="color:#F3A2E4;">Corewood · The Graph</div>
             <div class="char-card-name">The Architect</div>
             <div class="char-card-bio">Designs the structures that hold Corewood together. Sees relationships others can't. Never explains how.</div>
-            <span class="char-cta">View Character Bible →</span>
+            <span class="char-cta" style="color:#F3A2E4;">View Character Bible →</span>
           </div>
         </div>
 
-        <div class="char-card amber" onclick="window.open('./tetra-character-bibles.html','_blank')">
+        <div class="char-card" onclick="window.open('./tetra-character-bibles.html','_blank')" style="--sec-hvr: rgba(0,212,140,0.5);">
           <img class="char-card-img" src="./tetra-1.png" alt="The Cartographer" loading="lazy" style="object-position: center top;">
-          <div class="char-card-grid" style="background-image: linear-gradient(rgba(200,120,32,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(200,120,32,0.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
-          <div class="char-card-overlay" style="background: linear-gradient(to top, rgba(6,21,13,0.96) 0%, rgba(6,21,13,0.1) 55%, transparent 100%);">
-            <div class="char-card-tag" style="color: var(--amber-s);">Corewood · The Edge</div>
+          <div class="char-card-grid" style="background-image: linear-gradient(rgba(0,212,140,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,140,0.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
+          <div class="char-card-overlay">
+            <div class="char-card-tag" style="color:#00D48C;">Corewood · The Edge</div>
             <div class="char-card-name">The Cartographer</div>
             <div class="char-card-bio">Traces paths no one else would follow. Keeps records of every route ever taken. Knows where the graph ends.</div>
-            <span class="char-cta" style="color: var(--amber-s);">View Character Bible →</span>
+            <span class="char-cta" style="color:#00D48C;">View Character Bible →</span>
           </div>
         </div>
 
@@ -243,7 +272,7 @@ body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-se
     </section>
 
     <!-- VIDEO -->
-    <section class="section">
+    <section class="section s-purple">
       <div class="section-hd">
         <div class="section-eyebrow">Section 02 — In Motion</div>
         <h2 class="section-title">The world.<br><em>Moving.</em></h2>
@@ -255,7 +284,7 @@ body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-se
         <div class="video-card-inner">
           <div class="play-ring">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-              <path d="M8 5.5L17 11L8 16.5V5.5Z" fill="#6EC5E9"/>
+              <path d="M8 5.5L17 11L8 16.5V5.5Z" fill="#C060E0"/>
             </svg>
           </div>
           <div>
@@ -268,7 +297,7 @@ body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-se
     </section>
 
     <!-- DOCUMENTS -->
-    <section class="section">
+    <section class="section s-teal">
       <div class="section-hd">
         <div class="section-eyebrow">Section 03 — Deliverables</div>
         <h2 class="section-title">Everything we built.<br><em>All in one place.</em></h2>
@@ -396,7 +425,7 @@ body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-se
     </section>
 
     <!-- VISUAL ARCHIVE -->
-    <section class="section">
+    <section class="section s-green">
       <div class="section-hd">
         <div class="section-eyebrow">Section 04 — Visual Archive</div>
         <h2 class="section-title">The world.<br><em>Rendered.</em></h2>
