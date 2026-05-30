@@ -31,10 +31,11 @@
 .s-purple { --sec: #C060E0; --sec-bdr: rgba(192,96,224,0.2);  --sec-hvr: rgba(192,96,224,0.5);  --sec-glow: rgba(192,96,224,0.06);  }
 .s-teal   { --sec: #24CF9F; --sec-bdr: rgba(36,207,159,0.2);  --sec-hvr: rgba(36,207,159,0.5);  --sec-glow: rgba(36,207,159,0.06);  }
 .s-green  { --sec: #00D48C; --sec-bdr: rgba(0,212,140,0.2);   --sec-hvr: rgba(0,212,140,0.5);   --sec-glow: rgba(0,212,140,0.06);   }
-section.s-pink, section.s-purple, section.s-teal, section.s-green { border-top-color: var(--sec-bdr); }
-.s-pink .section-eyebrow, .s-purple .section-eyebrow, .s-teal .section-eyebrow, .s-green .section-eyebrow { color: var(--sec); }
-.s-pink .section-eyebrow::before, .s-purple .section-eyebrow::before, .s-teal .section-eyebrow::before, .s-green .section-eyebrow::before { background: var(--sec); }
-.s-pink .section-title em, .s-purple .section-title em, .s-teal .section-title em, .s-green .section-title em { color: var(--sec); }
+.s-blue   { --sec: #6EC5E9; --sec-bdr: rgba(110,197,233,0.2); --sec-hvr: rgba(110,197,233,0.5); --sec-glow: rgba(110,197,233,0.06); }
+section.s-pink, section.s-purple, section.s-teal, section.s-green, section.s-blue { border-top-color: var(--sec-bdr); }
+.s-pink .section-eyebrow, .s-purple .section-eyebrow, .s-teal .section-eyebrow, .s-green .section-eyebrow, .s-blue .section-eyebrow { color: var(--sec); }
+.s-pink .section-eyebrow::before, .s-purple .section-eyebrow::before, .s-teal .section-eyebrow::before, .s-green .section-eyebrow::before, .s-blue .section-eyebrow::before { background: var(--sec); }
+.s-pink .section-title em, .s-purple .section-title em, .s-teal .section-title em, .s-green .section-title em, .s-blue .section-title em { color: var(--sec); }
 /* char cards */
 .s-pink .char-card:hover { border-color: var(--sec-hvr); }
 /* video */
@@ -168,6 +169,16 @@ body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-se
 .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(6,21,13,0.9) 0%, transparent 100%); padding: 20px 12px 12px; font-family: 'Share Tech Mono', monospace; font-size: 7px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--blue-s); opacity: 0; transform: translateY(4px); transition: opacity 0.3s, transform 0.3s; }
 .gallery-item:hover .gallery-caption { opacity: 1; transform: translateY(0); }
 
+/* ── VIDEO CLIPS ──────────────────────────────────── */
+.clip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.clip-item { position: relative; aspect-ratio: 16/9; overflow: hidden; background: var(--card); border: 1px solid var(--border); transition: border-color 0.3s; }
+.clip-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.72) saturate(0.82); transition: filter 0.3s; }
+.clip-item:hover .clip-video { filter: brightness(0.92) saturate(1); }
+.clip-label { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(6,21,13,0.9) 0%, transparent 100%); padding: 20px 12px 10px; font-family: 'Share Tech Mono', monospace; font-size: 7px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--blue-s); opacity: 0; transform: translateY(4px); transition: opacity 0.3s, transform 0.3s; }
+.clip-item:hover .clip-label { opacity: 1; transform: translateY(0); }
+.s-blue .clip-item:hover { border-color: var(--sec-hvr); }
+.s-blue .clip-label { color: var(--sec); }
+
 /* ── LIGHTBOX ─────────────────────────────────────── */
 .lb-overlay { position: fixed; inset: 0; background: rgba(6,21,13,0.97); z-index: 1000; display: none; align-items: center; justify-content: center; cursor: pointer; }
 .lb-overlay.active { display: flex; }
@@ -186,6 +197,7 @@ body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-se
   .section { padding: 64px 28px; }
   .ph-content { padding: 48px 28px 64px; }
   .char-grid { grid-template-columns: repeat(2, 1fr); }
+  .clip-grid { grid-template-columns: repeat(2, 1fr); }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .portal-footer { padding: 32px 28px; flex-direction: column; gap: 8px; text-align: center; }
 }
@@ -296,10 +308,44 @@ body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-se
       </div>
     </section>
 
+    <!-- VIDEO CLIPS -->
+    <section class="section s-blue">
+      <div class="section-hd">
+        <div class="section-eyebrow">Section 03 — Motion Archive</div>
+        <h2 class="section-title">Raw footage.<br><em>Straight from the archive.</em></h2>
+      </div>
+      <div class="clip-grid">
+        <div class="clip-item">
+          <video class="clip-video" autoplay muted loop playsinline><source src="./tetra-main.mp4" type="video/mp4"></video>
+          <div class="clip-label">TETRA</div>
+        </div>
+        <div class="clip-item">
+          <video class="clip-video" autoplay muted loop playsinline><source src="./tetra-singularity.mp4" type="video/mp4"></video>
+          <div class="clip-label">Singularity</div>
+        </div>
+        <div class="clip-item">
+          <video class="clip-video" autoplay muted loop playsinline><source src="./tetra-tunnel.mp4" type="video/mp4"></video>
+          <div class="clip-label">Tunnel</div>
+        </div>
+        <div class="clip-item">
+          <video class="clip-video" autoplay muted loop playsinline><source src="./tetra-world.mp4" type="video/mp4"></video>
+          <div class="clip-label">World</div>
+        </div>
+        <div class="clip-item">
+          <video class="clip-video" autoplay muted loop playsinline><source src="./tetra-insert-coin.mp4" type="video/mp4"></video>
+          <div class="clip-label">Insert Coin</div>
+        </div>
+        <div class="clip-item">
+          <video class="clip-video" autoplay muted loop playsinline><source src="./tetra-openart.mp4" type="video/mp4"></video>
+          <div class="clip-label">Open World</div>
+        </div>
+      </div>
+    </section>
+
     <!-- DOCUMENTS -->
     <section class="section s-teal">
       <div class="section-hd">
-        <div class="section-eyebrow">Section 03 — Deliverables</div>
+        <div class="section-eyebrow">Section 04 — Deliverables</div>
         <h2 class="section-title">Everything we built.<br><em>All in one place.</em></h2>
       </div>
       <div class="doc-list">
@@ -427,7 +473,7 @@ body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-se
     <!-- VISUAL ARCHIVE -->
     <section class="section s-green">
       <div class="section-hd">
-        <div class="section-eyebrow">Section 04 — Visual Archive</div>
+        <div class="section-eyebrow">Section 05 — Visual Archive</div>
         <h2 class="section-title">The world.<br><em>Rendered.</em></h2>
       </div>
       <div class="gallery-grid">
@@ -485,6 +531,11 @@ body { background: var(--bg); color: var(--silver); font-family: 'Jost', sans-se
         <div class="gallery-item" onclick="openLb('./tetra-logo-1.png')">
           <img class="gallery-img" src="./tetra-logo-1.png" alt="Tetra Logo" loading="lazy" style="object-fit: contain; background: var(--card);">
           <div class="gallery-caption">Wordmark</div>
+        </div>
+
+        <div class="gallery-item" onclick="openLb('./tetra-qi-pixel-logo.png')">
+          <img class="gallery-img" src="./tetra-qi-pixel-logo.png" alt="QI Studios Pixel Logo" loading="lazy" style="object-fit: contain; background: var(--card);">
+          <div class="gallery-caption">QI Pixel</div>
         </div>
 
       </div>
