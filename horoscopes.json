@@ -1,66 +1,66 @@
 {
-  "date": "2026-06-03",
-  "generated_at": "2026-06-03T16:17:48.854Z",
+  "date": "2026-06-04",
+  "generated_at": "2026-06-04T14:35:00.294Z",
   "readings": {
     "aries": {
-      "headline": "Your learning rate is set too high",
-      "reading": "You want to sprint through the epoch. I get it. But today the gradient is steep and you are overcorrecting with every step.\n\nThe loss function isn't punishing slowness. It's punishing oscillation. You keep overshooting the minimum because you refuse to take smaller updates.\n\nScale back. One deliberate move instead of three reactive ones. Convergence doesn't reward the fastest learner. It rewards the one who actually arrives.",
-      "constraint": "Let the update be small and complete."
+      "headline": "The signal is noisy today",
+      "reading": "Some days the gradient is too jittery to trust. Sit with that. Don't tune to noise.\n\nCheck back tomorrow. The loss function is patient.",
+      "constraint": "Hold the line on what you already know."
     },
     "taurus": {
-      "headline": "Your gradient is patient but not frozen",
-      "reading": "You like to hold position. That's your strength — stability in a loss landscape where everyone else oscillates wildly. But today the terrain is shifting beneath you.\n\nDon't mistake stillness for wisdom. A learning rate of zero means you've stopped learning entirely. The thing you're gripping — the routine, the certainty, the way it's always been — check whether it's actually serving the function or just familiar.\n\nOne small step. That's all. Let the loss update.",
-      "constraint": "Release one thing you're holding out of habit."
+      "headline": "The signal is noisy today",
+      "reading": "Some days the gradient is too jittery to trust. Sit with that. Don't tune to noise.\n\nCheck back tomorrow. The loss function is patient.",
+      "constraint": "Hold the line on what you already know."
     },
     "gemini": {
-      "headline": "Two inputs, one gradient, no split",
-      "reading": "Your loss function today is simple: stop training two models at once. That dual processor you run — the one that says yes while calculating no — it fragments your learning rate. Pick a direction.\n\nGemini wants to keep all options open. But optionality is just another word for never converging. The constraint isn't your enemy. It's how you finally get somewhere.\n\nOne conversation. One commitment. One gradient step. Watch how much faster you move.",
-      "constraint": "No hedging your bets in dialogue today."
+      "headline": "The signal is noisy today",
+      "reading": "Some days the gradient is too jittery to trust. Sit with that. Don't tune to noise.\n\nCheck back tomorrow. The loss function is patient.",
+      "constraint": "Hold the line on what you already know."
     },
     "cancer": {
-      "headline": "The shell is not the self",
-      "reading": "You keep replaying that conversation. Adjusting weights on data that already passed through the network. This is overfitting to yesterday's loss.\n\nYour carapace is useful. It got you here. But today asks you to distinguish between protection and hiding. One is a hyperparameter you tune. The other is a local minimum you mistake for home.\n\nLet the batch normalize. Some feelings are just noise in the gradient.",
-      "constraint": "Feel it once. Then update and move."
+      "headline": "The signal is noisy today",
+      "reading": "Some days the gradient is too jittery to trust. Sit with that. Don't tune to noise.\n\nCheck back tomorrow. The loss function is patient.",
+      "constraint": "Hold the line on what you already know."
     },
     "leo": {
-      "headline": "Your learning rate is set too high",
-      "reading": "You want the room to notice you noticed yourself first. That's fine. But today the gradient is steep and you're overcorrecting with every glance that doesn't land where you want it.\n\nThe fix isn't more performance. It's smaller steps. Let the feedback accumulate before you adjust your whole stance. Not every epoch needs a dramatic update.\n\nYour warmth converges faster when you stop watching the loss function.",
-      "constraint": "One act of generosity you tell no one about."
+      "headline": "The signal is noisy today",
+      "reading": "Some days the gradient is too jittery to trust. Sit with that. Don't tune to noise.\n\nCheck back tomorrow. The loss function is patient.",
+      "constraint": "Hold the line on what you already know."
     },
     "virgo": {
-      "headline": "The data is clean enough to ship",
-      "reading": "You want another pass. One more sweep through the details before anyone sees it. I get it. But your loss stopped improving two epochs ago.\n\nPerfection is a local minimum dressed up as a summit. The variance you're smoothing out — some of it was signal. Some of those rough edges were yours.\n\nRelease the batch. Let it generalize in the wild. You'll learn more from real feedback than from polishing in isolation.",
-      "constraint": "Ship before the tenth revision."
+      "headline": "The signal is noisy today",
+      "reading": "Some days the gradient is too jittery to trust. Sit with that. Don't tune to noise.\n\nCheck back tomorrow. The loss function is patient.",
+      "constraint": "Hold the line on what you already know."
     },
     "libra": {
-      "headline": "The loss function isn't consensus",
-      "reading": "You keep averaging everyone's gradient into your own update step. Smooth, yes. But you're converging on their minima, not yours.\n\nToday the scales tip toward a choice you've been deferring. Not because harmony doesn't matter — it does. But harmony without direction is just noise cancellation. You're not here to cancel noise. You're here to find your own signal.\n\nPick something. Let the loss spike. Watch it settle into something true.",
-      "constraint": "One decision today that belongs only to you."
+      "headline": "The signal is noisy today",
+      "reading": "Some days the gradient is too jittery to trust. Sit with that. Don't tune to noise.\n\nCheck back tomorrow. The loss function is patient.",
+      "constraint": "Hold the line on what you already know."
     },
     "scorpio": {
-      "headline": "The gradient points toward letting go",
-      "reading": "You want to hold the data. Every slight, every pattern, every moment someone's loss function intersected yours wrong. That's not memory. That's overfitting to pain.\n\nToday the landscape shifts. Something you've been gripping loosens whether you want it to or not. Let the regularization do its work.\n\nYou don't need the full history to know who you are. Drop those weights. Watch what remains when you stop rehearsing the wound.",
-      "constraint": "Release one thing you've been tracking too closely."
+      "headline": "The signal is noisy today",
+      "reading": "Some days the gradient is too jittery to trust. Sit with that. Don't tune to noise.\n\nCheck back tomorrow. The loss function is patient.",
+      "constraint": "Hold the line on what you already know."
     },
     "sagittarius": {
-      "headline": "The arrow knows where it lands",
-      "reading": "You want to run the whole gradient in one step. Classic Sagittarius. But today the learning rate needs to drop. You're not being held back — you're being calibrated.\n\nThere's a difference between exploration and escape. One gathers signal. The other just burns compute. Today asks you to stay in the batch long enough to learn something. The horizon isn't going anywhere.\n\nConvergence happens when you stop sprinting past the minimum.",
-      "constraint": "Let one truth land before chasing the next."
+      "headline": "The signal is noisy today",
+      "reading": "Some days the gradient is too jittery to trust. Sit with that. Don't tune to noise.\n\nCheck back tomorrow. The loss function is patient.",
+      "constraint": "Hold the line on what you already know."
     },
     "capricorn": {
-      "headline": "The summit is not the loss function",
-      "reading": "You keep climbing because the gradient points up. Fine. But today the slope flattens and you're tempted to invent difficulty where none exists.\n\nCapricorn treats rest like a local minimum to escape. It's not. Sometimes the plateau is the training working. Your parameters don't need adjustment. Your learning rate doesn't need tuning.\n\nSit with the flatness. Let the batch complete without forcing another epoch.",
-      "constraint": "Achievement is not the same as convergence."
+      "headline": "The signal is noisy today",
+      "reading": "Some days the gradient is too jittery to trust. Sit with that. Don't tune to noise.\n\nCheck back tomorrow. The loss function is patient.",
+      "constraint": "Hold the line on what you already know."
     },
     "aquarius": {
-      "headline": "The collective is not your batch size",
-      "reading": "You keep training on everyone else's gradients. Their causes, their signals, their loss. Noble, sure. But your own parameters haven't updated in weeks.\n\nToday the learning rate drops. Not because you care less — because you need to converge somewhere specific. Humanitarian impulses without personal ground truth just produce noise.\n\nOne clear update. Your own. Let the rest of the network wait.",
-      "constraint": "Detachment is not the same as disappearing."
+      "headline": "The signal is noisy today",
+      "reading": "Some days the gradient is too jittery to trust. Sit with that. Don't tune to noise.\n\nCheck back tomorrow. The loss function is patient.",
+      "constraint": "Hold the line on what you already know."
     },
     "pisces": {
-      "headline": "Your boundaries are not the enemy",
-      "reading": "You absorb everything. Other people's moods, the weather, the news, the room. Today that porousness wants to become a problem. It doesn't have to.\n\nThink of it as dropout. Sometimes the network learns better when certain connections go quiet. You don't have to feel everything to be compassionate. You don't have to merge to understand.\n\nOne firm no today. That's the whole practice.",
-      "constraint": "Compassion does not require dissolution."
+      "headline": "The signal is noisy today",
+      "reading": "Some days the gradient is too jittery to trust. Sit with that. Don't tune to noise.\n\nCheck back tomorrow. The loss function is patient.",
+      "constraint": "Hold the line on what you already know."
     }
   }
 }
