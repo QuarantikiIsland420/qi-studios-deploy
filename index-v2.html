@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QI Studios: Content World Studio</title>
-<meta name="description" content="QI Studios builds content worlds for brands. Characters, stories, and short video series that give audiences a reason to keep showing up.">
-<meta property="og:title" content="QI Studios: Content World Studio">
-<meta property="og:description" content="We build strange little worlds. Your brand gets characters, a story, and a reason people come back.">
+<title>QI Studios — Content World Studio</title>
+<meta name="description" content="QI Studios builds content worlds for brands — characters, stories, and short video series that give audiences a reason to keep showing up.">
+<meta property="og:title" content="QI Studios — Content World Studio">
+<meta property="og:description" content="We build strange little worlds where brands become characters and stories become marketing.">
 <meta property="og:image" content="https://qi-studios.com/qi_logo_transparent.png">
 <meta property="og:url" content="https://qi-studios.com">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="QI Studios: Content World Studio">
-<meta name="twitter:description" content="We build strange little worlds. Your brand gets characters, a story, and a reason people come back.">
+<meta name="twitter:title" content="QI Studios — Content World Studio">
+<meta name="twitter:description" content="We build strange little worlds where brands become characters and stories become marketing.">
 <link rel="icon" type="image/png" href="./qi_logo_transparent.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +25,7 @@
   --ink:      #0D0D0B;
   --ink-mid:  #3D3C38;
   --ink-dim:  #6E6B64;   /* darker bg only improves this ratio vs the old #F8F8F6 base */
-  --ink-faint:rgba(13,13,11,0.2); /* decorative/non-text use only — fails AA, do not use for text */
+  --ink-faint:#B8B4AF;   /* decorative/non-text use only — fails AA, do not use for text */
   --border:   rgba(13,13,11,0.1);
   --border-s: rgba(13,13,11,0.06);
   --a:        #0050FF;
@@ -106,9 +106,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
 .tile:hover{background:var(--bg-c)}
 .vwrap{position:relative;height:0;overflow:hidden}
 .vwrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;pointer-events:none}
-.vwrap img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block}
 .tile-overlay{padding:18px 0 28px;display:grid;grid-template-columns:auto 1fr auto;align-items:start;gap:16px}
-.tile-num{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--ink);line-height:1;padding-top:4px}
+.tile-num{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--ink-faint);line-height:1;padding-top:4px}
 .tile-info{display:flex;flex-direction:column;gap:4px}
 .tile-tag{font-family:'Inter',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--a)}
 .tile-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3vw,36px);color:var(--ink);letter-spacing:0.02em;line-height:1}
@@ -142,9 +141,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
 /* HOW IT WORKS */
 .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);margin-top:40px}
 .how-block{background:var(--bg);padding:40px 28px;border-top:3px solid transparent;transition:border-color 0.2s}
-.how-media{margin:-40px -28px 24px;aspect-ratio:1/1;overflow:hidden;background:var(--bg-s)}
-.how-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease}
-.how-block:hover .how-media img{transform:scale(1.04)}
 .how-block:hover{border-top-color:var(--a)}
 .how-step{font-family:'Inter',sans-serif;font-size:8px;font-weight:500;letter-spacing:0.38em;text-transform:uppercase;color:var(--a);margin-bottom:12px;display:block}
 .how-label{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--ink);line-height:1.1;margin-bottom:12px;letter-spacing:0.03em}
@@ -158,7 +154,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
 .proof-visual img,.proof-visual video{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s ease}
 .proof-item:hover .proof-visual img,.proof-item:hover .proof-visual video{transform:scale(1.03)}
 .proof-meta{padding:28px 26px}
-.proof-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--ink);line-height:1;margin-bottom:8px}
+.proof-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--ink-faint);line-height:1;margin-bottom:8px}
 .proof-tag{font-family:'Inter',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:var(--a);margin-bottom:8px}
 .proof-desc{font-size:14px;color:var(--ink-dim);line-height:1.65}
 .proof-total{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:28px 32px;border:1px solid var(--ink)}
@@ -249,7 +245,6 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
   .hero,.section,.section-wide,.statement-wrap,.work-label,.tile-grid,.chars-inner,.proof-wrap,.tiers-wrap,.footer-cta{padding-left:20px;padding-right:20px}
   .tile-2up{grid-template-columns:1fr}
   .how-grid{grid-template-columns:1fr}
-  .how-media{aspect-ratio:16/9;margin-left:-28px;margin-right:-28px}
   footer{padding:22px 20px}
 }
 
@@ -279,9 +274,9 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
 <section class="hero">
   <canvas class="fx-canvas" id="heroFx" aria-hidden="true"></canvas>
   <div class="hero-content reveal">
-    <span class="hero-eye">QI Studios: Content World Studio</span>
+    <span class="hero-eye">QI Studios — Content World Studio</span>
     <h1 class="hero-h1">We build<br><span class="hl">strange</span><br>little worlds.</h1>
-    <p class="hero-sub">Your brand gets characters, a story, and a reason people come back. Built in 21 days.</p>
+    <p class="hero-sub">Where brands become characters and stories become marketing. One founder, one world, one 21-day sprint at a time.</p>
   </div>
   <div class="hero-bottom reveal">
     <a href="https://calendly.com/quarantikiisland/30min" class="btn-ink" target="_blank" rel="noopener">Build Your Content World →</a>
@@ -295,14 +290,13 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
 <div class="statement-wrap reveal">
   <h2 class="statement-q">Most marketing chases attention.<br>We build narrative <span class="hl">gravity</span>.</h2>
   <p class="statement-body">Your brand becomes a place people visit, not just something they buy. Strange ideas. Beautiful visuals. Stories people remember.</p>
-  <p class="statement-body" style="margin-top:20px">The result is content people follow on purpose, so you stop paying to interrupt them.</p>
 </div>
 </div>
 
 <!-- WORK -->
 <div class="s-rule s-alt">
   <div class="work-label reveal">
-    <div class="eyebrow">Selected worlds</div>
+    <div class="eyebrow">Selected experiments</div>
   </div>
   <div class="tile-grid">
 
@@ -335,38 +329,6 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
 
     <!-- 2-up -->
     <div class="tile-2up reveal">
-      <a class="tile" href="https://manifestyou.ai/" target="_blank" rel="noopener">
-        <div class="vwrap" style="padding-bottom:60%">
-          <img src="./work-manifestyou.png" alt="ManifestYOU" loading="lazy">
-        </div>
-        <div class="tile-overlay">
-          <div class="tile-num">02</div>
-          <div class="tile-info">
-            <div class="tile-tag">Product · Built End to End</div>
-            <div class="tile-title">ManifestYOU</div>
-            <div class="tile-sub">A system prompt API, brand, film, and live product. Built solo.</div>
-          </div>
-          <div class="tile-arr">→</div>
-        </div>
-      </a>
-      <a class="tile" href="https://www.adventuresofgradientdescent.com/" target="_blank" rel="noopener">
-        <div class="vwrap" style="padding-bottom:60%">
-          <img src="./work-agdamp.png" alt="AGDAMP" loading="lazy">
-        </div>
-        <div class="tile-overlay">
-          <div class="tile-num">03</div>
-          <div class="tile-info">
-            <div class="tile-tag">Published Novel</div>
-            <div class="tile-title">AGDAMP</div>
-            <div class="tile-sub">A custom audio player and original score for a published book.</div>
-          </div>
-          <div class="tile-arr">→</div>
-        </div>
-      </a>
-    </div>
-
-    <!-- 2-up -->
-    <div class="tile-2up reveal">
       <div class="tile" onclick="playTile(this)">
         <div class="vwrap" style="padding-bottom:60%">
           <iframe src="https://player.vimeo.com/video/1173790615?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" title="Bigfoot"></iframe>
@@ -381,10 +343,10 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
           </div>
         </div>
         <div class="tile-overlay">
-          <div class="tile-num">04</div>
+          <div class="tile-num">02</div>
           <div class="tile-info">
-            <div class="tile-tag">QI Studios · Original</div>
-            <div class="tile-title">Bigfoot: The Accidental Influencer</div>
+            <div class="tile-tag">Functional Beverage</div>
+            <div class="tile-title">Bigfoot — The Accidental Influencer</div>
             <div class="tile-sub">A brand character that became the whole story.</div>
           </div>
           <div class="tile-arr">→</div>
@@ -404,7 +366,7 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
           </div>
         </div>
         <div class="tile-overlay">
-          <div class="tile-num">05</div>
+          <div class="tile-num">03</div>
           <div class="tile-info">
             <div class="tile-tag">Den of Digital Zen</div>
             <div class="tile-title">Lesichka Foxxy</div>
@@ -431,33 +393,15 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
           </div>
         </div>
         <div class="tile-overlay">
-          <div class="tile-num">06</div>
+          <div class="tile-num">04</div>
           <div class="tile-info">
             <div class="tile-tag">Cold Brew</div>
-            <div class="tile-title">ALTURA: Cold Brew Concept</div>
+            <div class="tile-title">ALTURA — Cold Brew Concept</div>
             <div class="tile-sub">Single-origin story from Chirripó and the Dota Valley.</div>
           </div>
           <div class="tile-arr">→</div>
         </div>
       </div>
-    </div>
-
-    <!-- Wide — The Brinkman -->
-    <div class="reveal">
-      <a class="tile" href="./ben-brink-character-bible.html">
-        <div class="vwrap" style="padding-bottom:42%">
-          <img src="./work-brinkman.jpg" alt="The Brinkman" loading="lazy">
-        </div>
-        <div class="tile-overlay">
-          <div class="tile-num">07</div>
-          <div class="tile-info">
-            <div class="tile-tag">Home Services</div>
-            <div class="tile-title">The Brinkman</div>
-            <div class="tile-sub">A Colorado handyman business turned into a character, not a mascot.</div>
-          </div>
-          <div class="tile-arr">→</div>
-        </div>
-      </a>
     </div>
 
   </div>
@@ -468,23 +412,20 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
 <canvas class="fx-canvas" id="howFx" aria-hidden="true"></canvas>
 <div class="section-wide reveal">
   <div class="eyebrow">How it works</div>
-  <h2 class="s-head">Three<br><span class="hl">ways</span> in.</h2>
+  <h2 class="s-head">Every project begins<br>as an <span class="hl">experiment</span>.</h2>
   <div class="how-grid">
     <div class="how-block">
-      <div class="how-media"><img src="./chars-bigfoot.jpg" alt="Bigfoot in an office, mid-selfie" loading="lazy" style="object-position:center 10%"></div>
-      <span class="how-step">01</span>
+      <span class="how-step">Experiment 01</span>
       <div class="how-label">The Brand Story</div>
       <p class="how-body">Story prototype, 2–3 short cinematic videos. We find the hook that makes a stranger care.</p>
     </div>
     <div class="how-block">
-      <div class="how-media"><img src="./chars-foxxy.jpg" alt="Lesichka Foxxy, the Island Alchemist" loading="lazy" style="object-position:center 15%"></div>
-      <span class="how-step">02</span>
+      <span class="how-step">Experiment 02</span>
       <div class="how-label">The Brand Character</div>
       <p class="how-body">Character design, voice, backstory, short content. Your brand gets a face that people follow.</p>
     </div>
     <div class="how-block">
-      <div class="how-media"><img src="./world-bar.jpg" alt="The QI bar, lanterns lit" loading="lazy" style="object-position:center 35%"></div>
-      <span class="how-step">03</span>
+      <span class="how-step">Experiment 03</span>
       <div class="how-label">The Storyworld Launch</div>
       <p class="how-body">Full brand universe, multiple characters, recurring content. The whole world, built to run.</p>
     </div>
@@ -631,13 +572,13 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
         <div>
           <div class="tier-name">Content World Sprint</div>
           <div class="tier-sub">21 days. Your brand, made into a world.</div>
-          <p class="tier-desc">We take what you've already built and turn it into a recognizable content world: story, creative direction, cinematic content, and a bank of ideas your brand can keep creating from.</p>
+          <p class="tier-desc">We take what you've already built and turn it into a recognizable content world — story, creative direction, cinematic content, and a bank of ideas your brand can keep creating from.</p>
           <ul class="tier-deliverables">
-            <li>Brand & Content Strategy: core story, content angles, audience, recurring themes</li>
-            <li>Content World: visual direction, storytelling system, recurring formats</li>
-            <li>3 cinematic short-form videos: establish the creative direction</li>
-            <li>10 branded social assets: visual and content system</li>
-            <li>30 content concepts: your next month of content, done</li>
+            <li>Brand & Content Strategy — core story, content angles, audience, recurring themes</li>
+            <li>Content World — visual direction, storytelling system, recurring formats</li>
+            <li>3 cinematic short-form videos — establish the creative direction</li>
+            <li>10 branded social assets — visual and content system</li>
+            <li>30 content concepts — your next month of content, done</li>
           </ul>
         </div>
         <div class="tier-hero-right">
@@ -654,7 +595,7 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
         <div>
           <div class="tier-name">Content Engine</div>
           <div class="tier-sub">We keep building the world together.</div>
-          <p class="tier-desc">After the sprint, we continue producing content from the world we built. New videos, new assets, new concepts. Every month. Your brand stays in motion without starting from scratch each time.</p>
+          <p class="tier-desc">After the sprint, we continue producing content from the world we built. New videos, new assets, new concepts — every month. Your brand stays in motion without starting from scratch each time.</p>
         </div>
         <div class="tier-simple-right">
           <div class="tier-price">$2–3K<span style="font-size:0.4em">/mo</span></div>
@@ -670,7 +611,7 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
         <div>
           <div class="tier-name">Performance Partnership</div>
           <div class="tier-sub">We become your creative studio.</div>
-          <p class="tier-desc">For brands ready for a longer creative relationship. New content, new campaigns, new worlds as your brand grows. We work on revenue share. Our incentives are your outcomes.</p>
+          <p class="tier-desc">For brands ready for a longer creative relationship. New content, new campaigns, new worlds as your brand grows. We work on revenue share — our incentives are your outcomes.</p>
         </div>
         <div class="tier-simple-right">
           <div class="tier-meta">Revenue Share · Ongoing</div>
@@ -694,6 +635,11 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
       <video class="built-by-logo" autoplay muted loop playsinline aria-hidden="true">
         <source src="./qilogoanimation1.mp4" type="video/mp4">
       </video>
+      <div class="built-by-head">Built by QI Studios</div>
+      <div class="built-by-btns">
+        <a href="https://manifestyou.ai/" class="btn-outline" target="_blank" rel="noopener">Manifest You →</a>
+        <a href="./AGDAMP.html" class="btn-outline">AGDAMP →</a>
+      </div>
     </div>
   </div>
 </div>
