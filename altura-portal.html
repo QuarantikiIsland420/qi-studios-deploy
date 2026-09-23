@@ -407,10 +407,11 @@ function handleModalClick(e) {
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideo(); });
 
-if (localStorage.getItem('altura_auth') === '1') {
-  document.getElementById('login').style.display = 'none';
-  document.getElementById('portal').style.display = 'block';
-}
+// ALTURA is a concept brand linked publicly from the landing page, so the
+// portal opens without a code. The login form above still works — to re-gate,
+// restore:  if (localStorage.getItem('altura_auth') === '1') { ... }
+document.getElementById('login').style.display = 'none';
+document.getElementById('portal').style.display = 'block';
 </script>
 </body>
 </html>

@@ -7,7 +7,8 @@
 <meta name="description" content="QI Studios builds content worlds for brands. Characters, stories, and short video series that give audiences a reason to keep showing up.">
 <meta property="og:title" content="QI Studios: Content World Studio">
 <meta property="og:description" content="We build strange little worlds. Your brand gets characters, a story, and a reason people come back.">
-<meta property="og:image" content="https://qi-studios.com/qi_logo_transparent.png">
+<meta property="og:image" content="https://qi-studios.com/og-foxxy.jpg">
+<meta name="twitter:image" content="https://qi-studios.com/og-foxxy.jpg">
 <meta property="og:url" content="https://qi-studios.com">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -82,10 +83,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
 /* HERO */
 .hero{min-height:100svh;display:grid;grid-template-rows:1fr auto;padding:0 48px 72px;border-bottom:2px solid var(--ink);position:relative;overflow:hidden}
 .hero-content{align-self:end;padding-top:120px;max-width:1100px;position:relative;z-index:1}
+.hero-figure{position:absolute;top:0;right:0;width:42%;max-width:600px;height:100%;z-index:0;pointer-events:none;overflow:hidden}
+.hero-figure img{width:100%;height:100%;object-fit:cover;object-position:center 16%;opacity:0.92;
+  -webkit-mask-image:linear-gradient(to left,#000 48%,transparent 96%);
+  mask-image:linear-gradient(to left,#000 48%,transparent 96%)}
 .hero-eye{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.38em;text-transform:uppercase;color:var(--ink-mid);margin-bottom:24px;display:block}
 .hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,16vw,180px);line-height:0.86;color:var(--ink);letter-spacing:0.01em;margin-bottom:32px}
 .hero-sub{font-size:clamp(16px,1.8vw,20px);color:var(--ink-dim);max-width:540px;line-height:1.75}
-.hero-bottom{display:flex;align-items:center;gap:32px;flex-wrap:wrap;padding-top:48px;border-top:1px solid var(--border);margin-top:52px;position:relative;z-index:1;background:var(--bg)}
+.hero-bottom{display:flex;align-items:center;gap:32px;flex-wrap:wrap;padding-top:48px;border-top:1px solid var(--border);margin-top:52px;position:relative;z-index:1}
 .btn-ink{display:inline-block;font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;background:var(--ink);color:var(--bg);padding:16px 36px;transition:background 0.2s ease}
 .btn-ink:hover{background:var(--a)}
 .hero-meta{font-family:'Inter',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.28em;text-transform:uppercase;color:var(--ink-dim)}
@@ -179,6 +184,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
 .tier-deliverables li::before{content:'—';position:absolute;left:0;color:var(--a)}
 .tier-price{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,6vw,60px);color:var(--ink);line-height:1}
 .tier-meta{font-family:'Inter',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-dim);margin-top:6px}
+.tier-from{font-family:'Inter',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:2px}
 .tier-hero{border-color:var(--ink)}
 .tier-hero-inner{display:grid;grid-template-columns:1fr 260px;gap:48px;align-items:start;margin-top:20px}
 .tier-hero-right{display:flex;flex-direction:column;gap:14px;border-left:1px solid var(--border);padding-left:32px}
@@ -214,6 +220,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
 footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:var(--bg)}
 .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.08em;color:var(--ink);text-decoration:none}
 .footer-copy{font-family:'Inter',sans-serif;font-size:8px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-dim)}
+.footer-right{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.footer-portal{font-family:'Inter',sans-serif;font-size:8px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-dim);text-decoration:none;transition:color 0.2s}
+.footer-portal:hover{color:var(--a)}
 
 /* BTN OUTLINE */
 .btn-outline{display:inline-block;font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(248,248,246,0.2);color:rgba(248,248,246,0.55);padding:14px 28px;transition:all 0.2s ease}
@@ -246,6 +255,7 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
 /* MOBILE */
 @media(max-width:768px){
   nav{padding:18px 20px}
+  .hero-figure{display:none}
   .hero,.section,.section-wide,.statement-wrap,.work-label,.tile-grid,.chars-inner,.proof-wrap,.tiers-wrap,.footer-cta{padding-left:20px;padding-right:20px}
   .tile-2up{grid-template-columns:1fr}
   .how-grid{grid-template-columns:1fr}
@@ -269,22 +279,23 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
 <nav>
   <a href="#" class="nav-logo">QI Studios</a>
   <div class="nav-right">
-    <a href="./portal.html" class="nav-link">Client Portal</a>
+    <a href="#work" class="nav-link">Work</a>
     <a href="./sprint.html" class="nav-link">The Sprint</a>
-    <a href="https://calendly.com/quarantikiisland/30min" class="nav-cta" target="_blank" rel="noopener">Build Your Content World</a>
+    <a href="https://calendly.com/qi-studios/30min" class="nav-cta" target="_blank" rel="noopener">Book a Call</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <canvas class="fx-canvas" id="heroFx" aria-hidden="true"></canvas>
+  <div class="hero-figure"><img src="./hero-foxxy.jpg" alt="Lesichka Foxxy, the Island Alchemist."></div>
   <div class="hero-content reveal">
     <span class="hero-eye">QI Studios: Content World Studio</span>
     <h1 class="hero-h1">We build<br><span class="hl">strange</span><br>little worlds.</h1>
     <p class="hero-sub">Your brand gets characters, a story, and a reason people come back. Built in 21 days.</p>
   </div>
   <div class="hero-bottom reveal">
-    <a href="https://calendly.com/quarantikiisland/30min" class="btn-ink" target="_blank" rel="noopener">Build Your Content World →</a>
+    <a href="https://calendly.com/qi-studios/30min" class="btn-ink" target="_blank" rel="noopener">Book a 30-Minute Call →</a>
     <span class="hero-meta">One Brand at a Time</span>
   </div>
 </section>
@@ -296,11 +307,12 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
   <h2 class="statement-q">Most marketing chases attention.<br>We build narrative <span class="hl">gravity</span>.</h2>
   <p class="statement-body">Your brand becomes a place people visit, not just something they buy. Strange ideas. Beautiful visuals. Stories people remember.</p>
   <p class="statement-body" style="margin-top:20px">The result is content people follow on purpose, so you stop paying to interrupt them.</p>
+  <a href="https://calendly.com/qi-studios/30min" class="btn-ink" target="_blank" rel="noopener" style="margin-top:40px">Book a 30-Minute Call →</a>
 </div>
 </div>
 
 <!-- WORK -->
-<div class="s-rule s-alt">
+<div class="s-rule s-alt" id="work">
   <div class="work-label reveal">
     <div class="eyebrow">Selected worlds</div>
   </div>
@@ -469,23 +481,20 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
 <canvas class="fx-canvas" id="howFx" aria-hidden="true"></canvas>
 <div class="section-wide reveal">
   <div class="eyebrow">How it works</div>
-  <h2 class="s-head">Three<br><span class="hl">ways</span> in.</h2>
+  <h2 class="s-head">What we<br><span class="hl">build</span>.</h2>
   <div class="how-grid">
     <div class="how-block">
       <div class="how-media"><img src="./chars-bigfoot.jpg" alt="Bigfoot in an office, mid-selfie" loading="lazy" style="object-position:center 10%"></div>
-      <span class="how-step">01</span>
       <div class="how-label">The Brand Story</div>
       <p class="how-body">Story prototype, 2–3 short cinematic videos. We find the hook that makes a stranger care.</p>
     </div>
     <div class="how-block">
       <div class="how-media"><img src="./chars-foxxy.jpg" alt="Lesichka Foxxy, the Island Alchemist" loading="lazy" style="object-position:center 15%"></div>
-      <span class="how-step">02</span>
       <div class="how-label">The Brand Character</div>
       <p class="how-body">Character design, voice, backstory, short content. Your brand gets a face that people follow.</p>
     </div>
     <div class="how-block">
       <div class="how-media"><img src="./world-bar.jpg" alt="The QI bar, lanterns lit" loading="lazy" style="object-position:center 35%"></div>
-      <span class="how-step">03</span>
       <div class="how-label">The Storyworld Launch</div>
       <p class="how-body">Full brand universe, multiple characters, recurring content. The whole world, built to run.</p>
     </div>
@@ -660,7 +669,7 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
         <div class="tier-simple-right">
           <div class="tier-price">$2–3K<span style="font-size:0.4em">/mo</span></div>
           <div class="tier-meta">Monthly · Post-sprint only</div>
-          <a href="https://calendly.com/quarantikiisland/30min" class="btn-outline-ink" target="_blank" rel="noopener">Talk About It →</a>
+          <a href="https://calendly.com/qi-studios/30min" class="btn-outline-ink" target="_blank" rel="noopener">Talk About It →</a>
         </div>
       </div>
     </div>
@@ -669,13 +678,15 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
       <div class="tier-badge">By invitation</div>
       <div class="tier-simple">
         <div>
-          <div class="tier-name">Performance Partnership</div>
-          <div class="tier-sub">We become your creative studio.</div>
-          <p class="tier-desc">For brands ready for a longer creative relationship. New content, new campaigns, new worlds as your brand grows. We work on revenue share. Our incentives are your outcomes.</p>
+          <div class="tier-name">Custom Build</div>
+          <div class="tier-sub">Scoped to what your brand actually needs.</div>
+          <p class="tier-desc">For brands whose work does not fit a standard sprint. We build the scope around your goals, your timeline, and your budget, whether that is a single campaign or a world that keeps growing.</p>
         </div>
         <div class="tier-simple-right">
-          <div class="tier-meta">Revenue Share · Ongoing</div>
-          <a href="https://calendly.com/quarantikiisland/30min" class="btn-outline-ink" target="_blank" rel="noopener">Start a Conversation →</a>
+          <div class="tier-from">Starting at</div>
+          <div class="tier-price">$6K</div>
+          <div class="tier-meta">Custom Scope · Ongoing</div>
+          <a href="https://calendly.com/qi-studios/30min" class="btn-outline-ink" target="_blank" rel="noopener">Start a Conversation →</a>
         </div>
       </div>
     </div>
@@ -689,11 +700,11 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
     <span class="footer-cta-eye">Ready when you are</span>
     <h2 class="footer-cta-head">Your brand's<br>story is already<br>in there.</h2>
     <p class="footer-cta-sub">30-minute call. No pitch deck. We'll find the story together.</p>
-    <a href="https://calendly.com/quarantikiisland/30min" class="btn-ink" target="_blank" rel="noopener" style="background:var(--bg);color:var(--ink)">Book a 30-Minute Call →</a>
+    <a href="https://calendly.com/qi-studios/30min" class="btn-ink" target="_blank" rel="noopener" style="background:var(--bg);color:var(--ink)">Book a 30-Minute Call →</a>
 
     <div class="built-by">
       <video class="built-by-logo" autoplay muted loop playsinline aria-hidden="true">
-        <source src="./qilogoanimation1.mp4" type="video/mp4">
+        <source src="./qi-logo-animation.mp4" type="video/mp4">
       </video>
     </div>
   </div>
@@ -702,7 +713,10 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
 <!-- FOOTER -->
 <footer>
   <a href="#" class="footer-logo">QI Studios</a>
-  <span class="footer-copy">qi-studios.com</span>
+  <div class="footer-right">
+    <a href="./portal.html" class="footer-portal">Client Portal Login</a>
+    <span class="footer-copy">qi-studios.com</span>
+  </div>
 </footer>
 
 <script src="https://player.vimeo.com/api/player.js"></script>

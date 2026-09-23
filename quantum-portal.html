@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Client Portal — QI Studios × The Quantum Career Coach</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="./qi_logo_transparent.png">
+<style>
+:root{
+  --navy:      #0C1626;
+  --navy-deep: #091220;
+  --navy-card: #101D31;
+  --cream:     #F5F1EA;
+  --amber:     #F0A63C;
+  --amber-dim: #C98526;
+  --muted:     #8494AA;
+  --muted-dim: #5F7088;
+  --border:    rgba(245,241,234,0.10);
+  --border-lit:rgba(240,166,60,0.35);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--navy);color:var(--cream);font-family:'Inter',sans-serif;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+
+/* ---------- LOGIN ---------- */
+#login{position:fixed;inset:0;background:var(--navy-deep);display:flex;align-items:center;justify-content:center;padding:24px;z-index:50}
+.login-box{width:100%;max-width:400px;text-align:center}
+.login-wordmark{font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted)}
+.login-wordmark em{color:var(--amber);font-style:normal}
+.login-rule{width:40px;height:2px;background:var(--amber);margin:22px auto}
+.login-title{font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(28px,6vw,38px);letter-spacing:-0.01em;line-height:1.1}
+.login-sub{font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted-dim);margin-top:12px}
+.login-form{margin-top:36px;display:flex;flex-direction:column;gap:12px}
+.login-input{background:transparent;border:1px solid var(--border);color:var(--cream);font-family:'Inter',sans-serif;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;text-align:center;padding:16px;outline:none;transition:border-color 0.2s}
+.login-input:focus{border-color:var(--amber)}
+.login-btn{background:var(--amber);border:none;color:var(--navy-deep);font-family:'Inter',sans-serif;font-weight:600;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;padding:16px;cursor:pointer;transition:background 0.2s}
+.login-btn:hover{background:#FFBC5A}
+.login-error{display:none;color:#E8705C;font-size:12px;letter-spacing:0.08em;margin-top:4px}
+
+/* ---------- SHELL ---------- */
+#portal{display:none}
+.portal-header{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 28px;background:rgba(12,22,38,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.ph-left{font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted)}
+.ph-qi{font-family:'Archivo',sans-serif;font-weight:700;color:var(--cream)}
+.ph-sep{margin:0 8px;color:var(--muted-dim)}
+.ph-client{color:var(--amber)}
+.ph-logout{background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Inter',sans-serif;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;padding:9px 16px;cursor:pointer;transition:all 0.2s}
+.ph-logout:hover{border-color:var(--amber);color:var(--amber)}
+.wrap{max-width:1060px;margin:0 auto;padding:0 28px}
+
+/* ---------- HERO ---------- */
+.portal-hero{position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
+.hero-glow{position:absolute;top:-40%;right:-10%;width:70%;height:180%;background:radial-gradient(ellipse at center,rgba(240,166,60,0.13),transparent 62%);pointer-events:none}
+.hero-inner{position:relative;padding-top:92px;padding-bottom:76px}
+.ph-eyebrow{font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:var(--amber)}
+.ph-headline{font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(34px,6.4vw,62px);line-height:1.02;letter-spacing:-0.02em;margin:20px 0 22px}
+.ph-headline em{color:var(--amber);font-style:normal}
+.ph-desc{color:var(--muted);max-width:560px;font-size:17px}
+
+/* ---------- SECTIONS ---------- */
+.section{padding:78px 0;border-bottom:1px solid var(--border)}
+.section.alt{position:relative;background:var(--navy-deep);box-shadow:0 0 0 100vmax var(--navy-deep);clip-path:inset(0 -100vmax)}
+.section.alt::before{content:'';position:absolute;top:-25%;left:-20%;width:62%;height:160%;background:radial-gradient(ellipse at center,rgba(240,166,60,0.13),transparent 62%);pointer-events:none}
+.section.alt::after{content:'';position:absolute;top:-10%;right:-14%;width:42%;height:120%;background:radial-gradient(ellipse at center,rgba(240,166,60,0.07),transparent 64%);pointer-events:none}
+.section.alt > *{position:relative;z-index:1}
+.section.alt .move,.section.alt .beat{background:var(--navy-card)}
+.section-eyebrow{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--amber)}
+.section-title{font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(25px,4vw,38px);line-height:1.1;letter-spacing:-0.015em;margin:14px 0 18px}
+.section-title em{color:var(--amber);font-style:normal}
+.section-lede{color:var(--muted);max-width:640px;font-size:17px}
+
+/* ---------- MOVES ---------- */
+.moves{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:44px}
+.move{background:var(--navy);padding:32px 26px;border-top:2px solid transparent;transition:border-color 0.2s}
+.move:hover{border-top-color:var(--amber)}
+.move-num{font-family:'Archivo',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.28em;color:var(--amber)}
+.move-title{font-family:'Archivo',sans-serif;font-weight:700;font-size:19px;line-height:1.25;margin:14px 0 10px}
+.move-body{font-size:14.5px;color:var(--muted);line-height:1.72}
+.move-trade{margin-top:16px;padding-top:14px;border-top:1px solid var(--border);font-size:14.5px;color:var(--muted);line-height:1.7}
+.move-trade b{display:block;font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:7px}
+
+/* ---------- ASSET FRAME ---------- */
+.asset{margin-top:44px;border:1px solid var(--border);background:var(--navy-deep)}
+.asset-cap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 18px;border-top:1px solid var(--border);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted-dim)}
+.asset-cap b{color:var(--muted);font-weight:500}
+
+/* ---------- PULLQUOTE ---------- */
+.pull{margin-top:44px;padding:34px 30px;border-left:2px solid var(--amber);background:var(--navy-card)}
+.pull p{font-family:'Archivo',sans-serif;font-weight:700;font-size:clamp(19px,2.8vw,26px);line-height:1.3;letter-spacing:-0.01em}
+.pull span{display:block;margin-top:14px;font-family:'Inter',sans-serif;font-weight:400;font-size:14px;letter-spacing:0.02em;color:var(--muted)}
+
+/* ---------- SERIES BEATS ---------- */
+.beats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:40px}
+.beat{background:var(--navy);padding:26px 22px}
+.beat-k{font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:var(--amber)}
+.beat-v{margin-top:10px;font-size:15px;color:var(--muted);line-height:1.7}
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
+.posts img{border:1px solid var(--border);cursor:zoom-in;transition:opacity 0.2s,border-color 0.2s}
+.posts img:hover{opacity:0.85;border-color:var(--border-lit)}
+.lb{display:none;position:fixed;inset:0;z-index:60;background:rgba(6,12,20,0.94);align-items:center;justify-content:center;padding:32px;cursor:zoom-out}
+.lb.open{display:flex}
+.lb img{max-width:min(860px,100%);max-height:100%;border:1px solid var(--border);cursor:default}
+.lb-close{position:absolute;top:16px;right:22px;background:none;border:none;color:var(--muted);font-size:30px;line-height:1;cursor:pointer;padding:6px}
+.lb-close:hover{color:var(--amber)}
+.posts-note{margin-top:16px;font-size:13.5px;color:var(--muted-dim);line-height:1.6}
+
+/* ---------- OPTIONS ---------- */
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:44px}
+.opt{border:1px solid var(--border);background:var(--navy-card);padding:34px 30px;display:flex;flex-direction:column}
+.opt.feature{border-color:var(--border-lit)}
+.opt-tag{font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--muted-dim)}
+.opt.feature .opt-tag{color:var(--amber)}
+.opt-name{font-family:'Archivo',sans-serif;font-weight:800;font-size:21px;line-height:1.2;margin:12px 0 4px}
+.opt-price{font-family:'Archivo',sans-serif;font-weight:800;font-size:40px;letter-spacing:-0.02em;color:var(--amber);line-height:1.1;margin:14px 0 2px}
+.opt-term{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted-dim)}
+.opt ul{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-direction:column;gap:11px}
+.opt li{position:relative;padding-left:20px;font-size:14.5px;color:var(--muted);line-height:1.65}
+.opt li::before{content:'';position:absolute;left:0;top:9px;width:7px;height:1px;background:var(--amber)}
+.doc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:40px}
+.doc-card{display:flex;flex-direction:column;border:1px solid var(--border);background:var(--navy-card);padding:26px 24px;text-decoration:none;color:inherit;transition:border-color 0.2s,transform 0.2s}
+a.doc-card:hover{border-color:var(--border-lit);transform:translateY(-2px)}
+.doc-card-type{font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:var(--amber)}
+.doc-card-title{font-family:'Archivo',sans-serif;font-weight:700;font-size:19px;line-height:1.25;margin:12px 0 9px}
+.doc-card-desc{font-size:14.5px;color:var(--muted);line-height:1.7;flex:1}
+.doc-card-cta{margin-top:18px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber)}
+.doc-card.coming{border-style:dashed;background:transparent}
+.doc-card.coming .doc-card-type{color:var(--muted-dim)}
+.doc-card.coming .doc-card-title{color:var(--muted)}
+.doc-card-coming-tag{margin-top:18px;font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--muted-dim)}
+.next{padding:78px 0 92px}
+.next-line{font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(23px,3.6vw,34px);line-height:1.2;letter-spacing:-0.015em;max-width:720px}
+.next-sub{margin-top:18px;color:var(--muted);max-width:560px}
+
+/* ---------- FOOTER ---------- */
+.portal-footer{border-top:1px solid var(--border);padding:30px 28px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;max-width:1060px;margin:0 auto}
+.footer-mark{font-family:'Archivo',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:var(--muted)}
+.footer-conf{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted-dim)}
+
+@media (max-width:860px){
+  .moves,.beats{grid-template-columns:1fr}
+  .opts{grid-template-columns:1fr}
+  .posts{grid-template-columns:1fr}
+  .wrap,.portal-header,.portal-footer{padding-left:20px;padding-right:20px}
+  .hero-inner{padding-top:64px;padding-bottom:54px}
+  .section{padding:56px 0}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login">
+  <div class="login-box">
+    <div class="login-wordmark">QI <em>Studios</em></div>
+    <div class="login-rule"></div>
+    <h1 class="login-title">The Quantum Career Coach</h1>
+    <p class="login-sub">Positioning · Brand · Content System</p>
+    <form class="login-form" onsubmit="handleLogin(event)">
+      <input class="login-input" id="code-input" type="text" placeholder="Access Code" autocomplete="off" spellcheck="false" autocapitalize="characters" maxlength="20">
+      <button class="login-btn" type="submit">Enter</button>
+      <div class="login-error" id="login-error">Invalid access code</div>
+    </form>
+  </div>
+</div>
+
+<!-- PORTAL -->
+<div id="portal">
+
+  <header class="portal-header">
+    <div class="ph-left">
+      <span class="ph-qi">QI</span> Studios
+      <span class="ph-sep">·</span>
+      <span class="ph-client">The Quantum Career Coach</span>
+    </div>
+    <button class="ph-logout" onclick="logout()">Log Out</button>
+  </header>
+
+  <!-- HERO -->
+  <div class="portal-hero">
+    <div class="hero-glow"></div>
+    <div class="wrap hero-inner">
+      <div class="ph-eyebrow">QI Studios × The Quantum Career Coach</div>
+      <h1 class="ph-headline">Everything we build,<br><em>in one place.</em></h1>
+      <p class="ph-desc">Your banner, your content series, and every document as it's delivered. Bookmark this page. It fills in as the work lands.</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- 01 — THE BANNER -->
+    <section class="section">
+      <div class="section-eyebrow">Section 01 · LinkedIn Banner</div>
+      <h2 class="section-title">Your credential and your promise, <em>in one line.</em></h2>
+      <p class="section-lede">The claim states the authority and turns it toward the reader in the same breath.</p>
+
+      <div class="pull">
+        <p>"I spent 15 years deciding who got hired. Now I work for you."</p>
+      </div>
+
+      <div class="asset">
+        <img src="./quantum-assets/quantum-banner.png" alt="LinkedIn banner: I spent 15 years deciding who got hired. Now I work for you.">
+        <div class="asset-cap"><b>LinkedIn banner</b><span>1584 × 396</span></div>
+      </div>
+    </section>
+
+    <!-- 02 — THE SERIES -->
+    <section class="section alt">
+      <div class="section-eyebrow">Section 02 · The Series</div>
+      <h2 class="section-title">After You <em>Leave the Room.</em></h2>
+      <p class="section-lede">Every post follows the same three-beat shape: a moment the candidate thought went fine, what actually got said once the door closed, and what to do differently.</p>
+
+      <div class="beats">
+        <div class="beat">
+          <div class="beat-k">Beat 01 · The Moment</div>
+          <div class="beat-v">Something the candidate said, in an interview they thought went fine.</div>
+        </div>
+        <div class="beat">
+          <div class="beat-k">Beat 02 · What They Said</div>
+          <div class="beat-v">What actually got said in the room once the door closed.</div>
+        </div>
+        <div class="beat">
+          <div class="beat-k">Beat 03 · What To Say Instead</div>
+          <div class="beat-v">The specific rewrite, with the receipts that make it land.</div>
+        </div>
+      </div>
+
+      <div class="posts">
+        <img src="./quantum-assets/post-01.png" alt="Beat one: You said you were a quick learner.">
+        <img src="./quantum-assets/post-02.png" alt="Beat two: what they said in the room.">
+        <img src="./quantum-assets/post-03.png" alt="Beat three: what to say instead.">
+      </div>
+      <p class="posts-note">Click any card to read it full size. Placeholder copy, written to show the shape. The real version uses your stories.</p>
+    </section>
+
+    <!-- 03 — DELIVERABLES -->
+    <section class="section">
+      <div class="section-eyebrow">Section 03 · Deliverables</div>
+      <h2 class="section-title">Everything as <em>it lands.</em></h2>
+      <p class="section-lede">Each piece appears here when it's ready.</p>
+
+      <div class="doc-grid">
+        <div class="doc-card coming">
+          <div class="doc-card-type">Audit · Document</div>
+          <div class="doc-card-title">Brand &amp; Channel Audit</div>
+          <div class="doc-card-desc">Written audit of your site, LinkedIn, and Instagram, with a prioritized fix list.</div>
+          <div class="doc-card-coming-tag">Coming</div>
+        </div>
+
+        <div class="doc-card coming">
+          <div class="doc-card-type">Positioning · Document</div>
+          <div class="doc-card-title">Positioning Rewrite</div>
+          <div class="doc-card-desc">Your headline, About, and site copy rewritten around getting hired.</div>
+          <div class="doc-card-coming-tag">Coming</div>
+        </div>
+
+        <div class="doc-card coming">
+          <div class="doc-card-type">Series · Guide</div>
+          <div class="doc-card-title">Series Playbook</div>
+          <div class="doc-card-desc">How the series works, what makes a good entry, and how to keep it running.</div>
+          <div class="doc-card-coming-tag">Coming</div>
+        </div>
+
+        <div class="doc-card coming">
+          <div class="doc-card-type">Content · Drafts</div>
+          <div class="doc-card-title">12 Ready-to-Post Drafts</div>
+          <div class="doc-card-desc">Twelve complete posts, written from your stories, ready to schedule.</div>
+          <div class="doc-card-coming-tag">Coming</div>
+        </div>
+
+        <div class="doc-card coming">
+          <div class="doc-card-type">Design · Templates</div>
+          <div class="doc-card-title">Visual Templates</div>
+          <div class="doc-card-desc">Editable post templates so everything you publish looks like you.</div>
+          <div class="doc-card-coming-tag">Coming</div>
+        </div>
+
+        <div class="doc-card coming">
+          <div class="doc-card-type">Brand · Files</div>
+          <div class="doc-card-title">Banner Source Files</div>
+          <div class="doc-card-desc">Final banner in every size you need, plus the editable source.</div>
+          <div class="doc-card-coming-tag">Coming</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="portal-footer">
+    <div class="footer-mark">QI Studios</div>
+    <div class="footer-conf">Confidential · Prepared for German</div>
+  </footer>
+</div>
+
+<div class="lb" id="lb" onclick="closeLb(event)">
+  <button class="lb-close" onclick="closeLb()" aria-label="Close">&times;</button>
+  <img id="lb-img" alt="">
+</div>
+
+<script>
+const CODE = 'QUANTUM25';
+
+function handleLogin(e) {
+  e.preventDefault();
+  const val = document.getElementById('code-input').value.trim().toUpperCase();
+  const err = document.getElementById('login-error');
+  if (val === CODE) {
+    localStorage.setItem('quantum_auth', '1');
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('portal').style.display = 'block';
+    err.style.display = 'none';
+  } else {
+    err.style.display = 'block';
+    document.getElementById('code-input').value = '';
+  }
+}
+
+function logout() {
+  localStorage.removeItem('quantum_auth');
+  document.getElementById('portal').style.display = 'none';
+  document.getElementById('login').style.display = 'flex';
+  document.getElementById('code-input').value = '';
+}
+
+function openLb(src, alt) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb-img').alt = alt || '';
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLb(e) {
+  if (e && e.target && e.target.id === 'lb-img') return;  // clicks on the image itself shouldn't close
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.posts img').forEach(img => {
+  img.addEventListener('click', () => openLb(img.getAttribute('src'), img.getAttribute('alt')));
+});
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+if (localStorage.getItem('quantum_auth') === '1') {
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('portal').style.display = 'block';
+}
+</script>
+</body>
+</html>
